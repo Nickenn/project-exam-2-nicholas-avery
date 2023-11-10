@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background-color: #a1ccd1;
+}
+
+.logo {
+  width: 7rem;
+  height: auto;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  border-radius: 7px;
+  margin: 1.4rem;
+}
+
+.nav a:link,
+.nav a:visited {
+  display: block;
+  color: inherit;
+  font-weight: 500;
+  padding: 0.5rem 2rem;
+  border-radius: 3px;
+}
+
+.nav a:active,
+.nav a:hover {
+  background-color: #00000034;
+}
+
+.nav a:global(.active) {
+  background-color: #a1ccd1;
+}
