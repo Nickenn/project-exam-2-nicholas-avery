@@ -24,7 +24,7 @@ function Footer() {
           </li>
           <li>
             <NavLink to="/src/pages/CreateAccountPage/index.tsx">
-              REGISTER
+              CREATE ACCOUNT
             </NavLink>
           </li>
         </ul>
