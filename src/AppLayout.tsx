@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import Header from "./ui/Header";
+import Footer from "./ui/Footer";
 import { SearchProvider } from "./context/searchContext";
 
 function AppLayout() {

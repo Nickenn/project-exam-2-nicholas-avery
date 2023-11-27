@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import image from "../../../assets/venue-placeholder.svg";
+import styles from "./style.module.css";
+import styled from "styled-components";
 
 interface VenueProps {
   key: string;
@@ -42,9 +45,35 @@ interface VenueProps {
   ];
 }
 
+const VenuesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2fr 4fr));
+  gap: 10rem;
+  row-gap: 1rem;
+  padding: 2rem;
+  margin: 10rem;
+  margin-top: 100px;
+`;
+
+const VenueImage = styled.img`
+  width: 100%;
+  height: 23rem;
+  object-fit: cover;
+  border-radius: 4px;
+`;
+
+const StyledVenue = styled.div`
+  background-color: rgba(127, 255, 212, 0.281);
+  padding: 40px;
+  &:hover {
+    background-color: rgba(127, 255, 212, 0.555);
+  }
+`;
+
 function Venue({
   id,
   name,
+  description,
   media,
   price,
   created,
@@ -53,14 +82,31 @@ function Venue({
   maxGuests,
 }: VenueProps) {
   return (
-    <div> 
-      <h1>{name}</h1>
-    </div>
+    <Link to={`/venues/${id}`}>
+      <VenuesContainer>
+        <StyledVenue>
+          <VenueImage
+            src={media[0] ? media[0] : image}
+            alt={name}
+            loading="lazy"
+          />
+          <h2 className={styles.venueTitle}>{name}</h2>
+          <p>{description}</p>
+          <span>Maximum number of guests: {maxGuests}</span>
+          <h4>{price},- NOK per night</h4>
+          <p>Rating: {rating}</p>
+          <h4>
+            Location: {location.city}, {location.country}{" "}
+          </h4>
+        </StyledVenue>
+      </VenuesContainer>
+    </Link>
   );
 }
 
 function VenuesList({ venues }: { venues: VenueProps[] }) {
   return (
+    <div>
       {venues.map((venue) => (
         <Venue
           key={venue.id}
@@ -78,6 +124,7 @@ function VenuesList({ venues }: { venues: VenueProps[] }) {
           maxGuests={venue.maxGuests}
         />
       ))}
+    </div>
   );
 }
 

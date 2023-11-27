@@ -1,0 +1,13 @@
+@media screen and (max-width: 1280px) {
+  .container {
+    padding: 1rem;
+    margin: 2rem;
+    margin-top: 0px;
+  }
+  .venue {
+    margin: 2rem;
+  }
+  .venue img {
+    object-fit: fill;
+  }
+}

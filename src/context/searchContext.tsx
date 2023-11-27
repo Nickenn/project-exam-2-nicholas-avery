@@ -48,7 +48,7 @@ export const SearchProvider = ({ children }: SearchContextProviderProps) => {
 export const useSearch = () => {
   const context = useContext(SearchContext);
   if (!context) {
-    throw new Error("useSearch must be within a SearchProvider");
+    throw new Error("An error has occured");
   }
   return context;
 };
