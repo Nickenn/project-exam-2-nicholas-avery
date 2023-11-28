@@ -8,8 +8,8 @@ import ErrorPage from "./pages/Error.tsx";
 import Login from "./pages/auth/Login.tsx";
 import Register from "./pages/auth/Register.tsx";
 import Venue from "./pages/Venue.tsx";
-import Profile from "./pages/profile/Profile.tsx";
 import VenueCalendar from "./pages/Calendar.tsx";
+import Profile from "./pages/profile/Profile.tsx";
 
 import AppLayout from "./AppLayout.tsx";
 import GlobalStyles from "./GlobalStyles.tsx";
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/profile/profile.tsx",
+        path: "/profiles/:name",
         element: <Profile />,
       },
       {

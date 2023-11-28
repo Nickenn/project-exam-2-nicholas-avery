@@ -1,4 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
+
 import image from "../../assets/logo-no-background.png";
 import styles from "./style.module.css";
 import HomeIcon from "@mui/icons-material/Home";
@@ -17,27 +19,27 @@ function Header() {
         <ul>
           <li>
             <NavLink to="/calendar.tsx">
-              <HomeIcon></HomeIcon>CALENDAR
+              <HomeIcon fontSize="small"></HomeIcon>BOOKING
             </NavLink>
           </li>
           <li>
-            <NavLink to="/">
-              <EmailIcon></EmailIcon>CONTACT US
+            <NavLink to="pages/profile/profile.tsx">
+              <AccountCircleIcon fontSize="small"></AccountCircleIcon>PROFILE
             </NavLink>
           </li>
           <li>
             <NavLink to="auth/login.tsx">
-              <LockOpenIcon></LockOpenIcon>LOGIN
+              <LockOpenIcon fontSize="small"></LockOpenIcon>LOGIN
             </NavLink>
           </li>
           <li>
             <NavLink to="auth/register.tsx">
-              <CreateIcon></CreateIcon>CREATE ACCOUNT
+              <CreateIcon fontSize="small"></CreateIcon>SIGN UP
             </NavLink>
           </li>
           <li>
-            <NavLink to="profile/profile.tsx">
-              <AccountCircleIcon></AccountCircleIcon>MY PROFILE
+            <NavLink to="/">
+              <EmailIcon fontSize="small"></EmailIcon>CONTACT US
             </NavLink>
           </li>
         </ul>
