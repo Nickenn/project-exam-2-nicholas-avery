@@ -12,6 +12,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   authToken: string | null;
   isManager: boolean;
+  userAvatar: string | null;
 }
 
 interface UserData {

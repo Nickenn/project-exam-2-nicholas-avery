@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { Button } from "@mui/material";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { format, differenceInDays } from "date-fns";
+import toast from "react-hot-toast";
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 interface VenueProps {
   key: string;
@@ -58,46 +62,43 @@ interface DateRangeProps {
 }
 
 function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
-  return (
-    <div>
-      <h2>{venue.price} NOK pr night</h2>
-      <label htmlFor="checkin">Check in</label>
-      <input
-        type="text"
-        placeholder={`${format(
-          new Date(selectedDateRange[0].startDate),
-          "dd.mm.yyyy"
-        )}`}
-        disabled
-      />
+    const navigate = useNavigate();
+    const { authToken, userName } = useAuth();
+    const form = useForm({
+      defaultValues: {
+        dateFrom: format(selectedDateRange[0].startDate, "MM/dd/yyyy"),
+        dateTo: format(selectedDateRange[0].endDate, "MM/dd/yyyy"),
+        guests: 1,
+        venueId: venue.id,
+      },
+    }),
 
-      <label>Check out</label>
-      <input
-        type="text"
-        placeholder={`${format(
-          new Date(selectedDateRange[0].endDate),
-          "dd.mm.yyyy"
-        )}`}
-        disabled
-      />
+    const { register, handleSubmit, formState } = form;
+    const { errors } = formState;
+    const [serverErrors, setServerErrors] = useState("");
 
-      <label>Number of guests:</label>
-      <input type="number" max={venue.maxGuests} min="1" placeholder="1" />
+    const onSubmit = async (formData: FormDataProps) => {
+      if (authToken) {
+        const data = await bookVenue(formData, authToken);
 
-      <Button>Book venue</Button>
+        if (data.errors) {
+          setServerErrors(data.errors[0].message);
+          toast.error(serverErrors);
+          console.log(data.errors[0].message);
+        } else {
+          toast.success("Thank you. Your booking has been verified.");
+          navigate(`/profiles/${userName}`);
+        }
+      } else {
+        toast.error("You must be logged in to book a venue.")
+      }
+    };
 
-      <h3>
-        Total{" "}
-        {formatCurrency(
-          differenceInDays(
-            selectedDateRange[0].endDate,
-            selectedDateRange[0].startDate
-          ) * venue.price
-        )}{" "}
-        pr night
-      </h3>
-    </div>
-  );
-}
+    return (
+      
+    )
+
+
+  }
 
 export default VenueBookingForm;

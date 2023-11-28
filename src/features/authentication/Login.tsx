@@ -1,33 +1,48 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Input from "../../ui/Input";
 
-interface FormProps {
+import { userLogin } from "../../services/aoiAuth";
+import { useAuth } from "../../context/authContext";
+import { NavLink, useNavigate } from "react-router-dom";
+
+interface FormLoginProps {
   email: string;
-  password: string | number;
+  password: string;
 }
 
 function LoginForm() {
-  const form = useForm<FormProps>({
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const form = useForm<FormLoginProps>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const { register, handleSubmit, formState, reset } = form;
-  const { errors, isSubmitSuccessful } = formState;
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
+  const [serverErrors, setServerErrors] = useState("");
 
-  const onSubmit = (data: FormProps) => {
-    console.log("data", data);
-  };
+  async function onSubmit(formData: FormLoginProps) {
+    const data = await userLogin(formData);
+    console.log(data);
 
-  useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful, reset]);
+    if (data.errors) {
+      setServerErrors(data.errors[0].message);
+    } else {
+      login(data);
+
+      setTimeout(() => {
+        navigate(`/src/pages/Calendar.tsx`);
+      }, 1000);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <h2>Login</h2>
       <Input
         label="Email"
         id="email"

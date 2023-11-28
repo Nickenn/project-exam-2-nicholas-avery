@@ -43,7 +43,7 @@ function RegisterForm() {
 
   async function onSubmit(formData: FormDataProps) {
     const data = await registerUser(formData);
-
+    console.log(data);
     let validationIssue = false;
 
     if (!formData.name || !formData.name.length) {
