@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
   Switch,
+  FormControlLabel,
 } from "@mui/material";
 
 interface FormDataProps {
@@ -137,9 +138,20 @@ function RegisterForm() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Switch />
+              <FormControlLabel
+                value="start"
+                control={<Switch color="primary" />}
+                label="Venue manager"
+                labelPlacement="start"
+              />
             </Grid>
           </Grid>
+          <FormControlLabel
+            value="start"
+            control={<Switch color="primary" />}
+            label="Venue manager"
+            labelPlacement="start"
+          />
           <Button
             type="submit"
             fullWidth
