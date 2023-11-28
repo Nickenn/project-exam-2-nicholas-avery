@@ -20,7 +20,7 @@ interface FormDataProps {
   manager: boolean;
 }
 
-function RegistrationForm() {
+function RegisterForm() {
   const navigate = useNavigate();
 
   const form = useForm<FormDataProps>({
@@ -163,4 +163,4 @@ function RegistrationForm() {
   );
 }
 
-export default RegistrationForm;
+export default RegisterForm;
