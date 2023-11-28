@@ -7,8 +7,12 @@ interface AuthContextProps {
 interface AuthContextValue {
   login: (data: UserData) => void;
   logout: () => void;
+  becomeManager: (data: UserData) => void;
+  userName: string | null;
   isAuthenticated: boolean;
-  isAManager: boolean;
+  authToken: string | null;
+  isManager: boolean;
+  userAvatar: string | null;
 }
 
 interface UserData {
@@ -25,30 +29,56 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
   const [authToken, setAuthToken] = useState(
     localStorage.getItem("authToken") || null
   );
-  const [isAManager, setIsAManager] = useState<boolean>(
-    localStorage.getItem("isManager") === "true" || false
+  const [isManager, setIsManager] = useState<boolean>(() => {
+    const storedIsManager = localStorage.getItem("isManager");
+    return storedIsManager ? JSON.parse(storedIsManager) : false;
+  });
+  const [userName, setUserName] = useState(
+    localStorage.getItem("userName") || null
+  );
+  const [userAvatar, setUserAvatar] = useState(
+    localStorage.getItem("userAvatar") || null
   );
 
   const login = (data: UserData) => {
     setAuthToken(data.accessToken);
     localStorage.setItem("authToken", data.accessToken);
 
-    setIsAManager(data.venueManager);
-    localStorage.setItem("isAManager", JSON.stringify(data.venueManager));
-    console.log(isAManager);
+    setUserName(data.name);
+    localStorage.setItem("userName", data.name);
+
+    setIsManager(data.venueManager);
+    localStorage.setItem("isManager", JSON.stringify(data.venueManager));
+
+    setUserAvatar(data.avatar);
+    localStorage.setItem("userAvatar", data.avatar);
   };
 
   const logout = () => {
     setAuthToken(null);
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("isAManager");
+    setUserName(null);
+    setUserAvatar(null);
+    localStorage.clear();
   };
 
+  const becomeManager = (data: UserData) => {
+    setIsManager(data.venueManager);
+    localStorage.setItem("isManager", JSON.stringify(data.venueManager));
+  };
   const isAuthenticated: boolean = !!authToken;
 
   return (
     <AuthContext.Provider
-      value={{ login, isAuthenticated, isAManager, logout }}
+      value={{
+        login,
+        logout,
+        isAuthenticated,
+        isManager,
+        authToken,
+        userName,
+        userAvatar,
+        becomeManager,
+      }}
     >
       {children}
     </AuthContext.Provider>
