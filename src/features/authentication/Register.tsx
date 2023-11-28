@@ -24,7 +24,7 @@ interface FormDataProps {
 function RegisterForm() {
   const navigate = useNavigate();
 
-  const form = useForm<FormDataProps>({
+  const { register, handleSubmit, formState, reset } = useForm<FormDataProps>({
     defaultValues: {
       name: "",
       email: "",
@@ -34,7 +34,6 @@ function RegisterForm() {
     },
   });
 
-  const { register, handleSubmit, formState, reset } = form;
   const { errors, isSubmitSuccessful } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
@@ -143,15 +142,10 @@ function RegisterForm() {
                 control={<Switch color="primary" />}
                 label="Venue manager"
                 labelPlacement="start"
+                {...register("manager")}
               />
             </Grid>
           </Grid>
-          <FormControlLabel
-            value="start"
-            control={<Switch color="primary" />}
-            label="Venue manager"
-            labelPlacement="start"
-          />
           <Button
             type="submit"
             fullWidth
