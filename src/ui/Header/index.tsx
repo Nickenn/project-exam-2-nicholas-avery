@@ -10,6 +10,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function Header() {
+  const { isAuthenticated, isManager, logout, userName } = useAuth();
+
   return (
     <header className={styles.header}>
       <Link to="/">
@@ -23,7 +25,7 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="pages/profile/profile.tsx">
+            <NavLink to={`/profiles/${userName}`}>
               <AccountCircleIcon fontSize="small"></AccountCircleIcon>PROFILE
             </NavLink>
           </li>

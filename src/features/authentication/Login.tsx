@@ -5,16 +5,7 @@ import { userLogin } from "../../services/aoiAuth";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import {
-  Box,
-  Button,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-  Switch,
-  FormControlLabel,
-} from "@mui/material";
+import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 
 interface FormLoginProps {
   email: string;
@@ -64,16 +55,15 @@ function LoginForm() {
 
     if (data.errors) {
       setServerErrors(data.errors[0].message);
+      useEffect(() => {
+        reset();
+      }, [isSubmitSuccessful, reset]);
     } else {
       login(data);
 
       setTimeout(() => {
-        navigate(`/src/pages/Home.tsx`);
-      }, 1000);
-
-      useEffect(() => {
-        reset();
-      }, [isSubmitSuccessful, reset]);
+        navigate(`/src/pages/Profile.tsx`);
+      }, 300);
     }
   }
 

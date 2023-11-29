@@ -1,9 +1,23 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Container from "../../ui/Container";
+import toast from "react-hot-toast";
 
 import { useAuth } from "../../context/authContext";
 import { getProfile, updateUserProfile } from "../../services/profileApi";
+
+import image from "../../../assets/venue-placeholder.svg";
+
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+  FormControlLabel,
+} from "@mui/material";
 
 interface ProfileProps {
   avatar: string;
@@ -19,7 +33,7 @@ interface ProfileProps {
 function Profile() {
   const [profile, setProfile] = useState<ProfileProps>();
   const [loading, setIsLoading] = useState(true);
-  const { authToken, userName, isManager } = useAuth();
+  const { authToken, userName, becomeManager } = useAuth();
   const { name } = useParams();
   const form = useForm({
     defaultValues: {
@@ -28,7 +42,7 @@ function Profile() {
   });
 
   const { handleSubmit } = form;
-  const [error, setIsError] = useState("");
+  const [serverErrors, setServerErrors] = useState("");
 
   const fetchData = async () => {
     const data = await getProfile(name, authToken);
@@ -39,10 +53,11 @@ function Profile() {
   const onSubmit = async () => {
     const data = await updateUserProfile(authToken, userName);
 
-    if (data.error) {
-      setIsError(data.error[0].message);
+    if (data.errors) {
+      toast.error(data.error[0].message);
     } else {
-      isManager(data);
+      becomeManager(data);
+      toast.success("You are now a venue manager.");
     }
   };
 
@@ -52,7 +67,40 @@ function Profile() {
     }, 1000);
   }, []);
 
-  return <div>User profile page</div>;
+  return (
+    <>
+      {" "}
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          height: 1050,
+          alignItems: "center",
+        }}
+      >
+        <Typography component="h1" variant="h2">
+          My profile
+        </Typography>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3 }}
+        >
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link underline="none" href="/auth/register.tsx" variant="body1">
+                <NavLink to="/auth/register.tsx">
+                  Don't have an account? Create one here
+                </NavLink>{" "}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </>
+  );
 }
 
 export default Profile;
