@@ -1,10 +1,20 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import Input from "../../ui/Input";
 
 import { userLogin } from "../../services/aoiAuth";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
+
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+  Switch,
+  FormControlLabel,
+} from "@mui/material";
 
 interface FormLoginProps {
   email: string;
@@ -14,20 +24,43 @@ interface FormLoginProps {
 function LoginForm() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const form = useForm<FormLoginProps>({
+  const { register, handleSubmit, formState, reset } = useForm<FormLoginProps>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const { register, handleSubmit, formState } = form;
-  const { errors } = formState;
+  const { errors, isSubmitSuccessful } = formState;
   const [serverErrors, setServerErrors] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   async function onSubmit(formData: FormLoginProps) {
     const data = await userLogin(formData);
     console.log(data);
+
+    let validationIssue = false;
+
+    if (!formData.email || !formData.email) {
+      setEmailError("Pleae enter a valid email address");
+      validationIssue = true;
+    } else {
+      setEmailError("");
+    }
+    if (!formData.password || !formData.password.length) {
+      setPasswordError("Pleae enter a valid password");
+      validationIssue = true;
+    } else {
+      setPasswordError("");
+    }
+    if (!validationIssue) {
+      alert("Login successful");
+      return true;
+    } else {
+      alert("Please fill in required fields");
+    }
 
     if (data.errors) {
       setServerErrors(data.errors[0].message);
@@ -35,42 +68,83 @@ function LoginForm() {
       login(data);
 
       setTimeout(() => {
-        navigate(`/src/pages/Calendar.tsx`);
+        navigate(`/src/pages/Home.tsx`);
       }, 1000);
+
+      useEffect(() => {
+        reset();
+      }, [isSubmitSuccessful, reset]);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h2>Login</h2>
-      <Input
-        label="Email"
-        id="email"
-        type="email"
-        register={register}
-        error={errors.email?.message}
-        pattern={{
-          value: /^[\w\-.]+@(stud.)?noroff.no$/,
-          message:
-            "You must have a @noroff.no or @stud.noroff.no email to login.",
+    <>
+      {" "}
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          height: 1050,
+          alignItems: "center",
         }}
-        required={{ value: true, message: "Please enter email address" }}
-      />
-
-      <Input
-        label="Password"
-        id="passwword"
-        type="password"
-        register={register}
-        error={errors.password?.message}
-        required={{ value: true, message: "Please enter your password" }}
-        minLength={{
-          value: 8,
-          message: "Your password must be at least 8 characters",
-        }}
-      />
-      <button type="submit">Login</button>
-    </form>
+      >
+        <Typography component="h1" variant="h2">
+          Login
+        </Typography>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3 }}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                error={emailError && emailError.length ? true : false}
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                helperText={emailError}
+                autoComplete="email"
+                {...register("email")}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                error={passwordError && passwordError.length ? true : false}
+                required
+                fullWidth
+                label="Password"
+                type="password"
+                id="password"
+                helperText={passwordError}
+                autoComplete="new-password"
+                {...register("password")}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Login
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link underline="none" href="/auth/register.tsx" variant="body1">
+                <NavLink to="/auth/register.tsx">
+                  Don't have an account? Create one here
+                </NavLink>{" "}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </>
   );
 }
 

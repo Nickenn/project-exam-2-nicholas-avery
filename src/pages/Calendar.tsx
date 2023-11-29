@@ -1,6 +1,6 @@
 import Calendar from "../features/booking/Calendar";
 
-function VenueCalendar() {
+function BookingForm() {
   return (
     <div>
       <Calendar />
@@ -8,4 +8,4 @@ function VenueCalendar() {
   );
 }
 
-export default VenueCalendar;
+export default BookingForm;
