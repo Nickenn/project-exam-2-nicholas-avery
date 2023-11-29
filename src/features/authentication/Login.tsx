@@ -29,6 +29,7 @@ function LoginForm() {
   const [passwordError, setPasswordError] = useState("");
 
   async function onSubmit(formData: FormLoginProps) {
+    //send login data to API
     const data = await userLogin(formData);
     console.log(data);
 
@@ -59,11 +60,13 @@ function LoginForm() {
         reset();
       }, [isSubmitSuccessful, reset]);
     } else {
+      //save user
       login(data);
 
+      // navigate to profile page
       setTimeout(() => {
-        navigate(`/src/pages/Profile.tsx`);
-      }, 300);
+        navigate(`/profiles/${data.name}`);
+      }, 1000);
     }
   }
 

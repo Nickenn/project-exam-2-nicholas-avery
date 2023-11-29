@@ -1,23 +1,14 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Container from "../../ui/Container";
 import toast from "react-hot-toast";
 
 import { useAuth } from "../../context/authContext";
-import { getProfile, updateUserProfile } from "../../services/profileApi";
+import { getProfile, updatProfile } from "../../services/profileApi";
 
 import image from "../../../assets/venue-placeholder.svg";
 
-import {
-  Box,
-  Button,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-  FormControlLabel,
-} from "@mui/material";
+import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 
 interface ProfileProps {
   avatar: string;
@@ -82,22 +73,6 @@ function Profile() {
         <Typography component="h1" variant="h2">
           My profile
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{ mt: 3 }}
-        >
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link underline="none" href="/auth/register.tsx" variant="body1">
-                <NavLink to="/auth/register.tsx">
-                  Don't have an account? Create one here
-                </NavLink>{" "}
-              </Link>
-            </Grid>
-          </Grid>
-        </Box>
       </Box>
     </>
   );
