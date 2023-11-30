@@ -33,30 +33,19 @@ function Profile() {
     },
   });
 
-  const { handleSubmit } = form;
-  const [serverErrors, setServerErrors] = useState("");
-
-  const fetchData = async () => {
-    const data = await getProfile(name, authToken);
-    setProfile(data);
-    setIsLoading(false);
-  };
-
-  const onSubmit = async () => {
-    const data = await updateUserProfile(authToken, userName);
-
-    if (data.errors) {
-      toast.error(data.error[0].message);
-    } else {
-      becomeManager(data);
-      toast.success("You are now a venue manager.");
-    }
-  };
-
   useEffect(() => {
-    setTimeout(() => {
-      fetchData();
-    }, 1000);
+    const fetchData = async () => {
+      const data = await getProfile(name, authToken);
+      const json = await data.json();
+      setProfile(json);
+      setIsLoading(false);
+      return json;
+    };
+
+    fetchData().catch(console.error);
+
+    if (name === undefined) return;
+    if (authToken === undefined) return;
   }, []);
 
   return (

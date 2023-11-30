@@ -16,11 +16,10 @@ export async function getProfile(
 ) {
   const options = {
     headers: {
-      accept: "application/json",
       authorization: `Bearer ${token}`,
     },
   };
-  const res = await fetch(`${BASE_API_URL}/profiles/${name ?? ""}`, options);
+  const res = await fetch(`${BASE_API_URL}/profiles/${name}`, options);
   console.log(res);
 
   if (!res.ok) throw Error("Failed getting profile.");

@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 import { loginUser } from "../../services/aoiAuth";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { access } from "fs";
 
 interface FormLoginProps {
   email: string;
@@ -14,7 +16,7 @@ interface FormLoginProps {
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, authToken } = useAuth();
   const { register, handleSubmit, formState, reset } = useForm<FormLoginProps>({
     defaultValues: {
       email: "",
@@ -31,7 +33,9 @@ function LoginForm() {
   async function onSubmit(formData: FormLoginProps) {
     //send login data to API
     const data = await loginUser(formData);
-    setAuthToken(data.accessToken);
+    localStorage.setItem("authToken", data.accessToken);
+    localStorage.setItem("userName", data.name);
+    console.log(data);
     console.log(localStorage);
 
     let validationIssue = false;

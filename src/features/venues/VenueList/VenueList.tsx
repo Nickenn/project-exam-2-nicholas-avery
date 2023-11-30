@@ -3,6 +3,17 @@ import image from "../../../assets/venue-placeholder.svg";
 import styles from "./style.module.css";
 import styled from "styled-components";
 
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Switch,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
+
 interface VenueProps {
   key: string;
   id: string;
@@ -45,29 +56,11 @@ interface VenueProps {
   ];
 }
 
-const VenuesContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2fr 4fr));
-  gap: 10rem;
-  row-gap: 1rem;
-  padding: 2rem;
-  margin: 10rem;
-  margin-top: 100px;
-`;
-
 const VenueImage = styled.img`
   width: 100%;
   height: 23rem;
   object-fit: cover;
   border-radius: 4px;
-`;
-
-const StyledVenue = styled.div`
-  background-color: rgba(127, 255, 212, 0.281);
-  padding: 40px;
-  &:hover {
-    background-color: rgba(127, 255, 212, 0.555);
-  }
 `;
 
 function Venue({
@@ -82,31 +75,51 @@ function Venue({
   maxGuests,
 }: VenueProps) {
   return (
-    <Link to={`/venues/${id}`}>
-      <VenuesContainer>
-        <StyledVenue>
-          <VenueImage
-            src={media[0] ? media[0] : image}
-            alt={name}
-            loading="lazy"
-          />
-          <h2 className={styles.venueTitle}>{name}</h2>
-          <p>{description}</p>
-          <span>Maximum number of guests: {maxGuests}</span>
-          <h4>{price},- NOK per night</h4>
-          <p>Rating: {rating}</p>
-          <h4>
-            Location: {location.city}, {location.country}{" "}
-          </h4>
-        </StyledVenue>
-      </VenuesContainer>
-    </Link>
+    <>
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Link to={`/venues/${id}`}>
+          <Grid item xs={12}>
+            <VenueImage
+              src={media[0] ? media[0] : image}
+              alt={name}
+              loading="lazy"
+            />
+            <Typography component="h1" variant="h3">
+              {name}
+            </Typography>
+            <Typography component="h1" variant="h5" gutterBottom width={600}>
+              Rating: {rating}
+            </Typography>
+            <Typography component="h1" variant="h6" gutterBottom width={600}>
+              Maximum number of guests: {maxGuests}
+            </Typography>
+            <Typography component="h1" variant="h5" gutterBottom width={600}>
+              {description}
+            </Typography>
+            <Typography component="h1" variant="h5" gutterBottom width={600}>
+              Location: {location.city}, {location.country}{" "}
+            </Typography>
+            <Typography component="h1" variant="h4" gutterBottom width={600}>
+              {price},- NOK per night
+            </Typography>
+            <Button variant="contained">Venue details</Button>
+          </Grid>
+        </Link>
+      </Box>
+    </>
   );
 }
 
 function VenuesList({ venues }: { venues: VenueProps[] }) {
   return (
-    <div>
+    <Grid container justifyContent="center" gap={12} spacing={{ xs: 2, md: 3 }}>
       {venues.map((venue) => (
         <Venue
           key={venue.id}
@@ -124,7 +137,7 @@ function VenuesList({ venues }: { venues: VenueProps[] }) {
           maxGuests={venue.maxGuests}
         />
       ))}
-    </div>
+    </Grid>
   );
 }
 
