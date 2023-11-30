@@ -46,7 +46,7 @@ function Profile() {
 
     if (name === undefined) return;
     if (authToken === undefined) return;
-  }, []);
+  }, [name, authToken]);
 
   return (
     <>
