@@ -4,13 +4,13 @@ import { useAuth } from "../../context/authContext";
 import image from "../../assets/logo-no-background.png";
 import styles from "./style.module.css";
 import HomeIcon from "@mui/icons-material/Home";
-import EmailIcon from "@mui/icons-material/Email";
+import LogoutIcon from "@mui/icons-material/Logout";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import CreateIcon from "@mui/icons-material/Create";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function Header() {
-  const { isAuthenticated, isManager, logout, userName } = useAuth();
+  const { logout, userName } = useAuth();
 
   return (
     <header className={styles.header}>
@@ -40,8 +40,8 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/">
-              <EmailIcon fontSize="small"></EmailIcon>CONTACT US
+            <NavLink to="/" onClick={logout}>
+              <LogoutIcon fontSize="small"></LogoutIcon>LOGOUT
             </NavLink>
           </li>
         </ul>

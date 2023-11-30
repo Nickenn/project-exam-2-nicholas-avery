@@ -24,7 +24,7 @@ interface ProfileProps {
 
 function Profile() {
   const [profile, setProfile] = useState<ProfileProps>();
-  const [loading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { authToken, userName, becomeManager } = useAuth();
   const { name } = useParams();
   const form = useForm({
@@ -33,20 +33,17 @@ function Profile() {
     },
   });
 
+  const fetchData = async () => {
+    const data = await getProfile(name, authToken);
+    setProfile(data);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getProfile(name, authToken);
-      const json = await data.json();
-      setProfile(json);
-      setIsLoading(false);
-      return json;
-    };
-
-    fetchData().catch(console.error);
-
-    if (name === undefined) return;
-    if (authToken === undefined) return;
-  }, [name, authToken]);
+    setTimeout(() => {
+      fetchData();
+    }, 1000);
+  }, []);
 
   return (
     <>

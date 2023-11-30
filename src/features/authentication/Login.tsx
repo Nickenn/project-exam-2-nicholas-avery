@@ -7,7 +7,6 @@ import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
-import { access } from "fs";
 
 interface FormLoginProps {
   email: string;
@@ -34,7 +33,7 @@ function LoginForm() {
     //send login data to API
     const data = await loginUser(formData);
     localStorage.setItem("authToken", data.accessToken);
-    localStorage.setItem("userName", data.name);
+    localStorage.setItem("userName", data.userName);
     console.log(data);
     console.log(localStorage);
 
