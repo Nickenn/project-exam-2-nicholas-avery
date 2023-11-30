@@ -31,8 +31,7 @@ function LoginForm() {
   async function onSubmit(formData: FormLoginProps) {
     //send login data to API
     const data = await loginUser(formData);
-    localStorage.setItem("token", data.accessToken);
-    localStorage.setItem("name", data.name);
+    setAuthToken(data.accessToken);
     console.log(localStorage);
 
     let validationIssue = false;
