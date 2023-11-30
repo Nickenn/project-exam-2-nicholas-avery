@@ -1,4 +1,4 @@
-import { BASE_API } from "../utils/constants.tsx";
+import { BASE_API_URL } from "../utils/constants.tsx";
 
 interface FormDataProps {
   name: string;
@@ -28,13 +28,13 @@ export async function registerUser(formData: FormDataProps) {
     }),
   };
 
-  const result = await fetch(`${BASE_API}/auth/register`, options);
+  const result = await fetch(`${BASE_API_URL}/auth/register`, options);
   const data = await result.json();
 
   return data;
 }
 
-export async function userLogin(formData: FormDataLoginProps) {
+export async function loginUser(formData: FormDataLoginProps) {
   const options = {
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export async function userLogin(formData: FormDataLoginProps) {
     }),
   };
 
-  const result = await fetch(`${BASE_API}/auth/login`, options);
+  const result = await fetch(`${BASE_API_URL}/auth/login`, options);
   const data = await result.json();
 
   return data;

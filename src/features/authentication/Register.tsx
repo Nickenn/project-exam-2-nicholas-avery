@@ -11,6 +11,7 @@ import {
   Typography,
   Switch,
   FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 
 interface FormDataProps {
@@ -137,13 +138,10 @@ function RegisterForm() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                value="start"
-                control={<Switch color="primary" />}
-                label="Venue manager"
-                labelPlacement="start"
-                {...register("manager")}
-              />
+              <Typography variant="button" display="block" gutterBottom>
+                Venue manager
+                <Checkbox {...register("manager")} />
+              </Typography>
             </Grid>
           </Grid>
           <Button

@@ -10,6 +10,7 @@ import Register from "./pages/auth/Register.tsx";
 import Venue from "./pages/Venue.tsx";
 import VenueCalendar from "./pages/Calendar.tsx";
 import Profile from "./pages/profile/Profile.tsx";
+import UpdateProfile from "./pages/profile/ProfileUpdate.tsx";
 
 import AppLayout from "./AppLayout.tsx";
 import GlobalStyles from "./GlobalStyles.tsx";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/venues/:id",
         element: <Venue />,
+      },
+      {
+        path: "/profiles/:name/media",
+        element: <UpdateProfile />,
       },
     ],
   },

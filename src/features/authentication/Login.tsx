@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 
-import { userLogin } from "../../services/aoiAuth";
+import { loginUser } from "../../services/aoiAuth";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -30,8 +30,10 @@ function LoginForm() {
 
   async function onSubmit(formData: FormLoginProps) {
     //send login data to API
-    const data = await userLogin(formData);
-    console.log(data);
+    const data = await loginUser(formData);
+    localStorage.setItem("token", data.accessToken);
+    localStorage.setItem("name", data.name);
+    console.log(localStorage);
 
     let validationIssue = false;
 

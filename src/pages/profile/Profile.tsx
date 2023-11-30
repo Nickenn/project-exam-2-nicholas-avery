@@ -4,11 +4,12 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { useAuth } from "../../context/authContext";
-import { getProfile, updatProfile } from "../../services/profileApi";
+import { getProfile, updateProfile } from "../../services/profileApi";
 
 import image from "../../../assets/venue-placeholder.svg";
 
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 interface ProfileProps {
   avatar: string;
@@ -70,9 +71,51 @@ function Profile() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h3">
           My profile
         </Typography>
+        <h2>Hi! i am</h2>
+
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Link underline="none" variant="body1">
+              <NavLink to={`/profiles/${userName}/media`}>
+                <AccountBoxIcon></AccountBoxIcon>Edit avatar
+              </NavLink>{" "}
+            </Link>
+          </Grid>
+        </Grid>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Typography component="h1" variant="h5" gutterBottom width={600}>
+              Contact information:
+            </Typography>
+            <Typography variant="body2" gutterBottom width={600}>
+              <li>Email address: </li>
+              <li>Phone number: </li>
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Typography component="h1" variant="h5">
+              My reveiws:
+            </Typography>
+          </Grid>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Typography variant="body2" gutterBottom width={600}>
+                Sed vel nulla ut nisl viverra accumsan in sit amet est. Ut
+                rutrum quam eu blandit viverra. Donec mattis magna non purus
+                mattis, eget scelerisque purus laoreet. Aliquam quis sem dapibus
+                tortor malesuada tempus quis id elit. Pellentesque commodo massa
+                sed cursus accumsan. Ut consequat elementum neque quis bibendum.
+                Proin hendrerit arcu ac blandit semper. Proin eget felis
+                porttitor, interdum lectus in, cursus leo.
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
       </Box>
     </>
   );
