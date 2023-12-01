@@ -1,12 +1,24 @@
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
-import { useLocalStorage } from "@uidotdev/usehooks";
-
+import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { loginUser } from "../../services/aoiAuth";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
-
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
+
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .email("Email must be a valid email.")
+      .required("Please enter your email."),
+    password: yup
+      .string()
+      .min(6, "Your password must be more than 6 characters.")
+      .required(),
+  })
+  .required();
 
 interface FormLoginProps {
   email: string;
@@ -16,57 +28,35 @@ interface FormLoginProps {
 function LoginForm() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const { register, handleSubmit, formState, reset } = useForm<FormLoginProps>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormLoginProps>({
+    resolver: yupResolver(schema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const { errors, isSubmitSuccessful } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
   async function onSubmit(formData: FormLoginProps) {
-    //send login data to API
-    const data = await loginUser(formData);
+    //send Login data to API
 
-    let validationIssue = false;
-
-    if (!formData.email || !formData.email) {
-      setEmailError("Pleae enter a valid email address");
-      validationIssue = true;
-    } else {
-      setEmailError("");
-    }
-    if (!formData.password || !formData.password.length) {
-      setPasswordError("Pleae enter a valid password");
-      validationIssue = true;
-    } else {
-      setPasswordError("");
-    }
-    if (!validationIssue) {
-      //save user
+    try {
+      setServerErrors("");
+      const data = await loginUser(formData);
       login(data);
+      navigate(`/profiles/${data.name}`);
+    } catch (error) {
+      let errorMessage = "Login failed. Please try again";
 
-      alert("Login successful");
-      return true;
-    } else {
-      alert("Please fill in required fields");
-    }
-
-    if (data.errors) {
-      setServerErrors(data.errors[0].message);
-      useEffect(() => {
-        reset();
-      }, [isSubmitSuccessful, reset]);
-    } else {
-      // navigate to profile page
-      setTimeout(() => {
-        navigate(`/profiles/${data.name}`);
-      }, 1000);
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setServerErrors(errorMessage);
     }
   }
 
@@ -93,26 +83,28 @@ function LoginForm() {
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography component="h1" variant="h4">
+                {errors.email?.message}
+              </Typography>
               <TextField
-                error={emailError && emailError.length ? true : false}
                 required
                 fullWidth
                 id="email"
                 label="Email"
-                helperText={emailError}
                 autoComplete="email"
                 {...register("email")}
               />
             </Grid>
             <Grid item xs={12}>
+              <Typography component="h1" variant="h4">
+                {errors.password?.message}
+              </Typography>
               <TextField
-                error={passwordError && passwordError.length ? true : false}
                 required
                 fullWidth
                 label="Password"
                 type="password"
                 id="password"
-                helperText={passwordError}
                 autoComplete="new-password"
                 {...register("password")}
               />

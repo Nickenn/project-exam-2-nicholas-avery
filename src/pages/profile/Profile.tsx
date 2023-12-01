@@ -7,7 +7,7 @@ import image from "../../assets/venue-placeholder.svg";
 import { useAuth } from "../../context/authContext";
 import { getProfile, updateProfile } from "../../services/profileApi";
 
-import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Link, Typography } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 interface ProfileProps {
@@ -59,9 +59,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchData();
-    }, 1000);
+    fetchData();
   }, []);
 
   return (
@@ -74,10 +72,9 @@ function Profile() {
           flexDirection: "column",
           height: 1050,
           alignItems: "center",
+          margin: 20,
         }}
       >
-        <h2>Hi! i am {profile.name}</h2>
-
         <Grid container justifyContent="center">
           <Grid item>
             <Link underline="none" variant="body1">
@@ -87,21 +84,40 @@ function Profile() {
             </Link>
           </Grid>
         </Grid>
+        <Typography component="h1" variant="h4">
+          Hi I am
+        </Typography>
         <Grid container justifyContent="center">
           <Grid item>
-            <Typography component="h1" variant="h5" gutterBottom width={600}>
+            <Typography component="h1" variant="h5">
+              {profile.venueManager ? "Manager" : "Guest"}
+            </Typography>
+            {!profile.venueManager && (
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={handleSubmit(onSubmit)}
+              >
+                Become a manager
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <Typography component="h1" variant="h6" gutterBottom width={600}>
               Contact information:
             </Typography>
             <Typography variant="body2" gutterBottom width={600}>
-              <li>Email address: {profile.email}</li>
+              <li>Email address: </li>
               <li>Phone number: </li>
             </Typography>
           </Grid>
         </Grid>
         <Grid container justifyContent="center">
           <Grid item>
-            <Typography component="h1" variant="h5">
-              My reveiws:
+            <Typography component="h1" variant="h6" margin={4}>
+              Guest feedback:
             </Typography>
           </Grid>
           <Grid container justifyContent="center">
@@ -112,9 +128,9 @@ function Profile() {
                 mattis, eget scelerisque purus laoreet. Aliquam quis sem dapibus
                 tortor malesuada tempus quis id elit."
               </Typography>
-              <i variant="body2" gutterBottom width={600}>
+              <Typography variant="body2" gutterBottom width={600}>
                 - Lorum, impsum.
-              </i>
+              </Typography>
             </Grid>
             <Grid item>
               <Typography variant="body2" gutterBottom width={600}>
@@ -122,22 +138,28 @@ function Profile() {
                 laoreet. Aliquam quis sem dapibus tortor malesuada tempus quis
                 id elit."
               </Typography>
-              <i variant="body2" gutterBottom width={600}>
+              <Typography variant="body2" gutterBottom width={600}>
                 - Lorum, impsum.
-              </i>
+              </Typography>
             </Grid>
           </Grid>
           <Grid container justifyContent="center">
-            <div>
-              <span>My bookings: </span>
-              <span>{profile._count?.bookings}</span>
-            </div>
-            {profile.venueManager && (
-              <div>
-                <span>Venues: </span>
-                <span>{profile._count?.venues}</span>
-              </div>
-            )}
+            <Grid item>
+              <span>
+                <Typography component="h1" variant="h6" margin={4}>
+                  My bookings:
+                </Typography>
+              </span>
+            </Grid>
+            <Grid item>
+              {profile.venueManager && (
+                <span>
+                  <Typography component="h1" variant="h6" margin={4}>
+                    My Venues: {profile._count?.venues}
+                  </Typography>
+                </span>
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Box>

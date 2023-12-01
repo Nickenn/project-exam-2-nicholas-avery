@@ -1,14 +1,15 @@
-import styled from "styled-components";
-
-import { Button } from "@mui/material";
-import { formatCurrency } from "../../utils/formatCurrency";
-import { format, differenceInDays } from "date-fns";
-import toast from "react-hot-toast";
-import { useAuth } from "../../context/authContext";
-import { Form, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { DateRange } from "react-date-range";
 import { useState } from "react";
+import { format, differenceInDays } from "date-fns";
+import { useAuth } from "../../context/authContext";
+import { useForm } from "react-hook-form";
+import { createBooking } from "../../services/apiBookings";
+import { formatCurrency } from "../../utils/formatCurrency";
+import toast from "react-hot-toast";
+
+import { useNavigate } from "react-router-dom";
+import { DateRange } from "react-date-range";
+
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 interface VenueProps {
   key: string;
@@ -17,15 +18,15 @@ interface VenueProps {
   description: string;
   media: string[];
   price: number;
-  maxGuests: number;
+  maxGuests?: number;
   rating: number;
   created: string;
   updated?: string;
   meta: {
-    wifi: true;
-    parking: true;
-    breakfast: true;
-    pets: true;
+    wifi: boolean;
+    parking: boolean;
+    breakfast: boolean;
+    pets: boolean;
   };
   location: {
     address: string;
@@ -52,15 +53,15 @@ interface VenueProps {
   ];
 }
 
-interface VenueProp {
-  venue: VenueProps;
-  selectedDateRange: DateRangeProps[];
-}
-
 interface DateRangeProps {
   startDate: Date;
   endDate: Date;
   key: string;
+}
+
+interface VenueProp {
+  venue: VenueProps;
+  selectedDateRange: DateRangeProps[];
 }
 
 function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
@@ -80,30 +81,30 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
     },
   });
 
-  const { register, setValue, handleSubmit, formState } = form;
+  const [isOpen, setIsOpen] = useState(false);
+  const { register, handleSubmit, formState, setValue } = form;
   const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
 
   const onSubmit = async (formData: any) => {
     console.log(formData);
-
     if (authToken) {
+      //send data to API
       const data = await createBooking(formData, authToken);
 
+      //handling setver errors
       if (data.errors) {
         setServerErrors(data.errors[0].message);
         toast.error(serverErrors);
         console.log(data.errors[0].message);
       } else {
-        toast.success("Your booking has been verified.");
+        toast.success("Congratulation. You just booked your dream vacation!.");
         navigate(`/profiles/${userName}/bookings`);
       }
     } else {
-      toast.error("Please log in to book a venue.");
+      toast.error("You must be logged in to book a venue.");
     }
   };
-
   const bookedDateRanges = venue.bookings.map((booking) => ({
     startDate: new Date(booking.dateFrom),
     endDate: new Date(booking.dateTo),
@@ -119,14 +120,86 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
         date === bookedDateRange.endDate
     );
   };
-
   const handleSelect = (ranges: any) => {
     setDateRange(ranges.selection);
     setValue("dateFrom", ranges.selection.startDate);
     setValue("dateTo", ranges.selection.endDate);
   };
 
-  return <form></form>;
+  return (
+    <>
+      {" "}
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          height: 1050,
+          alignItems: "center",
+        }}
+      >
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3 }}
+        >
+          <Typography component="h1" variant="h3">
+            Venue Booking
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item>
+              <Typography component="h1" variant="h5">
+                Ckeck-in
+              </Typography>
+              <Typography component="h1" variant="h3">
+                {format(dateRange.startDate, "dd. MM. yyyy")}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography component="h1" variant="h5">
+                Ckeck-out
+              </Typography>
+              <Typography component="h1" variant="h3">
+                {format(dateRange.endDate, "dd. MM. yyyy")}
+              </Typography>
+            </Grid>
+          </Grid>
+          {isOpen && (
+            <DateRange
+              disabledDay={disabledDates}
+              editableDateInputs={true}
+              onChange={handleSelect}
+              ranges={[dateRange]}
+              moveRangeOnFirstSelection={false}
+              minDate={new Date()}
+            />
+          )}
+
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="guests"
+                label="Number of guests"
+                autoComplete="email"
+                {...register("guests")}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Book venue
+          </Button>
+        </Box>
+      </Box>
+    </>
+  );
 }
 
 export default VenueBookingForm;

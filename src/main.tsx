@@ -9,7 +9,7 @@ import ErrorPage from "./pages/Error.tsx";
 import Login from "./pages/auth/Login.tsx";
 import Register from "./pages/auth/Register.tsx";
 import Venue from "./pages/venues/Venue.tsx";
-import VenueCalendar from "./pages/Calendar.tsx";
+import BookingForm from "./pages/Booking.tsx";
 import Profile from "./pages/profile/Profile.tsx";
 import UpdateProfile from "./pages/profile/ProfileUpdate.tsx";
 import CreateVenuePage from "./pages/venues/CreateVenue.tsx";
@@ -29,8 +29,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/calendar.tsx",
-        element: <VenueCalendar />,
+        path: "/booking.tsx",
+        element: <BookingForm />,
       },
       {
         path: "/auth/login.tsx",

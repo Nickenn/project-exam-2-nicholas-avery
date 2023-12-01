@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
-import Container from "../../ui/Container";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
@@ -85,7 +84,18 @@ function ProfileVenues() {
           Listed venues
         </Typography>
         <Box sx={{ mt: 3 }}>
-          <Grid container spacing={2}></Grid>
+          <Grid container spacing={2}>
+            {venues?.length > 0 ? (
+              venues?.map((venue) => {
+                <Box
+                key={venue.id}
+                venue={venue}>
+
+                </Box>
+              })
+
+            )}
+          </Grid>
         </Box>
       </Box>
     </>

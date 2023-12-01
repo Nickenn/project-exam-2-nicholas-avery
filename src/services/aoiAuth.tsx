@@ -29,6 +29,9 @@ export async function registerUser(formData: FormDataProps) {
   };
 
   const result = await fetch(`${BASE_API_URL}/auth/register`, options);
+
+  if (!result.ok) throw Error("User registration failed.");
+
   const data = await result.json();
 
   return data;
@@ -47,6 +50,9 @@ export async function loginUser(formData: FormDataLoginProps) {
   };
 
   const result = await fetch(`${BASE_API_URL}/auth/login`, options);
+
+  if (!result.ok) throw Error("Login failed");
+
   const data = await result.json();
 
   return data;
