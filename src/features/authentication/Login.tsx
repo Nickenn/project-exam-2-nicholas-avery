@@ -32,10 +32,6 @@ function LoginForm() {
   async function onSubmit(formData: FormLoginProps) {
     //send login data to API
     const data = await loginUser(formData);
-    localStorage.setItem("authToken", data.accessToken);
-    localStorage.setItem("userName", data.name);
-    console.log(data);
-    console.log(localStorage);
 
     let validationIssue = false;
 
@@ -52,6 +48,9 @@ function LoginForm() {
       setPasswordError("");
     }
     if (!validationIssue) {
+      //save user
+      login(data);
+
       alert("Login successful");
       return true;
     } else {
@@ -64,9 +63,6 @@ function LoginForm() {
         reset();
       }, [isSubmitSuccessful, reset]);
     } else {
-      //save user
-      login(data);
-
       // navigate to profile page
       setTimeout(() => {
         navigate(`/profiles/${data.name}`);

@@ -36,3 +36,13 @@
   background-color: rgb(246, 247, 247);
   background-color: #e9b384;
 }
+
+@media screen and (max-width: 1000px) {
+  .nav ul {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .logo {
+    width: 5rem;
+  }
+}
