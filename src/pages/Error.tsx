@@ -40,7 +40,6 @@ function ErrorPage() {
       </p>
       <StyledLinks>
         <NavLink to="/">HOME</NavLink>
-        <NavLink to="/src/pages/Contact.tsx">CONTACT US</NavLink>
       </StyledLinks>
     </StyledError>
   );

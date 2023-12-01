@@ -30,6 +30,7 @@ function UpdateProfileForm() {
       setServerErrors(data.errors[0].message);
     } else {
       navigate(`/profiles/${userName}`);
+      localStorage.setItem("userAvatar", formData.avatar);
     }
   };
 
