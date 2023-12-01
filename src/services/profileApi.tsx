@@ -16,6 +16,7 @@ export async function getProfile(
 ) {
   const options = {
     headers: {
+      accept: "application/json",
       authorization: `Bearer ${token}`,
     },
   };

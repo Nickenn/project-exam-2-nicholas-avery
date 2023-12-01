@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleVenue } from "../services/venuesApi.tsx";
-import image from "../assets/venue-placeholder.svg";
+import { getSingleVenue } from "../../services/venuesApi.tsx";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import Container from "../ui/Container.tsx";
-import Button from "../ui/Button.tsx";
-import { GridColsTwo } from "../ui/Grid.tsx";
+import Container from "../../ui/Container.tsx";
+import { GridColsTwo } from "../../ui/Grid.tsx";
+import image from "../../assets/venue-placeholder.svg";
+
+import { Button } from "@mui/material";
 
 interface VenueProps {
   key: string;
@@ -49,8 +51,6 @@ interface VenueProps {
   ];
 }
 
-const StyledVenueDetails = styled.div``;
-
 const StyledVenuePage = styled.main`
 padding: 12rem 0;
 
@@ -84,8 +84,6 @@ const StyledGridColsTwo = styled(GridColsTwo)`
   align-items: start;
   gap: 2rem;
 `;
-
-const StyledHost = styled.div``;
 
 const ImageGallery = styled.div`
   display: grid;
@@ -215,6 +213,9 @@ function Venue() {
                 <p>Email: {venue.owner.email}</p>
               </div>
             </div>
+            <NavLink to="/calendar.tsx">
+              <Button variant="contained">BOOK VENUE</Button>
+            </NavLink>
           </div>
         )}
       </Container>

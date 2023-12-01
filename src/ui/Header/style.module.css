@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
   background-color: #a1ccd1;
 }
 
@@ -40,4 +39,14 @@
 
 .nav a:global(.active) {
   background-color: #a1ccd1;
+}
+
+@media screen and (max-width: 1000px) {
+  .nav ul {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .logo {
+    width: 5rem;
+  }
 }

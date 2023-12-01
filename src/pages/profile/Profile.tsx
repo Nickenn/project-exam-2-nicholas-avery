@@ -27,11 +27,16 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const { authToken, userName, becomeManager } = useAuth();
   const { name } = useParams();
+
   const form = useForm({
     defaultValues: {
       venueManager: false,
     },
   });
+
+  localStorage.getItem("authToken");
+  localStorage.getItem("userName");
+  console.log(localStorage);
 
   const fetchData = async () => {
     const data = await getProfile(name, authToken);

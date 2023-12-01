@@ -25,6 +25,9 @@ function Header() {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/venues/createvenuespage.tsx">CREATE LISTING</NavLink>
+          </li>
+          <li>
             <NavLink to={`/profiles/${userName}`}>
               <AccountCircleIcon fontSize="small"></AccountCircleIcon>PROFILE
             </NavLink>

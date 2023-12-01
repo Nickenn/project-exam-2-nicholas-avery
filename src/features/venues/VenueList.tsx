@@ -1,18 +1,9 @@
 import { Link } from "react-router-dom";
-import image from "../../../assets/venue-placeholder.svg";
-import styles from "./style.module.css";
+import image from "../../assets/venue-placeholder.svg";
 import styled from "styled-components";
 
-import {
-  Box,
-  Button,
-  Grid,
-  TextField,
-  Typography,
-  Switch,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 interface VenueProps {
   key: string;
@@ -57,8 +48,8 @@ interface VenueProps {
 }
 
 const VenueImage = styled.img`
-  width: 100%;
-  height: 23rem;
+  width: 28rem;
+  height: 22rem;
   object-fit: cover;
   border-radius: 4px;
 `;
@@ -77,8 +68,11 @@ function Venue({
   return (
     <>
       <Box
+        bgcolor={"#a1ccd1"}
         sx={{
           marginTop: 8,
+          padding: 5,
+          justifyContent: "center",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -91,22 +85,22 @@ function Venue({
               alt={name}
               loading="lazy"
             />
-            <Typography component="h1" variant="h3">
+            <Typography component="h1" variant="h4">
               {name}
             </Typography>
-            <Typography component="h1" variant="h5" gutterBottom width={600}>
+            <Typography component="h1" variant="h6" gutterBottom width={600}>
               Rating: {rating}
             </Typography>
             <Typography component="h1" variant="h6" gutterBottom width={600}>
               Maximum number of guests: {maxGuests}
             </Typography>
-            <Typography component="h1" variant="h5" gutterBottom width={600}>
+            <Typography component="h1" variant="h6" gutterBottom width={600}>
               {description}
             </Typography>
-            <Typography component="h1" variant="h5" gutterBottom width={600}>
+            <Typography component="h1" variant="h6" gutterBottom width={600}>
               Location: {location.city}, {location.country}{" "}
             </Typography>
-            <Typography component="h1" variant="h4" gutterBottom width={600}>
+            <Typography component="h1" variant="h5" gutterBottom width={600}>
               {price},- NOK per night
             </Typography>
             <Button variant="contained">Venue details</Button>

@@ -6,7 +6,7 @@ import Search from "../ui/Search";
 
 import { PAGE_LIMIT } from "../utils/constants";
 import { useSearch } from "../context/searchContext";
-import VenuesList from "../features/venues/VenueList/VenueList";
+import VenuesList from "../features/venues/VenueList";
 import { GridCols } from "../ui/Grid";
 
 interface VenueProps {

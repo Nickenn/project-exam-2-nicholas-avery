@@ -15,7 +15,7 @@ interface FormLoginProps {
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { login, authToken } = useAuth();
+  const { login } = useAuth();
   const { register, handleSubmit, formState, reset } = useForm<FormLoginProps>({
     defaultValues: {
       email: "",
@@ -33,7 +33,7 @@ function LoginForm() {
     //send login data to API
     const data = await loginUser(formData);
     localStorage.setItem("authToken", data.accessToken);
-    localStorage.setItem("userName", data.userName);
+    localStorage.setItem("userName", data.name);
     console.log(data);
     console.log(localStorage);
 

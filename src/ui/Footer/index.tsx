@@ -6,6 +6,8 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import CreateIcon from "@mui/icons-material/Create";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
+import { Typography } from "@mui/material";
+
 import { useAuth } from "../../context/authContext";
 
 function Footer() {

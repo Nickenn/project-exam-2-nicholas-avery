@@ -1,6 +1,7 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
-interface IVenue {
+interface VenueProps {
   key: string;
   id: string;
   name: string;
@@ -12,10 +13,10 @@ interface IVenue {
   created: string;
   updated?: string;
   meta: {
-    wifi: true;
-    parking: true;
-    breakfast: true;
-    pets: true;
+    wifi: boolean;
+    parking: boolean;
+    breakfast: boolean;
+    pets: boolean;
   };
   location: {
     address: string;
@@ -40,6 +41,10 @@ interface IVenue {
       updated: string;
     }
   ];
+}
+
+interface VenueProp {
+  venue: VenueProps;
 }
 
 function VenueDetails({ venue }: { venue: IVenue }) {

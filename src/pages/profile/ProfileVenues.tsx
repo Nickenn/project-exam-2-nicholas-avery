@@ -3,6 +3,8 @@ import { useAuth } from "../../context/authContext";
 import Container from "../../ui/Container";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
+
 interface VenueItemProp {
   id: string;
   name: string;
@@ -28,7 +30,16 @@ interface VenueItemProp {
     lat: number;
     lng: number;
   };
-  bookings: [{ id: string; dateFrom: string; dateTo: string; guests: number; created: string; updated: string }];
+  bookings: [
+    {
+      id: string;
+      dateFrom: string;
+      dateTo: string;
+      guests: number;
+      created: string;
+      updated: string;
+    }
+  ];
 }
 
 function ProfileVenues() {
@@ -38,6 +49,45 @@ function ProfileVenues() {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    const data = await 
-  }
+    const data = await getVenues(userName, authToken);
+    setVenues(data);
+    setLoading(false);
+  };
+
+  const handleDeleteVenue = async (venueId: string) => {
+    await deleteVenue(venueId, authToken);
+    alert("Venue successfully deleted.");
+  };
+
+  const handleUpdatedVenue = (venue: VenueItemProp) => {
+    navigate(`/venues/update`, { state: venue });
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetchData();
+    }, 1000);
+  }, [venues]);
+
+  return (
+    <>
+      {" "}
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          height: 1050,
+          alignItems: "center",
+        }}
+      >
+        <Typography component="h1" variant="h2">
+          Listed venues
+        </Typography>
+        <Box sx={{ mt: 3 }}>
+          <Grid container spacing={2}></Grid>
+        </Box>
+      </Box>
+    </>
+  );
 }
