@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { loginUser } from "../../services/aoiAuth";
+import { loginUser } from "../../services/authApi";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";

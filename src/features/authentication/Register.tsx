@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { registerUser } from "../../services/aoiAuth";
+import { registerUser } from "../../services/authApi";
 import {
   Box,
   Button,

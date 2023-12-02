@@ -3,7 +3,11 @@ import { CreateVenueForm } from "../../features/venues/CreateVenueForm";
 import { useAuth } from "../../context/authContext";
 
 function CreateVenuePage() {
-  return <CreateVenueForm />;
+  return (
+    <div>
+      <CreateVenueForm />
+    </div>
+  );
 }
 
 export default CreateVenuePage;

@@ -6,7 +6,7 @@ import { AuthProvider } from "./context/authContext.tsx";
 
 import Home from "./pages/Home.tsx";
 import ErrorPage from "./pages/Error.tsx";
-import Login from "./pages/auth/Login.tsx";
+import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register.tsx";
 import Venue from "./pages/venues/Venue.tsx";
 import BookingForm from "./pages/Booking.tsx";
@@ -29,15 +29,15 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/booking.tsx",
+        path: "/booking",
         element: <BookingForm />,
       },
       {
-        path: "/auth/login.tsx",
+        path: "/auth/login",
         element: <Login />,
       },
       {
-        path: "/auth/register.tsx",
+        path: "/auth/register",
         element: <Register />,
       },
       {

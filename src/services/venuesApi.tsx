@@ -30,18 +30,6 @@ export async function getAllVenues() {
   return data;
 }
 
-export async function getSingleVenue(id: string | undefined) {
-  const result = await fetch(
-    `${BASE_API_URL}/venues/${id}?_owner=true&_bookings=true`
-  );
-
-  if (!result.ok) throw Error("Failed attempt at getting single venue.");
-
-  const data = await result.json();
-
-  return data;
-}
-
 export async function getVenues(limit: number, offset: number) {
   const res = await fetch(
     `${BASE_API_URL}/venues?limit=${limit}&offset=${offset}`
@@ -145,6 +133,19 @@ export async function deleteVenue(id: string, token: string | null) {
   };
   const res = await fetch(`${BASE_API_URL}/venues/${id}`, options);
   const data = await res.json();
+
+  return data;
+}
+
+export async function getSingleVenue(id: string | undefined) {
+  const result = await fetch(
+    `${BASE_API_URL}/venues/${id}?_owner=true&_bookings=true`
+  );
+
+  console.log(result);
+  if (!result.ok) throw Error("Failed attempt at getting single venue.");
+
+  const data = await result.json();
 
   return data;
 }

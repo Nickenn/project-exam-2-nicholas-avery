@@ -8,6 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import CreateIcon from "@mui/icons-material/Create";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 
 function Header() {
   const { logout, userName } = useAuth();
@@ -20,12 +21,14 @@ function Header() {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <NavLink to="/calendar.tsx">
+            <NavLink to="/booking">
               <HomeIcon fontSize="small"></HomeIcon>BOOKING
             </NavLink>
           </li>
           <li>
-            <NavLink to="/venues/createvenuespage.tsx">CREATE LISTING</NavLink>
+            <NavLink to="/venues/createvenuespage">
+              <AddBusinessIcon></AddBusinessIcon>CREATE LISTING
+            </NavLink>
           </li>
           <li>
             <NavLink to={`/profiles/${userName}`}>
@@ -33,12 +36,12 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="auth/login.tsx">
+            <NavLink to="auth/login">
               <LockOpenIcon fontSize="small"></LockOpenIcon>LOGIN
             </NavLink>
           </li>
           <li>
-            <NavLink to="auth/register.tsx">
+            <NavLink to="auth/register">
               <CreateIcon fontSize="small"></CreateIcon>SIGN UP
             </NavLink>
           </li>

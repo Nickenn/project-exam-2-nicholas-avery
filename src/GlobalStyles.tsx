@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
 
 }
 
+
 body {
     font-family: var(--font-family);
     color: var(--color-gray-800);
@@ -28,8 +29,8 @@ body {
 }
 
 main {
-    min-height: 100vh;
     font-size: 1.3rem;
+    min-height: 100vh;
 
 }
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { format, differenceInDays } from "date-fns";
 import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
-import { createBooking } from "../../services/apiBookings";
+import { createBooking } from "../../services/bookingApi";
+import { format, differenceInDays } from "date-fns";
 import { formatCurrency } from "../../utils/formatCurrency";
 import toast from "react-hot-toast";
 
@@ -98,7 +98,7 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
         toast.error(serverErrors);
         console.log(data.errors[0].message);
       } else {
-        toast.success("Congratulation. You just booked your dream vacation!.");
+        toast.success("Your booking was successfull.");
         navigate(`/profiles/${userName}/bookings`);
       }
     } else {

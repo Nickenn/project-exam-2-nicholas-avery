@@ -1,7 +1,11 @@
 import VenueBookingForm from "../features/booking/VenueBookingForm";
 
 function BookingForm() {
-  return <div></div>;
+  return (
+    <div>
+      <VenueBookingForm />
+    </div>
+  );
 }
 
 export default BookingForm;

@@ -9,6 +9,7 @@ import { getProfile, updateProfile } from "../../services/profileApi";
 
 import { Box, Button, Grid, Link, Typography } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import CreateVenueForm from "../../features/venues/CreateVenueForm";
 
 interface ProfileProps {
   avatar: string;
@@ -22,7 +23,7 @@ interface ProfileProps {
 }
 
 function Profile() {
-  const [profile, setProfile] = useState<ProfileProps>();
+  const [profile, setProfile] = useState<ProfileProps | undefined>();
   const [loading, setLoading] = useState(true);
   const { authToken, userName, becomeManager } = useAuth();
   const { name } = useParams();
@@ -62,6 +63,10 @@ function Profile() {
     fetchData();
   }, []);
 
+  if (loading || !profile) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       {" "}
@@ -75,6 +80,7 @@ function Profile() {
           margin: 20,
         }}
       >
+        <img src={profile.avatar ? profile.avatar : placeholder} alt="Avatar" />
         <Grid container justifyContent="center">
           <Grid item>
             <Link underline="none" variant="body1">
@@ -85,7 +91,7 @@ function Profile() {
           </Grid>
         </Grid>
         <Typography component="h1" variant="h4">
-          Hi I am
+          {profile.name}
         </Typography>
         <Grid container justifyContent="center">
           <Grid item>
@@ -109,7 +115,7 @@ function Profile() {
               Contact information:
             </Typography>
             <Typography variant="body2" gutterBottom width={600}>
-              <li>Email address: </li>
+              <li>Email address: {profile.email}</li>
               <li>Phone number: </li>
             </Typography>
           </Grid>
@@ -147,7 +153,7 @@ function Profile() {
             <Grid item>
               <span>
                 <Typography component="h1" variant="h6" margin={4}>
-                  My bookings:
+                  My bookings: {profile._count?.bookings}
                 </Typography>
               </span>
             </Grid>

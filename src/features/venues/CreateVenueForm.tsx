@@ -56,9 +56,11 @@ export function CreateVenueForm() {
       lng: 0,
     },
   });
+
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const onSubmit = async (formData: FormDataProps) => {
     //send data to API
@@ -74,7 +76,6 @@ export function CreateVenueForm() {
 
   return (
     <>
-      {" "}
       <Box
         sx={{
           marginTop: 8,
