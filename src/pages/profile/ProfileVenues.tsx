@@ -87,11 +87,7 @@ function ProfileVenues() {
           <Grid container spacing={2}>
             {venues?.length > 0 ? (
               venues?.map((venue) => {
-                <Box
-                key={venue.id}
-                venue={venue}>
 
-                </Box>
               })
 
             )}

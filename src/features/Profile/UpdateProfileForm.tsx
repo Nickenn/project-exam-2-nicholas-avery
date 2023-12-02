@@ -3,8 +3,17 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { updateAvatar } from "../../services/profileApi";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { Typography, Box, Grid, TextField, Button } from "@mui/material";
+import { red } from "@mui/material/colors";
+
+const schema = yup
+  .object({
+    avatar: yup.string().required("Please enter image url"),
+  })
+  .required();
 
 interface FormDataProps {
   avatar: string;
@@ -12,25 +21,36 @@ interface FormDataProps {
 
 function UpdateProfileForm() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const { authToken, userName } = useAuth();
-  const form = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(schema),
     defaultValues: {
       avatar: "",
     },
   });
 
-  const { handleSubmit, formState, register } = form;
-  const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
   const onSubmit = async (formData: FormDataProps) => {
-    const data = await updateAvatar(authToken, userName, formData);
+    try {
+      setServerErrors("");
+      const data = await updateAvatar(authToken, userName, formData);
+      login(data);
+    } catch (error) {
+      let errorMessage = "Avatar update failed.";
 
-    if (data.errors) {
-      setServerErrors(data.errors[0].message);
-    } else {
-      navigate(`/profiles/${userName}`);
-      localStorage.setItem("userAvatar", formData.avatar);
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else {
+        setServerErrors(errorMessage);
+        localStorage.setItem("userAvatar", formData.avatar);
+        navigate(`/profiles/${userName}`);
+      }
     }
   };
 
@@ -57,6 +77,14 @@ function UpdateProfileForm() {
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={400}
+                color={"#d32f2f"}
+              >
+                {errors.avatar?.message}
+              </Typography>
               <TextField
                 type="text"
                 fullWidth

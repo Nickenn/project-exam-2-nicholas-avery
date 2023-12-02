@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authApi";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import {
   Box,
   Button,
@@ -14,6 +16,20 @@ import {
   Checkbox,
 } from "@mui/material";
 
+const schema = yup
+  .object({
+    name: yup.string().required("Please enter your name."),
+    email: yup
+      .string()
+      .email("Email must be a valid email.")
+      .required("Please enter your email."),
+    password: yup
+      .string()
+      .min(6, "Your password must be more than 6 characters.")
+      .required("Password is required."),
+  })
+  .required();
+
 interface FormDataProps {
   name: string;
   email: string | number;
@@ -25,7 +41,12 @@ interface FormDataProps {
 function RegisterForm() {
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState, reset } = useForm<FormDataProps>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(schema),
     defaultValues: {
       name: "",
       email: "",
@@ -35,47 +56,24 @@ function RegisterForm() {
     },
   });
 
-  const { errors, isSubmitSuccessful } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
   async function onSubmit(formData: FormDataProps) {
-    const data = await registerUser(formData);
-    console.log(data);
-    let validationIssue = false;
+    try {
+      setServerErrors("");
+      //send data to API
+      const data = await registerUser(formData);
 
-    if (!formData.name || !formData.name.length) {
-      setNameError("Pleae enter a valid username");
-      validationIssue = true;
-    } else {
-      setNameError("");
-    }
-    if (!formData.email || !formData.email) {
-      setEmailError("Pleae enter a valid email address");
-      validationIssue = true;
-    } else {
-      setEmailError("");
-    }
-    if (!formData.password || !formData.password.length) {
-      setPasswordError("Pleae enter a valid password");
-      validationIssue = true;
-    } else {
-      setPasswordError("");
-    }
-    if (!validationIssue) {
-      alert("Account successfully created.");
-      return true;
-    } else {
-      alert("Please fill in required fields");
+      navigate(`/profiles/${data.name}`);
+    } catch (error) {
+      let errorMessage = "User registration failed.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setServerErrors(errorMessage);
     }
   }
-
-  useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful, reset]);
 
   return (
     <>
@@ -100,39 +98,57 @@ function RegisterForm() {
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.name?.message}
+              </Typography>
               <TextField
-                error={nameError && nameError.length ? true : false}
                 autoComplete="given-name"
                 required
                 fullWidth
                 id="username"
                 label="Username"
-                helperText={nameError}
                 autoFocus
                 {...register("name")}
               />
             </Grid>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.email?.message}
+              </Typography>
               <TextField
-                error={emailError && emailError.length ? true : false}
                 required
                 fullWidth
                 id="email"
                 label="Email"
-                helperText={emailError}
                 autoComplete="email"
                 {...register("email")}
               />
             </Grid>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.password?.message}
+              </Typography>
               <TextField
-                error={passwordError && passwordError.length ? true : false}
                 required
                 fullWidth
                 label="Password"
                 type="password"
                 id="password"
-                helperText={passwordError}
                 autoComplete="new-password"
                 {...register("password")}
               />

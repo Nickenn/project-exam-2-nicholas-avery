@@ -81,14 +81,25 @@ function LoginForm() {
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3 }}
         >
-          <Grid container spacing={2}>
+          <Grid
+            container
+            spacing={4}
+            direction={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
             <Grid item xs={12}>
-              <Typography component="h1" variant="h4">
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
                 {errors.email?.message}
               </Typography>
               <TextField
-                required
                 fullWidth
+                required
                 id="email"
                 label="Email"
                 autoComplete="email"
@@ -96,12 +107,17 @@ function LoginForm() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Typography component="h1" variant="h4">
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
                 {errors.password?.message}
               </Typography>
               <TextField
-                required
                 fullWidth
+                required
                 label="Password"
                 type="password"
                 id="password"
@@ -118,14 +134,12 @@ function LoginForm() {
           >
             Login
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link underline="none" href="/auth/register.tsx" variant="body1">
-                <NavLink to="/auth/register.tsx">
-                  Don't have an account? Create one here
-                </NavLink>{" "}
-              </Link>
-            </Grid>
+          <Grid item>
+            <Link underline="none" href="/auth/register.tsx" variant="body1">
+              <NavLink to="/auth/register.tsx">
+                Don't have an account? Create one here
+              </NavLink>{" "}
+            </Link>
           </Grid>
         </Box>
       </Box>
