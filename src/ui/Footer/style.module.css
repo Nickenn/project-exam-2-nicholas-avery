@@ -1,35 +1,8 @@
-.footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #e9b384;
-}
-
 .logo {
   width: 4rem;
   height: auto;
   object-fit: cover;
   border-radius: 3px;
-}
-
-.nav ul {
-  list-style: none;
-  display: flex;
-  border-radius: 7px;
-  margin: 1.4rem;
-}
-
-.nav a:link,
-.nav a:visited {
-  display: block;
-  color: inherit;
-  font-weight: 500;
-  padding: 0.5rem 2rem;
-}
-
-.nav a:active,
-.nav a:hover {
-  background-color: rgb(194, 208, 220);
 }
 
 .nav a:global(.active) {
@@ -38,10 +11,6 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .nav ul {
-    flex-direction: column;
-    justify-content: center;
-  }
   .logo {
     width: 5rem;
   }

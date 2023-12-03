@@ -153,7 +153,7 @@ function RegisterForm() {
             <Grid item xs={12}>
               <Typography variant="button" display="block" gutterBottom>
                 Venue manager
-                <Checkbox {...register("manager")} />
+                <Checkbox id="manager" {...register("manager")} />
               </Typography>
             </Grid>
           </Grid>
