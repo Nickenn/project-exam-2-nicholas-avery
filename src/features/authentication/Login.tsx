@@ -135,11 +135,9 @@ function LoginForm() {
             Login
           </Button>
           <Grid item>
-            <Link underline="none" href="/auth/register.tsx" variant="body1">
-              <NavLink to="/auth/register.tsx">
-                Don't have an account? Create one here
-              </NavLink>{" "}
-            </Link>
+            <Button href="/auth/register">
+              Don't have an account? Create one here
+            </Button>
           </Grid>
         </Box>
       </Box>

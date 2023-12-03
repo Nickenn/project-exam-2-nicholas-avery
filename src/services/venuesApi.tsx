@@ -137,7 +137,7 @@ export async function deleteVenue(id: string, token: string | null) {
   return data;
 }
 
-export async function getSingleVenue(id: string | undefined) {
+export async function getVenue(id: string | undefined) {
   const res = await fetch(
     `${BASE_API_URL}/venues/${id}?_owner=true&_bookings=true`
   );

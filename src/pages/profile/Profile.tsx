@@ -166,10 +166,29 @@ function Profile() {
                 </span>
               )}
             </Grid>
-            <Grid container justifyContent="center">
-              <Link href={`/profiles/${userName}/bookings`}>
-                <Button variant="contained">My bookings</Button>
-              </Link>
+            <Grid
+              container
+              marginTop={8}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent="center"
+            >
+              <Grid item padding={2}>
+                <Link href={`/profiles/${userName}/bookings`}>
+                  <Button variant="contained">My bookings</Button>
+                </Link>
+              </Grid>
+              <Grid item padding={2}>
+                <Link href={`/profiles/${userName}/createvenue`}>
+                  <Button variant="contained">Create venue</Button>
+                </Link>
+              </Grid>
+              <Grid item padding={2}>
+                <Link href={`/profiles/${userName}/bookings`}>
+                  <Button variant="contained">Edit venues</Button>
+                </Link>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

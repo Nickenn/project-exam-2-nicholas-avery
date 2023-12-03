@@ -168,11 +168,9 @@ function RegisterForm() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link underline="none" href="/auth/login.tsx" variant="body1">
-                <NavLink to="/auth/login.tsx">
-                  Already have an account? Login here
-                </NavLink>{" "}
-              </Link>
+              <Button href="/auth/login">
+                Already have an account? Login here
+              </Button>
             </Grid>
           </Grid>
         </Box>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleVenue } from "../../services/venuesApi.tsx";
+import { getVenue } from "../../services/venuesApi.tsx";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Container from "../../ui/Container.tsx";
@@ -132,7 +132,7 @@ function Venue() {
   const { id } = useParams();
 
   const fetchData = async () => {
-    const data = await getSingleVenue(id);
+    const data = await getVenue(id);
     setIsLoading(false);
     setVenue(data);
   };
