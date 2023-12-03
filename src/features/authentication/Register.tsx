@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authApi";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,8 +11,6 @@ import {
   Link,
   TextField,
   Typography,
-  Switch,
-  FormControlLabel,
   Checkbox,
 } from "@mui/material";
 

@@ -2,6 +2,18 @@
 
 ## Description
 
+This was an exam from Noroff school of technology and digital media, second year last semester:
+
+"A newly launched accommodation booking site called Holidaze has approached you to develop a brand new front end for their application. While they have a list of required features, the design and user experience has not been specified. Working with the official API documentation, plan, design and build a modern front end accommodation booking application.
+
+There are two aspects to this brief: the customer-facing side of the website where users can book holidays at a venue, and an admin-facing side of the website where users can register and manage venues and bookings at those venues."
+
+### Requirements & API
+
+All API functionality is managed by an existing application. This project only covers the front-end application for the API.
+
+The API used for this project can be found under Holidaze in the <a href="https://docs.noroff.dev/" target="_blank">Noroff API Documentation</a>
+
 ### Links
 
 - <a href="https://nickenn.github.io/project-exam-2-nicholas-avery/" target="_blank">Holidaze website</a>

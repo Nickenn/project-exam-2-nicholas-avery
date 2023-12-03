@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { createVenue } from "../../services/venuesApi";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useAuth } from "../../context/authContext";
 import {
   Box,
@@ -11,6 +13,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
+const schema = yup
+  .object({
+    name: yup.string().required("Please enter Venue name"),
+    description: yup
+      .string()
+      .min(6, "Your password must be more than 6 characters.")
+      .required("Please enter a description"),
+    price: yup.string().min(100).required("Please enter price"),
+    maxGuests: yup
+      .string()
+      .min(1)
+      .required("Please enter maximum number of guests"),
+    rating: yup.string().min(1),
+    country: yup
+      .string()
+      .min(6, "Your password must be more than 6 characters.")
+      .required("country is required."),
+    continent: yup
+      .string()
+      .min(6, "Your password must be more than 6 characters.")
+      .required("continent is required."),
+  })
+  .required();
 
 interface FormDataProps {
   name: string;
@@ -35,7 +61,12 @@ interface FormDataProps {
 export function CreateVenueForm() {
   const navigate = useNavigate();
   const { authToken } = useAuth();
-  const form = useForm<FormDataProps>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(schema),
     defaultValues: {
       name: "",
       description: "",
@@ -57,22 +88,26 @@ export function CreateVenueForm() {
     },
   });
 
-  const { register, handleSubmit, formState } = form;
-  const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  const onSubmit = async (formData: FormDataProps) => {
-    //send data to API
-    const data = await createVenue(formData, authToken);
+  async function onSubmit() {
+    try {
+      setServerErrors("");
+      //send data to API
+      const data = await createVenue(formData);
 
-    //handling setver errors
-    if (data.errors) {
-      setServerErrors(data.errors[0].message);
-    } else {
-      navigate(`/venues/${data.id}`);
+      navigate(`/profiles/${data.name}`);
+    } catch (error) {
+      console.log(error);
+
+      let errorMessage = "Listing failed.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setServerErrors(errorMessage);
     }
-  };
+  }
 
   return (
     <>
@@ -96,6 +131,14 @@ export function CreateVenueForm() {
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.name?.message}
+              </Typography>
               <TextField
                 type="text"
                 required
