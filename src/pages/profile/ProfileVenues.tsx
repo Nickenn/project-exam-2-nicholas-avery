@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getVenues } from "../../services/venuesApi";
 import VenueItem from "../../features/venues/VenueItem";
 import { deleteVenue } from "../../services/venuesApi";
 
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface VenueItemProp {
   id: string;

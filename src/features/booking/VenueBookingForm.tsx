@@ -3,10 +3,8 @@ import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
 import { createBooking } from "../../services/bookingApi";
 import { format, differenceInDays } from "date-fns";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { formatCurrency } from "../../utils/formatCurrency";
-import toast from "react-hot-toast";
 
 import { useNavigate } from "react-router-dom";
 import { DateRange } from "react-date-range";
@@ -79,8 +77,8 @@ function VenueBookingForm({
   onDateRangeChange,
 }: VenueProp) {
   const navigate = useNavigate();
-  const { authToken, userName } = useAuth();
-  const [dateRange, setDateRange] = useState({
+  const { authToken } = useAuth();
+  const [dateRange] = useState({
     startDate: selectedDateRange[0].startDate,
     endDate: selectedDateRange[0].endDate,
     key: "selection",

@@ -1,13 +1,10 @@
 import { getAllVenues } from "../services/venuesApi";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import Container from "../ui/Container";
 import Search from "../ui/Search";
 
 import { PAGE_LIMIT } from "../utils/constants";
 import { useSearch } from "../context/searchContext";
 import VenuesList from "../features/venues/VenueList";
-import { GridCols } from "../ui/Grid";
 
 interface VenueProps {
   key: string;

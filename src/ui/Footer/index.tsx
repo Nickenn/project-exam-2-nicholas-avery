@@ -1,7 +1,7 @@
 import image from "../../assets/logo-color.png";
 import styles from "./style.module.css";
 
-import { Grid, Link, Typography, Img } from "@mui/material";
+import { Grid, Link, Typography } from "@mui/material";
 
 function Footer() {
   return (

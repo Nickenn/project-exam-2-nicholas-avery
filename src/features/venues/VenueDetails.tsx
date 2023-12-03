@@ -1,6 +1,3 @@
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
-
 interface VenueProps {
   key: string;
   id: string;
@@ -42,13 +39,3 @@ interface VenueProps {
     }
   ];
 }
-
-interface VenueProp {
-  venue: VenueProps;
-}
-
-function VenueDetails({ venue }: { venue: IVenue }) {
-  return <div></div>;
-}
-
-export default VenueDetails;

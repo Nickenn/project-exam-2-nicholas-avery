@@ -1,5 +1,4 @@
 import { ChangeEvent } from "react";
-import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -20,12 +19,6 @@ const StyledSearchInput = styled.input`
   background-color: rgba(52, 145, 88, 0.135);
   border-radius: 3px;
   font-size: 1.4rem;
-`;
-
-const StyledSearchIcon = styled.label`
-  margin: 0px 15px;
-  font-size: 1.2rem;
-  color: rgb(52, 145, 88);
 `;
 
 function Search({ placeholder, handleChange }: SearchProps) {

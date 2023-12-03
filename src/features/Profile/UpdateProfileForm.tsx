@@ -7,7 +7,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { Typography, Box, Grid, TextField, Button } from "@mui/material";
-import { red } from "@mui/material/colors";
 
 const schema = yup
   .object({

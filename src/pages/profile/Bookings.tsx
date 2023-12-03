@@ -4,7 +4,7 @@ import { useAuth } from "../../context/authContext";
 import { getBookings } from "../../services/profileApi";
 import BookingItem from "../../features/booking/BookingItem";
 
-import { Box, Button, Grid, Typography, red } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 
 interface BookingProps {
   id: string;

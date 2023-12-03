@@ -1,8 +1,4 @@
-import { NavLink } from "react-router-dom";
-
-import { formatDate } from "../../utils/formatDate";
-
-import { Box, Button, Grid, Link, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 interface BookingProps {
   id: string;
@@ -43,7 +39,7 @@ interface BookingItemProps {
 }
 
 function BookingItem({ booking }: BookingItemProps) {
-  const { media, location, id } = booking.venue;
+  const { location } = booking.venue;
 
   return (
     <>
