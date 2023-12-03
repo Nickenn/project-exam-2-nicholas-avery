@@ -3,6 +3,8 @@ import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
 import { createBooking } from "../../services/bookingApi";
 import { format, differenceInDays } from "date-fns";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { formatCurrency } from "../../utils/formatCurrency";
 import toast from "react-hot-toast";
 
@@ -10,6 +12,20 @@ import { useNavigate } from "react-router-dom";
 import { DateRange } from "react-date-range";
 
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+
+const schema = yup
+  .object({
+    guests: yup.string().required("Please enter your name."),
+    email: yup
+      .string()
+      .email("Email must be a valid email.")
+      .required("Please enter your email."),
+    password: yup
+      .string()
+      .min(6, "Your password must be more than 6 characters.")
+      .required("Password is required."),
+  })
+  .required();
 
 interface VenueProps {
   key: string;
@@ -66,13 +82,19 @@ interface VenueProp {
 
 function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
   const navigate = useNavigate();
-  const { authToken, userName } = useAuth();
+  const { authToken } = useAuth();
   const [dateRange, setDateRange] = useState({
     startDate: selectedDateRange[0].startDate,
     endDate: selectedDateRange[0].endDate,
     key: "selection",
   });
-  const form = useForm({
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       dateFrom: dateRange.startDate,
       dateTo: dateRange.endDate,
@@ -81,30 +103,29 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
     },
   });
 
-  const [isOpen, setIsOpen] = useState(false);
-  const { register, handleSubmit, formState, setValue } = form;
-  const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
-  const onSubmit = async (formData: any) => {
-    console.log(formData);
-    if (authToken) {
-      //send data to API
-      const data = await createBooking(formData, authToken);
+  async function onSubmit(formData: VenueProp) {
+    try {
+      if (authToken) {
+        setServerErrors("");
+        //send data to API
+        const data = await createBooking(formData, authToken);
 
-      //handling setver errors
-      if (data.errors) {
-        setServerErrors(data.errors[0].message);
-        toast.error(serverErrors);
-        console.log(data.errors[0].message);
+        navigate(`/profiles/${data.name}`);
       } else {
-        toast.success("Your booking was successfull.");
-        navigate(`/profiles/${userName}/bookings`);
+        navigate(`/auth/login`);
       }
-    } else {
-      toast.error("You must be logged in to book a venue.");
+    } catch (error) {
+      let errorMessage = "Booking failed";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setServerErrors(errorMessage);
     }
-  };
+  }
+
   const bookedDateRanges = venue.bookings.map((booking) => ({
     startDate: new Date(booking.dateFrom),
     endDate: new Date(booking.dateTo),
@@ -165,16 +186,15 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
               </Typography>
             </Grid>
           </Grid>
-          {isOpen && (
-            <DateRange
-              disabledDay={disabledDates}
-              editableDateInputs={true}
-              onChange={handleSelect}
-              ranges={[dateRange]}
-              moveRangeOnFirstSelection={false}
-              minDate={new Date()}
-            />
-          )}
+
+          <DateRange
+            disabledDay={disabledDates}
+            editableDateInputs={true}
+            onChange={handleSelect}
+            ranges={[dateRange]}
+            moveRangeOnFirstSelection={false}
+            minDate={new Date()}
+          />
 
           <Grid container spacing={2}>
             <Grid item xs={12}>

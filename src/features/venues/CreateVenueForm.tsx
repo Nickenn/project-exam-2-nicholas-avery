@@ -19,7 +19,7 @@ const schema = yup
     name: yup.string().required("Please enter Venue name"),
     description: yup
       .string()
-      .min(6, "Your password must be more than 6 characters.")
+      .min(10, "Your description must be more than 6 characters.")
       .required("Please enter a description"),
     price: yup.string().min(100).required("Please enter price"),
     maxGuests: yup
@@ -29,11 +29,11 @@ const schema = yup
     rating: yup.string().min(1),
     country: yup
       .string()
-      .min(6, "Your password must be more than 6 characters.")
+      .min(6, "Your country must be more than 6 characters.")
       .required("country is required."),
-    continent: yup
+    address: yup
       .string()
-      .min(6, "Your password must be more than 6 characters.")
+      .min(6, "Your address must be more than 6 characters.")
       .required("continent is required."),
   })
   .required();
@@ -90,13 +90,15 @@ export function CreateVenueForm() {
 
   const [serverErrors, setServerErrors] = useState("");
 
-  async function onSubmit() {
+  async function onSubmit(formData: FormDataProps) {
     try {
-      setServerErrors("");
-      //send data to API
-      const data = await createVenue(formData);
+      if (authToken) {
+        setServerErrors("");
+        //send data to API
+        const data = await createVenue(formData, authToken);
 
-      navigate(`/profiles/${data.name}`);
+        navigate(`/profiles/${data.name}`);
+      }
     } catch (error) {
       console.log(error);
 
@@ -149,6 +151,14 @@ export function CreateVenueForm() {
               />
             </Grid>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.description?.message}
+              </Typography>
               <TextField
                 type="text"
                 required
@@ -169,6 +179,14 @@ export function CreateVenueForm() {
               />
             </Grid>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.price?.message}
+              </Typography>
               <TextField
                 type="number"
                 required
@@ -192,6 +210,14 @@ export function CreateVenueForm() {
           </Grid>
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.rating?.message}
+              </Typography>
               <TextField
                 type="number"
                 required
@@ -235,6 +261,14 @@ export function CreateVenueForm() {
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.address?.message}
+              </Typography>
               <TextField
                 type="text"
                 required
@@ -262,6 +296,14 @@ export function CreateVenueForm() {
               />
             </Grid>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.country?.message}
+              </Typography>
               <TextField
                 type="text"
                 required
