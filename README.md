@@ -1,4 +1,8 @@
-# Semester Project 2
+# Holidaze
+
+## Project Exam 2 - Noroff
+
+![Screenshot](/public/Holidaze%20sceenshot.jpg)
 
 ## Description
 
