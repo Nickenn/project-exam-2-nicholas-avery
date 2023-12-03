@@ -15,15 +15,7 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 const schema = yup
   .object({
-    guests: yup.string().required("Please enter your name."),
-    email: yup
-      .string()
-      .email("Email must be a valid email.")
-      .required("Please enter your email."),
-    password: yup
-      .string()
-      .min(6, "Your password must be more than 6 characters.")
-      .required("Password is required."),
+    guests: yup.string().required("Please enter number of guests."),
   })
   .required();
 
