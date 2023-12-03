@@ -70,11 +70,16 @@ interface DateRangeProps {
 interface VenueProp {
   venue: VenueProps;
   selectedDateRange: DateRangeProps[];
+  onDateRangeChange: (newDateRange: DateRangeProps) => void;
 }
 
-function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
+function VenueBookingForm({
+  venue,
+  selectedDateRange,
+  onDateRangeChange,
+}: VenueProp) {
   const navigate = useNavigate();
-  const { authToken } = useAuth();
+  const { authToken, userName } = useAuth();
   const [dateRange, setDateRange] = useState({
     startDate: selectedDateRange[0].startDate,
     endDate: selectedDateRange[0].endDate,
@@ -96,6 +101,14 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
   });
 
   const [serverErrors, setServerErrors] = useState("");
+
+  const handleRangeChange = (range: any) => {
+    const selectedDateRange = range.selection;
+    onDateRangeChange(selectedDateRange);
+
+    setValue("dateFrom", selectedDateRange.startDate);
+    setValue("dateTo", selectedDateRange.endDate);
+  };
 
   async function onSubmit(formData: VenueProp) {
     try {
@@ -132,11 +145,6 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
         date === bookedDateRange.startDate ||
         date === bookedDateRange.endDate
     );
-  };
-  const handleSelect = (ranges: any) => {
-    setDateRange(ranges.selection);
-    setValue("dateFrom", ranges.selection.startDate);
-    setValue("dateTo", ranges.selection.endDate);
   };
 
   return (
@@ -182,7 +190,7 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
           <DateRange
             disabledDay={disabledDates}
             editableDateInputs={true}
-            onChange={handleSelect}
+            onChange={handleRangeChange}
             ranges={[dateRange]}
             moveRangeOnFirstSelection={false}
             minDate={new Date()}
@@ -219,13 +227,20 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
 
           <Grid container spacing={2}>
             <Typography variant="body2" gutterBottom width={600}>
-              {+differenceInDays(dateRange.endDate, dateRange.startDate)} night
-              X {formatCurrency(venue.price)}{" "}
+              {
+                +differenceInDays(
+                  selectedDateRange[0].endDate,
+                  selectedDateRange[0].startDate
+                )
+              }{" "}
+              pr night X {formatCurrency(venue.price)}{" "}
             </Typography>
             <Typography variant="body2" gutterBottom width={600}>
               {formatCurrency(
-                +differenceInDays(dateRange.endDate, dateRange.startDate) *
-                  venue.price
+                +differenceInDays(
+                  selectedDateRange[0].endDate,
+                  selectedDateRange[0].startDate
+                ) * venue.price
               )}
             </Typography>
           </Grid>
@@ -234,8 +249,12 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
               Your total:
             </Typography>
             <Typography variant="body2" gutterBottom width={600}>
+              {" "}
               {formatCurrency(
-                +differenceInDays(dateRange.endDate, dateRange.startDate) *
+                +differenceInDays(
+                  selectedDateRange[0].endDate,
+                  selectedDateRange[0].startDate
+                ) *
                   venue.price +
                   100 +
                   50

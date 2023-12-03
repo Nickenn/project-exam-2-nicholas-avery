@@ -15,6 +15,7 @@ import UpdateProfile from "./pages/profile/ProfileUpdate.tsx";
 import CreateVenuePage from "./pages/venues/CreateVenue.tsx";
 import UpdateVenuePage from "./pages/venues/UpdateVenues.tsx";
 import ProfileBookings from "./pages/profile/Bookings.tsx";
+import ProfileVenues from "./pages/profile/ProfileVenues.tsx";
 
 import AppLayout from "./AppLayout.tsx";
 import GlobalStyles from "./GlobalStyles.tsx";
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/booking",
+        path: "/bookings",
         element: <BookingForm />,
       },
       {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/profiles/:name/bookings",
         element: <ProfileBookings />,
+      },
+      {
+        path: "/profiles/:name/venues",
+        element: <ProfileVenues />,
       },
     ],
   },

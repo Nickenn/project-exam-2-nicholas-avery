@@ -1,13 +1,13 @@
 import image from "../../assets/logo-color.png";
 import styles from "./style.module.css";
 
-import { Grid, Link } from "@mui/material";
+import { Grid, Link, Typography, Img } from "@mui/material";
 
 function Footer() {
   return (
     <Grid
       display={"flex"}
-      justifyContent={"space-around"}
+      justifyContent={"center"}
       alignItems={"center"}
       bgcolor={"#e9b384"}
     >
@@ -25,31 +25,67 @@ function Footer() {
             </Link>
           </Grid>
           <Grid item display={"flex"} flexDirection={"column"}>
-            <p>Support</p>
-            <Link href="#">Help Center</Link>
-            <Link href="#">FAQ</Link>
-            <Link href="#">AirCover</Link>
-            <Link href="#">Disability support</Link>
-            <Link href="#">Cancellation options</Link>
+            <Typography component="h1" variant="h6" margin={1}>
+              Support
+            </Typography>
+            <Link href="#" color="inherit" margin={1}>
+              Help Center
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              FAQ
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              AirCover
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              Disability support
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              Cancellation options
+            </Link>
           </Grid>
           <Grid item display={"flex"} flexDirection={"column"}>
-            <p>Hosting</p>
-            <Link href="#">Hosting resources</Link>
-            <Link href="#">Community forum</Link>
-            <Link href="#">Hosting responsibly</Link>
+            <Typography component="h1" variant="h6" margin={1}>
+              Hosting
+            </Typography>
+            <Link href="#" color="inherit" margin={1}>
+              Hosting resources
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              Community forum
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              Hosting responsibly
+            </Link>
           </Grid>
 
           <Grid item display={"flex"} flexDirection={"column"}>
-            <p>Holidaze</p>
-            <a href="#">Newsroom</a>
-            <a href="#">New features</a>
-            <a href="#">Careers</a>
-            <a href="#">Investors</a>
-            <a href="#">Gift cards</a>
+            <Typography component="h1" variant="h6" margin={1}>
+              Holidaze
+            </Typography>
+            <Link href="#" color="inherit" margin={1}>
+              Newsroom
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              New features
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              Careers
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              Investors
+            </Link>
+            <Link href="#" color="inherit" margin={1}>
+              Gift cards
+            </Link>
           </Grid>
         </Grid>
-        <Grid item display={"flex"} flexDirection={"column"}>
-          <p>&copy; Holidaze, inc.</p>
+        <Grid container justifyContent={"center"}>
+          <Grid item display={"flex"} flexDirection={"column"}>
+            <Typography component="h1" variant="h6" margin={1}>
+              &copy; Holidaze, inc.
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

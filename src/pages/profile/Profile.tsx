@@ -180,13 +180,13 @@ function Profile() {
                 </Link>
               </Grid>
               <Grid item padding={2}>
-                <Link href={`/profiles/${userName}/createvenue`}>
-                  <Button variant="contained">Create venue</Button>
+                <Link href={`/profiles/${userName}/venues`}>
+                  <Button variant="contained">My venues</Button>
                 </Link>
               </Grid>
               <Grid item padding={2}>
-                <Link href={`/profiles/${userName}/bookings`}>
-                  <Button variant="contained">Edit venues</Button>
+                <Link href={"/venues/create"}>
+                  <Button variant="contained">Create venue</Button>
                 </Link>
               </Grid>
             </Grid>

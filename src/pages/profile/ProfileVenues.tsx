@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
+import { getVenues } from "../../services/venuesApi";
+import VenueItem from "../../features/venues/VenueItem";
+import { deleteVenue } from "../../services/venuesApi";
 
-import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 interface VenueItemProp {
   id: string;
@@ -47,26 +50,36 @@ function ProfileVenues() {
   const { userName, authToken } = useAuth();
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    const data = await getVenues(userName, authToken);
-    setVenues(data);
-    setLoading(false);
-  };
+  const [serverErrors, setServerErrors] = useState("");
 
-  const handleDeleteVenue = async (venueId: string) => {
-    await deleteVenue(venueId, authToken);
-    alert("Venue successfully deleted.");
+  async function fetchData() {
+    try {
+      const data = await getVenues(userName, authToken);
+      setVenues(data);
+      console.log(data);
+      setLoading(false);
+    } catch (error) {
+      let errorMessage = "Failed at getting venues.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setServerErrors(errorMessage);
+    }
+  }
+
+  const handleDeleteVenue = (venueId: string) => {
+    deleteVenue(venueId, authToken);
+    fetchData();
   };
 
   const handleUpdatedVenue = (venue: VenueItemProp) => {
     navigate(`/venues/update`, { state: venue });
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      fetchData();
-    }, 1000);
-  }, [venues]);
+  if (loading || !venues) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -83,17 +96,28 @@ function ProfileVenues() {
         <Typography component="h1" variant="h2">
           Listed venues
         </Typography>
-        <Box sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
+        {loading && <SkeletonVenuesPage />}
+        {venues && (
+          <Box>
             {venues?.length > 0 ? (
-              venues?.map((venue) => {
-
-              })
-
+              venues.map((venue) => (
+                <VenueItem
+                  key={venue.id}
+                  venue={venue}
+                  onDelete={() => handleDeleteVenue(venue.id)}
+                  onUpdate={() => handleUpdatedVenue(venue)}
+                />
+              ))
+            ) : (
+              <Typography component="h1" variant="h4">
+                You don't have any venues listed.
+              </Typography>
             )}
-          </Grid>
-        </Box>
+          </Box>
+        )}
       </Box>
     </>
   );
 }
+
+export default ProfileVenues;

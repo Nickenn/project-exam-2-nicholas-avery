@@ -21,12 +21,12 @@ function Header() {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <NavLink to="/booking">
+            <NavLink to={`/profiles/${userName}/bookings`}>
               <HomeIcon fontSize="small"></HomeIcon>BOOKING
             </NavLink>
           </li>
           <li>
-            <NavLink to="/venues/createvenuespage">
+            <NavLink to="/venues/create">
               <AddBusinessIcon></AddBusinessIcon>CREATE LISTING
             </NavLink>
           </li>

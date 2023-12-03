@@ -1,7 +1,7 @@
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
 import { NavLink } from "react-router-dom";
-import { Box, Button, Grid, Typography, Img } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 
 interface VenueItemProp {
   id: string;
@@ -59,7 +59,7 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
           alignItems: "center",
         }}
       >
-        <Img src={venue.media[0]} alt="Venue Image" />
+        <img src={venue.media[0]} alt="Venue Image" />
         <NavLink to={`/venues/${venue.id}`}>
           <Typography component="h1" variant="h2">
             {venue.name}

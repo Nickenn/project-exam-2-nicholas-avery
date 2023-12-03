@@ -118,239 +118,245 @@ export function CreateVenueForm() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 1050,
+          height: 1500,
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h3">
           Create new venue
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{ mt: 3 }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.name?.message}
-              </Typography>
-              <TextField
-                type="text"
-                required
-                fullWidth
-                id="name"
-                label="Title"
-                {...register("name")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.description?.message}
-              </Typography>
-              <TextField
-                type="text"
-                required
-                fullWidth
-                id="description"
-                label="Description"
-                {...register("description")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                fullWidth
-                id="media"
-                label="Image(url)"
-                {...register("media")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.price?.message}
-              </Typography>
-              <TextField
-                type="number"
-                required
-                fullWidth
-                id="price"
-                label="Price"
-                {...register("price")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                fullWidth
-                min={1}
-                id="maxGuests"
-                label="Maximum guests*"
-                {...register("price")}
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.rating?.message}
-              </Typography>
-              <TextField
-                type="number"
-                required
-                id="rating"
-                label="Rating"
-                {...register("rating")}
-              />
-            </Grid>
-          </Grid>
-          <Typography component="h1" variant="h2">
-            Services:
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                WiFi
-                <Checkbox required id="wifi" {...register("wifi")} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                Parking
-                <Checkbox required id="parking" {...register("parking")} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                Breakfast
-                <Checkbox required id="breakfast" {...register("breakfast")} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                Pets
-                <Checkbox required id="pets" {...register("pets")} />
-              </Typography>
-            </Grid>
-          </Grid>
-          <Typography component="h1" variant="h2">
-            Location:
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.address?.message}
-              </Typography>
-              <TextField
-                type="text"
-                required
-                id="address"
-                label="Address"
-                {...register("address")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                id="city"
-                label="City"
-                {...register("city")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                id="zip"
-                label="Zip code"
-                {...register("zip")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.country?.message}
-              </Typography>
-              <TextField
-                type="text"
-                required
-                id="country"
-                label="Country"
-                {...register("country")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                id="continent"
-                label="Continent"
-                {...register("continent")}
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                id="lat"
-                label="Lat"
-                {...register("lat")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                id="lat"
-                label="Lng"
-                {...register("lng")}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+        <Grid container spacing={2} display={"flex"} justifyContent={"center"}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            List venue
-          </Button>
-        </Box>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  width={600}
+                  color={"#d32f2f"}
+                >
+                  {errors.name?.message}
+                </Typography>
+                <TextField
+                  type="text"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Title"
+                  {...register("name")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  width={600}
+                  color={"#d32f2f"}
+                >
+                  {errors.description?.message}
+                </Typography>
+                <TextField
+                  type="text"
+                  required
+                  fullWidth
+                  id="description"
+                  label="Description"
+                  {...register("description")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type="text"
+                  required
+                  fullWidth
+                  id="media"
+                  label="Image(url)"
+                  {...register("media")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  width={600}
+                  color={"#d32f2f"}
+                >
+                  {errors.price?.message}
+                </Typography>
+                <TextField
+                  type="number"
+                  required
+                  fullWidth
+                  id="price"
+                  label="Price"
+                  {...register("price")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type="number"
+                  required
+                  fullWidth
+                  min={1}
+                  id="maxGuests"
+                  label="Maximum guests*"
+                  {...register("price")}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  width={600}
+                  color={"#d32f2f"}
+                >
+                  {errors.rating?.message}
+                </Typography>
+                <TextField
+                  type="number"
+                  required
+                  id="rating"
+                  label="Rating"
+                  {...register("rating")}
+                />
+              </Grid>
+            </Grid>
+            <Typography component="h1" variant="h4">
+              Services:
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="button" display="block" gutterBottom>
+                  WiFi
+                  <Checkbox required id="wifi" {...register("wifi")} />
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="button" display="block" gutterBottom>
+                  Parking
+                  <Checkbox required id="parking" {...register("parking")} />
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="button" display="block" gutterBottom>
+                  Breakfast
+                  <Checkbox
+                    required
+                    id="breakfast"
+                    {...register("breakfast")}
+                  />
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="button" display="block" gutterBottom>
+                  Pets
+                  <Checkbox required id="pets" {...register("pets")} />
+                </Typography>
+              </Grid>
+            </Grid>
+            <Typography component="h1" variant="h4">
+              Location:
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  width={600}
+                  color={"#d32f2f"}
+                >
+                  {errors.address?.message}
+                </Typography>
+                <TextField
+                  type="text"
+                  required
+                  id="address"
+                  label="Address"
+                  {...register("address")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type="text"
+                  required
+                  id="city"
+                  label="City"
+                  {...register("city")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type="text"
+                  required
+                  id="zip"
+                  label="Zip code"
+                  {...register("zip")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  width={600}
+                  color={"#d32f2f"}
+                >
+                  {errors.country?.message}
+                </Typography>
+                <TextField
+                  type="text"
+                  required
+                  id="country"
+                  label="Country"
+                  {...register("country")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type="number"
+                  required
+                  id="continent"
+                  label="Continent"
+                  {...register("continent")}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  type="number"
+                  required
+                  id="lat"
+                  label="Lat"
+                  {...register("lat")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type="number"
+                  required
+                  id="lat"
+                  label="Lng"
+                  {...register("lng")}
+                />
+              </Grid>
+            </Grid>
+            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+              List venue
+            </Button>
+          </Box>
+        </Grid>
       </Box>
     </>
   );
