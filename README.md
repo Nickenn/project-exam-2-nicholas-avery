@@ -70,4 +70,4 @@ git clone git@github.com:Nickenn/project-exam-2-nicholas-avery.git
 
 - <a href="https://www.linkedin.com/in/nicholas-avery-85415024a/" target="_blank">LinkedIn page</a>
 - <a href="https://github.com/nickenn" target="_blank">GitHub</a>
-- <a href="mailto:margrethe.developer@gmail.com">nickeavery@protonmail.com</a>
+- <p>nickeavery@protonmail.com</p>
