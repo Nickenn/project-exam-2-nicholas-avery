@@ -3,7 +3,6 @@ import image from "../../assets/venue-placeholder.svg";
 import styled from "styled-components";
 
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
 
 interface VenueProps {
   key: string;
@@ -49,7 +48,7 @@ interface VenueProps {
 
 const VenueImage = styled.img`
   width: 28rem;
-  height: 22rem;
+  height: 20rem;
   object-fit: cover;
   border-radius: 4px;
 `;
@@ -60,7 +59,6 @@ function Venue({
   description,
   media,
   price,
-  created,
   rating,
   location,
   maxGuests,

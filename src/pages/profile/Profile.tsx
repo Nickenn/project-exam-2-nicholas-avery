@@ -166,6 +166,11 @@ function Profile() {
                 </span>
               )}
             </Grid>
+            <Grid container justifyContent="center">
+              <Link href={`/profiles/${userName}/bookings`}>
+                <Button variant="contained">My bookings</Button>
+              </Link>
+            </Grid>
           </Grid>
         </Grid>
       </Box>

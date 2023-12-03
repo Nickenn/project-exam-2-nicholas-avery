@@ -14,6 +14,7 @@ import Profile from "./pages/profile/Profile.tsx";
 import UpdateProfile from "./pages/profile/ProfileUpdate.tsx";
 import CreateVenuePage from "./pages/venues/CreateVenue.tsx";
 import UpdateVenuePage from "./pages/venues/UpdateVenues.tsx";
+import ProfileBookings from "./pages/profile/Bookings.tsx";
 
 import AppLayout from "./AppLayout.tsx";
 import GlobalStyles from "./GlobalStyles.tsx";
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/profiles/:name/media",
         element: <UpdateProfile />,
+      },
+      {
+        path: "/profiles/:name/bookings",
+        element: <ProfileBookings />,
       },
     ],
   },

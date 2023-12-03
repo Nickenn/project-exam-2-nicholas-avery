@@ -87,3 +87,21 @@ export async function getProfileVenues(
 
   return data;
 }
+
+export async function getBookings(name: string | null, token: string | null) {
+  const options = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  const res = await fetch(
+    `${BASE_API_URL}/profiles/${name}/bookings?_customer=true&_venue=true`,
+    options
+  );
+
+  if (!res.ok) throw Error("Failed getting bookings.");
+
+  const data = await res.json();
+
+  return data;
+}

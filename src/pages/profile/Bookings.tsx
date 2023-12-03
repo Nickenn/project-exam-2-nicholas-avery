@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import { getBookings } from "../../services/apiProfile";
+import { getBookings } from "../../services/profileApi";
 import BookingItem from "../../features/booking/BookingItem";
 
 import { Box, Button, Grid, Typography } from "@mui/material";
@@ -70,27 +70,37 @@ function ProfileBookings() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h4">
-          Bookings
-        </Typography>
+        <Grid container>
+          <Grid item>
+            <Typography component="h1" variant="h4">
+              My bookings
+            </Typography>
+          </Grid>
+        </Grid>
         {bookings && (
           <Grid container>
-            {bookings?.length > 0 ? (
-              bookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
-              ))
-            ) : (
-              <p>You don't have any bookings.</p>
-            )}
+            <Grid item>
+              {bookings?.length > 0 ? (
+                bookings.map((booking) => (
+                  <BookingItem key={booking.id} booking={booking} />
+                ))
+              ) : (
+                <p>You don't have any bookings.</p>
+              )}
+            </Grid>
+            <Grid container>
+              <Grid item>
+                <Typography variant="body2" gutterBottom width={600}>
+                  Click{" "}
+                  <NavLink to="/">
+                    <Button variant="contained">here</Button>
+                  </NavLink>{" "}
+                  for help
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
         )}
-        <Typography variant="body2" gutterBottom width={600}>
-          Click{" "}
-          <NavLink to="#">
-            <Button variant="contained">here</Button>
-          </NavLink>{" "}
-          for help
-        </Typography>
       </Box>
     </>
   );

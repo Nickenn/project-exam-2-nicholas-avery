@@ -138,14 +138,14 @@ export async function deleteVenue(id: string, token: string | null) {
 }
 
 export async function getSingleVenue(id: string | undefined) {
-  const result = await fetch(
+  const res = await fetch(
     `${BASE_API_URL}/venues/${id}?_owner=true&_bookings=true`
   );
 
-  console.log(result);
-  if (!result.ok) throw Error("Failed attempt at getting single venue.");
+  console.log(res);
+  if (!res.ok) throw Error("Failed attempt at getting single venue.");
 
-  const data = await result.json();
+  const data = await res.json();
 
   return data;
 }
