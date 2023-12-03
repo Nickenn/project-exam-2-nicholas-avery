@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { loginUser } from "../../services/authApi";
 import { useAuth } from "../../context/authContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 
 const schema = yup

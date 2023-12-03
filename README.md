@@ -16,6 +16,7 @@ The API used for this project can be found under Holidaze in the <a href="https:
 
 ### Links
 
+- <a href="https://xd.adobe.com/view/9939117a-b1d5-46a1-8351-10726fc679c7-cc6a/">Style guide</a>
 - <a href="https://nickenn.github.io/project-exam-2-nicholas-avery/" target="_blank">Holidaze website</a>
 - <a href="https://github.com/users/Nickenn/projects/9" target="_blank">Gantt Chart</a>
 - <a href="https://github.com/users/Nickenn/projects/11" target="_blank">Kanban Board</a>

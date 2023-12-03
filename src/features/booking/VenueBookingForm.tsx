@@ -198,6 +198,14 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
 
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <Typography
+                variant="body2"
+                gutterBottom
+                width={600}
+                color={"#d32f2f"}
+              >
+                {errors.guests?.message}
+              </Typography>
               <TextField
                 required
                 fullWidth
@@ -216,6 +224,32 @@ function VenueBookingForm({ venue, selectedDateRange }: VenueProp) {
           >
             Book venue
           </Button>
+
+          <Grid container spacing={2}>
+            <Typography variant="body2" gutterBottom width={600}>
+              {+differenceInDays(dateRange.endDate, dateRange.startDate)} night
+              X {formatCurrency(venue.price)}{" "}
+            </Typography>
+            <Typography variant="body2" gutterBottom width={600}>
+              {formatCurrency(
+                +differenceInDays(dateRange.endDate, dateRange.startDate) *
+                  venue.price
+              )}
+            </Typography>
+          </Grid>
+          <Grid container spacing={2}>
+            <Typography component="h1" variant="h3">
+              Your total:
+            </Typography>
+            <Typography variant="body2" gutterBottom width={600}>
+              {formatCurrency(
+                +differenceInDays(dateRange.endDate, dateRange.startDate) *
+                  venue.price +
+                  100 +
+                  50
+              )}
+            </Typography>
+          </Grid>
         </Box>
       </Box>
     </>

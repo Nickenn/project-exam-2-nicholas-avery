@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,7 +8,6 @@ import {
   Box,
   Button,
   Grid,
-  Link,
   TextField,
   Typography,
   Checkbox,
