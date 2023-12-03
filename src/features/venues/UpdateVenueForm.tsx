@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { updateVenue } from "../../services/venuesApi";
 import {
@@ -12,6 +14,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
+const schema = yup.object({}).required();
 
 interface FormDataProps {
   name: string;
@@ -36,10 +40,15 @@ interface FormDataProps {
 
 function UpdateVenueForm() {
   const navigate = useNavigate();
-  const { userName } = useAuth();
   const { state: venue } = useLocation();
-  const { authToken } = useAuth();
-  const form = useForm<FormDataProps>({
+  const { authToken, userName } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataProps>({
+    resolver: yupResolver(schema),
     defaultValues: {
       name: venue.name ?? "",
       description: venue.description ?? "",
@@ -61,22 +70,33 @@ function UpdateVenueForm() {
       id: venue.id,
     },
   });
-  console.log("Venue", venue);
-  console.log("Form", form);
-  const { register, handleSubmit, formState } = form;
-  const { errors } = formState;
+
   const [serverErrors, setServerErrors] = useState("");
 
-  const onSubmit = async (formData: FormDataProps) => {
-    const data = await updateVenue(formData, venue.id, authToken);
-    //handling server errors
-    if (data.errors) {
-      setServerErrors(data.errors[0].message);
-    } else {
-      setServerErrors("");
-      navigate(`/profiles/${userName}/venues`);
+  async function onSubmit(formData: FormDataProps) {
+    try {
+      if (authToken) {
+        setServerErrors("");
+        //send data to API
+        const data = await updateVenue(formData, venue.id, authToken);
+
+        navigate(`/profiles/${data.name}`);
+      }
+    } catch (error) {
+      console.log(error);
+
+      let errorMessage = "Venue update failed.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setServerErrors(errorMessage);
     }
-  };
+  }
+
+  if (loading || !profile) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -262,6 +282,14 @@ function UpdateVenueForm() {
               />
             </Grid>
           </Grid>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+          >
+            {serverErrors}
+          </Typography>
           <Button
             type="submit"
             fullWidth

@@ -55,8 +55,8 @@ function ProfileVenues() {
   async function fetchData() {
     try {
       const data = await getVenues(userName, authToken);
+
       setVenues(data);
-      console.log(data);
       setLoading(false);
     } catch (error) {
       let errorMessage = "Failed at getting venues.";
@@ -81,6 +81,10 @@ function ProfileVenues() {
     return <div>Loading...</div>;
   }
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       {" "}
@@ -96,25 +100,22 @@ function ProfileVenues() {
         <Typography component="h1" variant="h2">
           Listed venues
         </Typography>
-        {loading && <SkeletonVenuesPage />}
-        {venues && (
-          <Box>
-            {venues?.length > 0 ? (
-              venues.map((venue) => (
-                <VenueItem
-                  key={venue.id}
-                  venue={venue}
-                  onDelete={() => handleDeleteVenue(venue.id)}
-                  onUpdate={() => handleUpdatedVenue(venue)}
-                />
-              ))
-            ) : (
-              <Typography component="h1" variant="h4">
-                You don't have any venues listed.
-              </Typography>
-            )}
-          </Box>
-        )}
+        <Box>
+          {venues?.length > 0 ? (
+            venues.map((venue) => (
+              <VenueItem
+                key={venue.id}
+                venue={venue}
+                onDelete={() => handleDeleteVenue(venue.id)}
+                onUpdate={() => handleUpdatedVenue(venue)}
+              />
+            ))
+          ) : (
+            <Typography component="h1" variant="h4">
+              You don't have any venues listed.
+            </Typography>
+          )}
+        </Box>
       </Box>
     </>
   );

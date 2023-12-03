@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import image from "../../assets/venue-placeholder.svg";
 
 import { useAuth } from "../../context/authContext";
 import { getProfile, updateProfile } from "../../services/profileApi";
 
 import { Box, Button, Grid, Link, Typography } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import CreateVenueForm from "../../features/venues/CreateVenueForm";
 
 interface ProfileProps {
   avatar: string;
@@ -182,6 +180,11 @@ function Profile() {
               <Grid item padding={2}>
                 <Link href={`/profiles/${userName}/venues`}>
                   <Button variant="contained">My venues</Button>
+                </Link>
+              </Grid>
+              <Grid item padding={2}>
+                <Link href={"/venues/update"}>
+                  <Button variant="contained">Update venue</Button>
                 </Link>
               </Grid>
               <Grid item padding={2}>

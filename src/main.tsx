@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         element: <Venue />,
       },
       {
-        path: "/venues/update/",
+        path: "/venues/update",
         element: <UpdateVenuePage />,
       },
       {
