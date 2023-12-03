@@ -142,7 +142,6 @@ export async function getVenue(id: string | undefined) {
     `${BASE_API_URL}/venues/${id}?_owner=true&_bookings=true`
   );
 
-  console.log(res);
   if (!res.ok) throw Error("Failed attempt at getting single venue.");
 
   const data = await res.json();

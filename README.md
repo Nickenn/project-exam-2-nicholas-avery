@@ -16,6 +16,7 @@ The API used for this project can be found under Holidaze in the <a href="https:
 
 ### Links
 
+- <a href="https://github.com/users/Nickenn/projects/11" target="_blank">Hosted demo</a>
 - <a href="https://xd.adobe.com/view/9939117a-b1d5-46a1-8351-10726fc679c7-cc6a/">Style guide</a>
 - <a href="https://nickenn.github.io/project-exam-2-nicholas-avery/" target="_blank">Holidaze website</a>
 - <a href="https://github.com/users/Nickenn/projects/9" target="_blank">Gantt Chart</a>
@@ -49,25 +50,47 @@ The company CTO has set the following technical restrictions:
 - Must use an approved Design Application
 - Must use an approved Planning Application
 
-## Built with
+## Technologys used:
 
-- React
-- Vite
-- Typescript
+1. JavaScript Framework: React
+2. CSS Framework: Styled Components
+3. Bundler: Vite
+4. Routing: React Router DOM
+5. State managnemt: React Context API
+6. Form valiadtion: React Hook Form
+7. React Date range
+8. Icons: MUI Icons
+9. Messages: yup
+10. Hosting Service: Netlify
+11. Design Applications: Adobe XD
+12. Planning Application: Github Projects
 
-## Getting started
+## Getting Started
 
 ### Installing
 
 1. Clone the repo:
 
+```bash
+https://github.com/Nickenn/project-exam-2-nicholas-avery.git
 ```
-git clone git@github.com:Nickenn/project-exam-2-nicholas-avery.git
 
+2. Install the dependencies:
+
+```
+npm install
+```
+
+### Running
+
+1. To run the app, run the following commands:
+
+```
+npm run dev
 ```
 
 ## Contact
 
 - <a href="https://www.linkedin.com/in/nicholas-avery-85415024a/" target="_blank">LinkedIn page</a>
-- <a href="https://github.com/nickenn" target="_blank">GitHub</a>
+- <a href="https://github.com/Nickenn" target="_blank">GitHub</a>
 - <p>nickeavery@protonmail.com</p>
