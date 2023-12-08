@@ -5,6 +5,7 @@ import { getVenue } from "../../services/venuesApi.tsx";
 import styled from "styled-components";
 import image from "../../assets/venue-placeholder.svg";
 
+import { addDays } from "date-fns";
 import BookingForm from "../../features/booking/VenueBookingForm.tsx";
 import DateRangeComp from "../../ui/Calendar/DateRangeComp.tsx";
 import PetsIcon from "@mui/icons-material/Pets";
@@ -55,6 +56,14 @@ interface VenueProps {
   ];
 }
 
+interface DateRangeProps {
+  startDate: Date;
+  endDate: Date;
+  key: string;
+}
+
+interface CustomDateRange extends DateRangeProps {}
+
 const StyledGallery = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -85,6 +94,13 @@ function Venue() {
   const [venue, setVenue] = useState<VenueProps>();
   const [loading, setIsLoading] = useState(true);
   const { id } = useParams();
+  const [selectedDateRange, setSelectedDateRange] = useState<DateRangeProps[]>([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 1),
+      key: "selection",
+    },
+  ]);
 
   const fetchData = async () => {
     const data = await getVenue(id);
@@ -95,6 +111,11 @@ function Venue() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDateRangeChange = (newDateRange: CustomDateRange) => {
+    setSelectedDateRange([newDateRange]);
+    console.log("Selected Date Range:", newDateRange);
+  };
 
   if (loading || !venue) {
     return <div>Loading...</div>;
