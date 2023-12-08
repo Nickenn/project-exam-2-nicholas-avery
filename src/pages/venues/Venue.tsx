@@ -5,12 +5,13 @@ import { getVenue } from "../../services/venuesApi.tsx";
 import styled from "styled-components";
 import image from "../../assets/venue-placeholder.svg";
 
+import BookingForm from "../../features/booking/VenueBookingForm.tsx";
 import DateRangeComp from "../../ui/Calendar/DateRangeComp.tsx";
 import PetsIcon from "@mui/icons-material/Pets";
 import WifiIcon from "@mui/icons-material/Wifi";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 
 interface VenueProps {
   key: string;
@@ -212,7 +213,11 @@ function Venue() {
                 <DateRangeComp />
               </Grid>
             </Grid>
-            <Button variant="contained">BOOK VENUE</Button>
+            <BookingForm
+              venue={venue}
+              selectedDateRange={selectedDateRange}
+              onDateRangeChange={handleDateRangeChange}
+            />
           </Grid>
         )}
       </Box>

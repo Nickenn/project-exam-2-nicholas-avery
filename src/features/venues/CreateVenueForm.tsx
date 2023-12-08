@@ -3,14 +3,7 @@ import { useForm } from "react-hook-form";
 import { createVenue } from "../../services/venuesApi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import {
-  Button,
-  Checkbox,
-  Grid,
-  TextField,
-  Typography,
-  Modal,
-} from "@mui/material";
+import { Button, Checkbox, Grid, TextField, Typography } from "@mui/material";
 
 interface FormDataProps {
   name: string;

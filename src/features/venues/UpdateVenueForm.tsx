@@ -4,14 +4,7 @@ import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
 
 import { updateVenue } from "../../services/venuesApi";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Checkbox, Grid, TextField, Typography } from "@mui/material";
 
 interface FormDataProps {
   name: string;
