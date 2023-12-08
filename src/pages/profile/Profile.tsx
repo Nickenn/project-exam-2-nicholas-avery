@@ -125,8 +125,14 @@ function Profile() {
               Feedback:
             </Typography>
           </Grid>
-          <Grid container justifyContent="center" gap={6}>
-            <Grid item border={1} padding={3} borderRadius={2}>
+          <Grid
+            container
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent="center"
+            gap={3}
+          >
+            <Grid item border={1} padding={2} borderRadius={2}>
               <Typography variant="body2" gutterBottom width={600}>
                 "Sed vel nulla ut nisl viverra accumsan in sit amet est. Ut
                 rutrum quam eu blandit viverra. Donec mattis magna non purus

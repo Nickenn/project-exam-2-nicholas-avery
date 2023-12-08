@@ -2,11 +2,7 @@ import { getAllVenues } from "../services/venuesApi";
 import { useState, useEffect } from "react";
 import Search from "../ui/Search";
 
-import { useSearch } from "../context/searchContext";
 import VenuesList from "../features/venues/VenueList";
-import { PAGE_LIMIT } from "../utils/constants.js";
-
-import { Typography, Box } from "@mui/material";
 
 interface VenueProps {
   key: string;
@@ -53,28 +49,11 @@ interface VenueProps {
 function Home() {
   const [venues, setVenues] = useState<VenueProps[]>([]);
   const [searchField, setSearchField] = useState("");
-  const [pageOffset, setPageOffset] = useState(0);
   const [loading, setIsloading] = useState(true);
-  const { searchValue } = useSearch();
-
-  const filteredVenues = venues.filter((venue) => {
-    const cityMatch = venue.location.city
-      .toLowerCase()
-      .includes(searchValue.destination.toLowerCase());
-    const countryMatch = venue.location.country
-      .toLowerCase()
-      .includes(searchValue.destination.toLowerCase());
-    const addressMatch = venue.location.address.includes(
-      searchValue.destination.toLowerCase()
-    );
-    const guestLimit = venue.maxGuests >= searchValue.guests.adult;
-
-    return (cityMatch || countryMatch || addressMatch) && guestLimit;
-  });
 
   const fetchData = async () => {
     setIsloading(true);
-    const data = await getAllVenues(PAGE_LIMIT, pageOffset);
+    const data = await getAllVenues();
     setVenues(Array.prototype.concat(venues, data));
     setIsloading(false);
   };
@@ -83,7 +62,11 @@ function Home() {
     setTimeout(() => {
       fetchData();
     }, 1000);
-  }, [pageOffset]);
+  }, []);
+
+  if (loading || !venues) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main>

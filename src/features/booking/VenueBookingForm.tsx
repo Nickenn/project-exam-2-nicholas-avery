@@ -70,7 +70,7 @@ function BookingForm({
   onDateRangeChange,
 }: VenueProp) {
   const navigate = useNavigate();
-  const { authToken, userName } = useAuth();
+  const { authToken } = useAuth();
   const form = useForm({
     defaultValues: {
       dateFrom: selectedDateRange[0].startDate,

@@ -62,8 +62,7 @@ function UpdateVenueForm() {
     },
   });
 
-  const { register, handleSubmit, formState } = form;
-  const { errors } = formState;
+  const { register, handleSubmit } = form;
   const [serverErrors, setServerErrors] = useState("");
 
   async function onSubmit(formData: FormDataProps) {
@@ -93,205 +92,147 @@ function UpdateVenueForm() {
   return (
     <>
       {" "}
-      <Box
+      <Grid
+        component={"form"}
+        onSubmit={handleSubmit(onSubmit)}
+        container
+        gap={4}
+        marginBottom={6}
         sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 1050,
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h4">
           Update venue
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{ mt: 3 }}
+        <TextField
+          type="text"
+          required
+          id="name"
+          label="Title"
+          {...register("name")}
+        />
+        <TextField
+          type="text"
+          required
+          id="description"
+          label="Description"
+          {...register("description")}
+        />
+        <TextField
+          type="text"
+          required
+          id="media"
+          label="Image(url)"
+          {...register("media")}
+        />
+        <TextField
+          type="number"
+          required
+          id="price"
+          label="Price"
+          {...register("price")}
+        />
+        <TextField
+          type="number"
+          required
+          min={1}
+          id="maxGuests"
+          label="Maximum guests*"
+          {...register("price")}
+        />
+        <TextField
+          type="number"
+          required
+          id="rating"
+          label="Rating"
+          {...register("rating")}
+        />
+        <Typography component="h1" variant="h5">
+          Services:
+        </Typography>
+        <Typography variant="button" display="block" gutterBottom>
+          WiFi
+          <Checkbox required id="wifi" {...register("wifi")} />
+        </Typography>
+        <Typography variant="button" display="block" gutterBottom>
+          Parking
+          <Checkbox required id="parking" {...register("parking")} />
+        </Typography>
+        <Typography variant="button" display="block" gutterBottom>
+          Breakfast
+          <Checkbox required id="breakfast" {...register("breakfast")} />
+        </Typography>
+        <Typography variant="button" display="block" gutterBottom>
+          Pets
+          <Checkbox required id="pets" {...register("pets")} />
+        </Typography>
+        <Typography component="h1" variant="h5">
+          Location:
+        </Typography>
+        <TextField
+          type="text"
+          required
+          id="address"
+          label="Address"
+          {...register("address")}
+        />
+        <TextField
+          type="text"
+          required
+          id="city"
+          label="City"
+          {...register("city")}
+        />
+        <TextField
+          type="text"
+          required
+          id="zip"
+          label="Zip code"
+          {...register("zip")}
+        />
+        <TextField
+          type="text"
+          required
+          id="country"
+          label="Country"
+          {...register("country")}
+        />
+        <TextField
+          type="number"
+          required
+          id="continent"
+          label="Continent"
+          {...register("continent")}
+        />
+        <TextField
+          type="number"
+          required
+          id="lat"
+          label="Lat"
+          {...register("lat")}
+        />
+        <TextField
+          type="number"
+          required
+          id="lat"
+          label="Lng"
+          {...register("lng")}
+        />
+        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+          {serverErrors}
+        </Typography>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                fullWidth
-                id="name"
-                label="Title"
-                {...register("name")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                fullWidth
-                id="description"
-                label="Description"
-                {...register("description")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                fullWidth
-                id="media"
-                label="Image(url)"
-                {...register("media")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                fullWidth
-                id="price"
-                label="Price"
-                {...register("price")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                fullWidth
-                min={1}
-                id="maxGuests"
-                label="Maximum guests*"
-                {...register("price")}
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                id="rating"
-                label="Rating"
-                {...register("rating")}
-              />
-            </Grid>
-          </Grid>
-          <Typography component="h1" variant="h2">
-            Services:
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                WiFi
-                <Checkbox required id="wifi" {...register("wifi")} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                Parking
-                <Checkbox required id="parking" {...register("parking")} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                Breakfast
-                <Checkbox required id="breakfast" {...register("breakfast")} />
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                Pets
-                <Checkbox required id="pets" {...register("pets")} />
-              </Typography>
-            </Grid>
-          </Grid>
-          <Typography component="h1" variant="h2">
-            Location:
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                id="address"
-                label="Address"
-                {...register("address")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                id="city"
-                label="City"
-                {...register("city")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                id="zip"
-                label="Zip code"
-                {...register("zip")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="text"
-                required
-                id="country"
-                label="Country"
-                {...register("country")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                id="continent"
-                label="Continent"
-                {...register("continent")}
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                id="lat"
-                label="Lat"
-                {...register("lat")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                type="number"
-                required
-                id="lat"
-                label="Lng"
-                {...register("lng")}
-              />
-            </Grid>
-          </Grid>
-          <Typography
-            variant="body2"
-            gutterBottom
-            width={600}
-            color={"#d32f2f"}
-          >
-            {serverErrors}
-          </Typography>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
-          >
-            Update venue
-          </Button>
-        </Box>
-      </Box>
+          Update venue
+        </Button>
+      </Grid>
     </>
   );
 }

@@ -4,14 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-  Box,
-  Button,
-  Grid,
-  TextField,
-  Typography,
-  Checkbox,
-} from "@mui/material";
+import { Box, Button, TextField, Typography, Checkbox } from "@mui/material";
 
 const schema = yup
   .object({

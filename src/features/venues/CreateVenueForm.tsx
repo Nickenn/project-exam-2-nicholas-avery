@@ -3,7 +3,14 @@ import { useForm } from "react-hook-form";
 import { createVenue } from "../../services/venuesApi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import { Button, Checkbox, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Grid,
+  TextField,
+  Typography,
+  Modal,
+} from "@mui/material";
 
 interface FormDataProps {
   name: string;
@@ -82,7 +89,7 @@ export function CreateVenueForm() {
         component={"form"}
         onSubmit={handleSubmit(onSubmit)}
         container
-        gap={2}
+        gap={4}
         marginBottom={6}
         sx={{
           marginTop: 8,

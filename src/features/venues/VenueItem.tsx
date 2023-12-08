@@ -52,12 +52,14 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
     <>
       {" "}
       <Box
+        display={"flex"}
+        flexDirection={"row"}
+        alignItems={"flex-start"}
+        justifyContent={"center"}
+        gap={3}
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
           height: 1050,
-          alignItems: "center",
         }}
       >
         <img src={venue.media[0]} alt="Venue Image" />
@@ -79,7 +81,7 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
             {venue.bookings.length > 0
               ? venue.bookings.map((booking) => (
                   <p key={booking.id}>
-                    Booked: {formatDate(booking.dateFrom)} -{" "}
+                    Booking: {formatDate(booking.dateFrom)} -{" "}
                     {formatDate(booking.dateTo)}
                   </p>
                 ))
@@ -90,7 +92,7 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
           <Grid item>
             <Button
               onClick={() => onUpdate()}
-              fullWidth
+              size="small"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
@@ -100,7 +102,7 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
           <Grid item>
             <Button
               onClick={() => onDelete()}
-              fullWidth
+              size="small"
               startIcon={<DeleteIcon />}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

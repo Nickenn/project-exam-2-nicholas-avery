@@ -57,6 +57,8 @@ function ProfileVenues() {
 
       setVenues(data);
       setLoading(false);
+      console.log(venues);
+      console.log(data);
     } catch (error) {
       let errorMessage = "Failed at getting venues.";
 
@@ -66,6 +68,10 @@ function ProfileVenues() {
       setServerErrors(errorMessage);
     }
   }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleDeleteVenue = (venueId: string) => {
     deleteVenue(venueId, authToken);
@@ -80,9 +86,6 @@ function ProfileVenues() {
     return <div>Loading...</div>;
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
   return (
     <>
       {" "}
@@ -98,10 +101,15 @@ function ProfileVenues() {
         <Typography component="h1" variant="h2">
           {serverErrors}
         </Typography>
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h5">
           Listed venues
         </Typography>
-        <Grid>
+        <Grid
+          container
+          display={"flex"}
+          flexDirection={"row"}
+          justifyContent={"center"}
+        >
           {venues?.length > 0 ? (
             venues.map((venue) => (
               <VenueItem
