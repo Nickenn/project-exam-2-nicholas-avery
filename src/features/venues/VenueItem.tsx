@@ -1,6 +1,7 @@
+import { NavLink } from "react-router-dom";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
-import { NavLink } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Button, Grid, Typography } from "@mui/material";
 
 interface VenueItemProp {
@@ -61,14 +62,14 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
       >
         <img src={venue.media[0]} alt="Venue Image" />
         <NavLink to={`/venues/${venue.id}`}>
-          <Typography component="h1" variant="h2">
+          <Typography component="h1" variant="h5">
             {venue.name}
           </Typography>
           <p>Price: {formatCurrency(venue.price)}</p>
         </NavLink>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography component="h1" variant="h2">
+          <Grid item>
+            <Typography component="h1" variant="h5">
               Bookings
             </Typography>
           </Grid>
@@ -86,7 +87,7 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid item>
             <Button
               onClick={() => onUpdate()}
               fullWidth
@@ -96,10 +97,11 @@ function VenueItem({ venue, onDelete, onUpdate }: VenueItemProps) {
               Edit venue
             </Button>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item>
             <Button
               onClick={() => onDelete()}
               fullWidth
+              startIcon={<DeleteIcon />}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >

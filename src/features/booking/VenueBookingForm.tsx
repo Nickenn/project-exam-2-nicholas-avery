@@ -3,19 +3,12 @@ import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
 import { createBooking } from "../../services/bookingApi";
 import { format, differenceInDays } from "date-fns";
-import * as yup from "yup";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 import { useNavigate } from "react-router-dom";
 import { DateRange } from "react-date-range";
 
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-
-const schema = yup
-  .object({
-    guests: yup.string().required("Please enter number of guests."),
-  })
-  .required();
 
 interface VenueProps {
   key: string;
@@ -71,63 +64,25 @@ interface VenueProp {
   onDateRangeChange: (newDateRange: DateRangeProps) => void;
 }
 
-function VenueBookingForm({
+function BookingForm({
   venue,
   selectedDateRange,
   onDateRangeChange,
 }: VenueProp) {
   const navigate = useNavigate();
-  const { authToken } = useAuth();
-  const [dateRange] = useState({
-    startDate: selectedDateRange[0].startDate,
-    endDate: selectedDateRange[0].endDate,
-    key: "selection",
-  });
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({
+  const { authToken, userName } = useAuth();
+  const form = useForm({
     defaultValues: {
-      dateFrom: dateRange.startDate,
-      dateTo: dateRange.endDate,
+      dateFrom: selectedDateRange[0].startDate,
+      dateTo: selectedDateRange[0].endDate,
       guests: 0,
       venueId: venue.id,
     },
   });
 
+  const { register, handleSubmit, formState, setValue } = form;
+  const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
-
-  const handleRangeChange = (range: any) => {
-    const selectedDateRange = range.selection;
-    onDateRangeChange(selectedDateRange);
-
-    setValue("dateFrom", selectedDateRange.startDate);
-    setValue("dateTo", selectedDateRange.endDate);
-  };
-
-  async function onSubmit(formData: VenueProp) {
-    try {
-      if (authToken) {
-        setServerErrors("");
-        //send data to API
-        const data = await createBooking(formData, authToken);
-
-        navigate(`/profiles/${data.name}`);
-      } else {
-        navigate(`/auth/login`);
-      }
-    } catch (error) {
-      let errorMessage = "Booking failed";
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      setServerErrors(errorMessage);
-    }
-  }
 
   const bookedDateRanges = venue.bookings.map((booking) => ({
     startDate: new Date(booking.dateFrom),
@@ -144,6 +99,35 @@ function VenueBookingForm({
         date === bookedDateRange.endDate
     );
   };
+
+  const handleRangeChange = (range: any) => {
+    const selectedDateRange = range.selection;
+    onDateRangeChange(selectedDateRange);
+
+    setValue("dateFrom", selectedDateRange.startDate);
+    setValue("dateTo", selectedDateRange.endDate);
+  };
+
+  async function onSubmit(formData: any) {
+    try {
+      if (authToken) {
+        setServerErrors("");
+        //send data to API
+        const data = await createBooking(formData, authToken);
+
+        console.log(data);
+      } else {
+        navigate(`/auth/login`);
+      }
+    } catch (error) {
+      let errorMessage = "Please log in to book a venue.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setServerErrors(errorMessage);
+    }
+  }
 
   return (
     <>
@@ -163,6 +147,9 @@ function VenueBookingForm({
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3 }}
         >
+          <Typography component="h1" variant="h2">
+            {serverErrors}
+          </Typography>
           <Typography component="h1" variant="h3">
             Venue Booking
           </Typography>
@@ -172,7 +159,7 @@ function VenueBookingForm({
                 Ckeck-in
               </Typography>
               <Typography component="h1" variant="h3">
-                {format(dateRange.startDate, "dd. MM. yyyy")}
+                {format(selectedDateRange[0].startDate, "dd. MM. yyyy")}
               </Typography>
             </Grid>
             <Grid item>
@@ -180,18 +167,19 @@ function VenueBookingForm({
                 Ckeck-out
               </Typography>
               <Typography component="h1" variant="h3">
-                {format(dateRange.endDate, "dd. MM. yyyy")}
+                {format(selectedDateRange[0].endDate, "dd. MM. yyyy")}
               </Typography>
             </Grid>
           </Grid>
 
           <DateRange
-            disabledDay={disabledDates}
             editableDateInputs={true}
-            onChange={handleRangeChange}
-            ranges={[dateRange]}
             moveRangeOnFirstSelection={false}
-            minDate={new Date()}
+            onChange={handleRangeChange}
+            disabledDay={disabledDates}
+            ranges={selectedDateRange}
+            preventSnapRefocus={false}
+            calendarFocus="backwards"
           />
 
           <Grid container spacing={2}>
@@ -218,7 +206,7 @@ function VenueBookingForm({
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
           >
             Book venue
           </Button>
@@ -265,4 +253,4 @@ function VenueBookingForm({
   );
 }
 
-export default VenueBookingForm;
+export default BookingForm;

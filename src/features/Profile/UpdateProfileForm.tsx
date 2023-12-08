@@ -6,6 +6,7 @@ import { updateAvatar } from "../../services/profileApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Typography, Box, Grid, TextField, Button } from "@mui/material";
 
 const schema = yup
@@ -66,6 +67,9 @@ function UpdateProfileForm() {
         }}
       >
         <Typography component="h1" variant="h4">
+          {serverErrors}
+        </Typography>
+        <Typography component="h1" variant="h4">
           Update your avatar
         </Typography>
         <Box
@@ -98,7 +102,8 @@ function UpdateProfileForm() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            startIcon={<CloudUploadIcon />}
+            sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
           >
             update avatar
           </Button>

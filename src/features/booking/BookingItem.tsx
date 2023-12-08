@@ -43,7 +43,7 @@ function BookingItem({ booking }: BookingItemProps) {
 
   return (
     <>
-      <Box
+      <Grid
         key={booking.id}
         sx={{
           marginTop: 8,
@@ -51,7 +51,6 @@ function BookingItem({ booking }: BookingItemProps) {
           flexDirection: "column",
           height: 1050,
           alignItems: "center",
-          margin: 20,
         }}
       >
         <Grid container justifyContent="center">
@@ -62,7 +61,7 @@ function BookingItem({ booking }: BookingItemProps) {
           </Typography>
           <Grid item></Grid>
         </Grid>
-      </Box>
+      </Grid>
     </>
   );
 }

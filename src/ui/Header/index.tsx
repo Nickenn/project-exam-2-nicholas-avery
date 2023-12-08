@@ -3,12 +3,10 @@ import { useAuth } from "../../context/authContext";
 
 import image from "../../assets/logo-no-background.png";
 import styles from "./style.module.css";
-import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import CreateIcon from "@mui/icons-material/Create";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 
 function Header() {
   const { logout, userName } = useAuth();
@@ -21,33 +19,48 @@ function Header() {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <NavLink to={`/profiles/${userName}/bookings`}>
-              <HomeIcon fontSize="small"></HomeIcon>BOOKING
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/venues/create">
-              <AddBusinessIcon></AddBusinessIcon>CREATE LISTING
+            <NavLink to={"/venues/create"}>
+              <AccountCircleIcon
+                fontSize="small"
+                style={{ color: "white" }}
+              ></AccountCircleIcon>
+              CREATE VENUE
             </NavLink>
           </li>
           <li>
             <NavLink to={`/profiles/${userName}`}>
-              <AccountCircleIcon fontSize="small"></AccountCircleIcon>PROFILE
+              <AccountCircleIcon
+                fontSize="small"
+                style={{ color: "white" }}
+              ></AccountCircleIcon>
+              PROFILE
             </NavLink>
           </li>
           <li>
             <NavLink to="auth/login">
-              <LockOpenIcon fontSize="small"></LockOpenIcon>LOGIN
+              <LockOpenIcon
+                fontSize="small"
+                style={{ color: "white" }}
+              ></LockOpenIcon>
+              LOGIN
             </NavLink>
           </li>
           <li>
             <NavLink to="auth/register">
-              <CreateIcon fontSize="small"></CreateIcon>SIGN UP
+              <CreateIcon
+                fontSize="small"
+                style={{ color: "white" }}
+              ></CreateIcon>
+              SIGN UP
             </NavLink>
           </li>
           <li>
             <NavLink to="/" onClick={logout}>
-              <LogoutIcon fontSize="small"></LogoutIcon>LOGOUT
+              <LogoutIcon
+                fontSize="small"
+                style={{ color: "white" }}
+              ></LogoutIcon>
+              LOGOUT
             </NavLink>
           </li>
         </ul>

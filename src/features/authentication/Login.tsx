@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { loginUser } from "../../services/authApi";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 const schema = yup
   .object({
@@ -64,7 +64,12 @@ function LoginForm() {
     <>
       {" "}
       <Box
+        component="form"
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        gap={1}
         sx={{
+          mt: 3,
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
@@ -73,73 +78,42 @@ function LoginForm() {
         }}
       >
         <Typography component="h1" variant="h2">
+          {serverErrors}
+        </Typography>
+        <Typography component="h1" variant="h4" padding={5}>
           Login
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{ mt: 3 }}
-        >
-          <Grid
-            container
-            spacing={4}
-            direction={"column"}
-            alignItems={"center"}
-            justifyContent={"center"}
-          >
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.email?.message}
-              </Typography>
-              <TextField
-                fullWidth
-                required
-                id="email"
-                label="Email"
-                autoComplete="email"
-                {...register("email")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.password?.message}
-              </Typography>
-              <TextField
-                fullWidth
-                required
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                {...register("password")}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Login
-          </Button>
-          <Grid item>
-            <Button href="/auth/register">
-              Don't have an account? Create one here
-            </Button>
-          </Grid>
-        </Box>
+
+        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+          {errors.email?.message}
+        </Typography>
+        <TextField
+          required
+          id="email"
+          label="Email"
+          autoComplete="email"
+          {...register("email")}
+        />
+
+        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+          {errors.password?.message}
+        </Typography>
+        <TextField
+          sx={{}}
+          required
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="new-password"
+          {...register("password")}
+        />
+        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+          Login
+        </Button>
+
+        <Button href="/auth/register">
+          Don't have an account? Create one here
+        </Button>
       </Box>
     </>
   );

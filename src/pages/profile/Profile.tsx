@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import image from "../../assets/venue-placeholder.svg";
 
 import { useAuth } from "../../context/authContext";
 import { getProfile, updateProfile } from "../../services/profileApi";
@@ -50,10 +50,8 @@ function Profile() {
 
     if (data.errors) {
       setServerErrors(data.errors[0].message);
-      toast.error(serverErrors);
     } else {
       becomeManager(data);
-      toast.success("Congratulations! You are now a manager.");
     }
   };
 
@@ -73,12 +71,15 @@ function Profile() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 1050,
+          height: 1400,
           alignItems: "center",
           margin: 20,
         }}
       >
-        <img src={profile.avatar ? profile.avatar : placeholder} alt="Avatar" />
+        <Typography component="h1" variant="h2">
+          {serverErrors}
+        </Typography>
+        <img src={profile.avatar ? profile.avatar : image} alt="Avatar" />
         <Grid container justifyContent="center">
           <Grid item>
             <Link underline="none" variant="body1">
@@ -121,11 +122,11 @@ function Profile() {
         <Grid container justifyContent="center">
           <Grid item>
             <Typography component="h1" variant="h6" margin={4}>
-              Guest feedback:
+              Feedback:
             </Typography>
           </Grid>
-          <Grid container justifyContent="center">
-            <Grid item>
+          <Grid container justifyContent="center" gap={6}>
+            <Grid item border={1} padding={3} borderRadius={2}>
               <Typography variant="body2" gutterBottom width={600}>
                 "Sed vel nulla ut nisl viverra accumsan in sit amet est. Ut
                 rutrum quam eu blandit viverra. Donec mattis magna non purus
@@ -136,7 +137,7 @@ function Profile() {
                 - Lorum, impsum.
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item border={1} padding={3} borderRadius={2}>
               <Typography variant="body2" gutterBottom width={600}>
                 "Donec mattis magna non purus mattis, eget scelerisque purus
                 laoreet. Aliquam quis sem dapibus tortor malesuada tempus quis
@@ -151,7 +152,7 @@ function Profile() {
             <Grid item>
               <span>
                 <Typography component="h1" variant="h6" margin={4}>
-                  My bookings: {profile._count?.bookings}
+                  Bookings: {profile._count?.bookings}
                 </Typography>
               </span>
             </Grid>
@@ -168,28 +169,47 @@ function Profile() {
               container
               marginTop={8}
               display={"flex"}
-              flexDirection={"column"}
+              flexDirection={"row"}
               alignItems={"center"}
               justifyContent="center"
             >
               <Grid item padding={2}>
                 <Link href={`/profiles/${userName}/bookings`}>
-                  <Button variant="contained">My bookings</Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      backgroundColor: "#e9b384",
+                    }}
+                  >
+                    My bookings
+                  </Button>
                 </Link>
               </Grid>
               <Grid item padding={2}>
                 <Link href={`/profiles/${userName}/venues`}>
-                  <Button variant="contained">My venues</Button>
-                </Link>
-              </Grid>
-              <Grid item padding={2}>
-                <Link href={"/venues/update"}>
-                  <Button variant="contained">Update venue</Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      backgroundColor: "#e9b384",
+                    }}
+                  >
+                    My venues
+                  </Button>
                 </Link>
               </Grid>
               <Grid item padding={2}>
                 <Link href={"/venues/create"}>
-                  <Button variant="contained">Create venue</Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      backgroundColor: "#e9b384",
+                    }}
+                  >
+                    Create venue
+                  </Button>
                 </Link>
               </Grid>
             </Grid>

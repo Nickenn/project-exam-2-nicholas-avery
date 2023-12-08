@@ -19,7 +19,7 @@
   list-style: none;
   display: flex;
   border-radius: 7px;
-  margin: 1.4rem;
+  padding: 0.8rem;
 }
 
 .nav a:link,
@@ -34,7 +34,7 @@
 
 .nav a:active,
 .nav a:hover {
-  background-color: #00000034;
+  background-color: #e0950b42;
 }
 
 .nav a:global(.active) {

@@ -23,6 +23,7 @@ const GlobalStyles = createGlobalStyle`
 
 
 body {
+    min-height: 100vh;
     font-family: var(--font-family);
     color: var(--color-gray-800);
     background: var(--color-gray-0);
@@ -30,7 +31,6 @@ body {
 
 main {
     font-size: 1.3rem;
-    min-height: 100vh;
 
 }
 

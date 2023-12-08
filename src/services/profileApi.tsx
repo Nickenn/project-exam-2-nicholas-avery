@@ -31,6 +31,23 @@ export async function getProfile(
   return data;
 }
 
+export async function getVenues(name: string | null, token: string | null) {
+  const options = {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  };
+  const res = await fetch(
+    `${BASE_API_URL}/profiles/${name}/venues?_owner=true&_bookings=true`,
+    options
+  );
+  console.log(res);
+  if (!res.ok) throw Error("Failed at retrieving venues.");
+
+  const data = await res.json();
+  return data;
+}
+
 export async function updateProfile(token: string | null, name: string | null) {
   const options = {
     headers: {

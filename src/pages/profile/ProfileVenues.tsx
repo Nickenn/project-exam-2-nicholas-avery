@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { getVenues } from "../../services/venuesApi";
+import { getVenues } from "../../services/profileApi";
 import VenueItem from "../../features/venues/VenueItem";
 import { deleteVenue } from "../../services/venuesApi";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 
 interface VenueItemProp {
   id: string;
@@ -48,9 +48,8 @@ function ProfileVenues() {
   const [venues, setVenues] = useState<VenueItemProp[]>();
   const [loading, setLoading] = useState(true);
   const { userName, authToken } = useAuth();
-  const navigate = useNavigate();
-
   const [serverErrors, setServerErrors] = useState("");
+  const navigate = useNavigate();
 
   async function fetchData() {
     try {
@@ -84,7 +83,6 @@ function ProfileVenues() {
   useEffect(() => {
     fetchData();
   }, []);
-
   return (
     <>
       {" "}
@@ -98,9 +96,12 @@ function ProfileVenues() {
         }}
       >
         <Typography component="h1" variant="h2">
+          {serverErrors}
+        </Typography>
+        <Typography component="h1" variant="h2">
           Listed venues
         </Typography>
-        <Box>
+        <Grid>
           {venues?.length > 0 ? (
             venues.map((venue) => (
               <VenueItem
@@ -111,11 +112,9 @@ function ProfileVenues() {
               />
             ))
           ) : (
-            <Typography component="h1" variant="h4">
-              You don't have any venues listed.
-            </Typography>
+            <p>You don't have any venues listed.</p>
           )}
-        </Box>
+        </Grid>
       </Box>
     </>
   );

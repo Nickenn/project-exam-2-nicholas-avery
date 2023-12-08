@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import { getBookings } from "../../services/profileApi";
@@ -51,9 +51,7 @@ function ProfileBookings() {
     setLoading(false);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  fetchData();
 
   if (loading || !bookings) {
     return <div>Loading...</div>;
@@ -66,41 +64,38 @@ function ProfileBookings() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 1050,
+          height: 1100,
           alignItems: "center",
         }}
       >
-        <Grid container>
-          <Grid item>
-            <Typography component="h1" variant="h4">
-              My bookings
+        <Grid
+          container
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"center"}
+          alignContent={"center"}
+        >
+          <Typography component="h1" variant="h5">
+            My bookings
+          </Typography>
+          {bookings?.length > 0 ? (
+            bookings.map((booking) => (
+              <BookingItem key={booking.id} booking={booking} />
+            ))
+          ) : (
+            <Typography variant="body2" gutterBottom width={600}>
+              You don't have any bookings.
             </Typography>
-          </Grid>
+          )}
+
+          <Typography variant="body2" gutterBottom width={600}>
+            Click{" "}
+            <NavLink to="/">
+              <Button variant="contained">here</Button>
+            </NavLink>{" "}
+            for help
+          </Typography>
         </Grid>
-        {bookings && (
-          <Grid container>
-            <Grid item>
-              {bookings?.length > 0 ? (
-                bookings.map((booking) => (
-                  <BookingItem key={booking.id} booking={booking} />
-                ))
-              ) : (
-                <p>You don't have any bookings.</p>
-              )}
-            </Grid>
-            <Grid container>
-              <Grid item>
-                <Typography variant="body2" gutterBottom width={600}>
-                  Click{" "}
-                  <NavLink to="/">
-                    <Button variant="contained">here</Button>
-                  </NavLink>{" "}
-                  for help
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
       </Box>
     </>
   );

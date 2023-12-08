@@ -24,12 +24,14 @@ const schema = yup
       .string()
       .min(6, "Your password must be more than 6 characters.")
       .required("Password is required."),
+    avatar: yup.string().required("Avatar url is required."),
+    manager: yup.boolean().required("Manager is required."),
   })
   .required();
 
 interface FormDataProps {
   name: string;
-  email: string | number;
+  email: string;
   password: string;
   avatar: string;
   manager: boolean;
@@ -76,7 +78,12 @@ function RegisterForm() {
     <>
       {" "}
       <Box
+        component="form"
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
+        gap={1}
         sx={{
+          mt: 3,
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
@@ -85,94 +92,58 @@ function RegisterForm() {
         }}
       >
         <Typography component="h1" variant="h2">
+          {serverErrors}
+        </Typography>
+        <Typography component="h1" variant="h4" padding={5}>
           Sign up
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{ mt: 3 }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.name?.message}
-              </Typography>
-              <TextField
-                autoComplete="given-name"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                autoFocus
-                {...register("name")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.email?.message}
-              </Typography>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                autoComplete="email"
-                {...register("email")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.password?.message}
-              </Typography>
-              <TextField
-                required
-                fullWidth
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                {...register("password")}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="button" display="block" gutterBottom>
-                Venue manager
-                <Checkbox id="manager" {...register("manager")} />
-              </Typography>
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Button href="/auth/login">
-                Already have an account? Login here
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
+
+        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+          {errors.name?.message}
+        </Typography>
+        <TextField
+          autoComplete="given-name"
+          required
+          id="name"
+          label="Username"
+          autoFocus
+          {...register("name")}
+        />
+
+        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+          {errors.email?.message}
+        </Typography>
+        <TextField
+          required
+          placeholder="your-email@stud.noroff.no"
+          id="email"
+          label="Email"
+          autoComplete="email"
+          {...register("email")}
+        />
+
+        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+          {errors.password?.message}
+        </Typography>
+        <TextField
+          required
+          label="Password"
+          placeholder="**********"
+          type="password"
+          id="password"
+          autoComplete="new-password"
+          {...register("password")}
+        />
+
+        <Typography variant="button" display="block" gutterBottom>
+          Venue manager
+          <Checkbox id="manager" {...register("manager")} />
+        </Typography>
+
+        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+          Sign Up
+        </Button>
+        <Button href="/auth/login">Already have an account? Login here</Button>
       </Box>
     </>
   );

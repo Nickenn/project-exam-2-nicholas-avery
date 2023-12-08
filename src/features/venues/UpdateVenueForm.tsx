@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
 import { updateVenue } from "../../services/venuesApi";
 import {
@@ -14,8 +12,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
-const schema = yup.object({}).required();
 
 interface FormDataProps {
   name: string;
@@ -40,15 +36,10 @@ interface FormDataProps {
 
 function UpdateVenueForm() {
   const navigate = useNavigate();
+  const { userName } = useAuth();
   const { state: venue } = useLocation();
-  const { authToken, userName } = useAuth();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormDataProps>({
-    resolver: yupResolver(schema),
+  const { authToken } = useAuth();
+  const form = useForm<FormDataProps>({
     defaultValues: {
       name: venue.name ?? "",
       description: venue.description ?? "",
@@ -71,6 +62,8 @@ function UpdateVenueForm() {
     },
   });
 
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
   async function onSubmit(formData: FormDataProps) {
@@ -79,8 +72,11 @@ function UpdateVenueForm() {
         setServerErrors("");
         //send data to API
         const data = await updateVenue(formData, venue.id, authToken);
-
-        navigate(`/profiles/${data.name}`);
+        if (data.errors) {
+          setServerErrors(`${data.errors[0].message} (${data.errors[0].path})`);
+        } else {
+          navigate(`/profiles/${userName}/venues`);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -92,10 +88,6 @@ function UpdateVenueForm() {
       }
       setServerErrors(errorMessage);
     }
-  }
-
-  if (loading || !profile) {
-    return <div>Loading...</div>;
   }
 
   return (
@@ -111,7 +103,7 @@ function UpdateVenueForm() {
         }}
       >
         <Typography component="h1" variant="h2">
-          Create new venue
+          Update venue
         </Typography>
         <Box
           component="form"
@@ -294,7 +286,7 @@ function UpdateVenueForm() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
           >
             Update venue
           </Button>

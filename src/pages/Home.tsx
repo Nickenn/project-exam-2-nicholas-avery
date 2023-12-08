@@ -1,10 +1,12 @@
 import { getAllVenues } from "../services/venuesApi";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Search from "../ui/Search";
 
-import { PAGE_LIMIT } from "../utils/constants";
 import { useSearch } from "../context/searchContext";
 import VenuesList from "../features/venues/VenueList";
+import { PAGE_LIMIT } from "../utils/constants.js";
+
+import { Typography, Box } from "@mui/material";
 
 interface VenueProps {
   key: string;
