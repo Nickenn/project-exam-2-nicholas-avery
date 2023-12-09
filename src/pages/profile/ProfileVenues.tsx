@@ -5,7 +5,7 @@ import { getVenues } from "../../services/profileApi";
 import VenueItem from "../../features/venues/VenueItem";
 import { deleteVenue } from "../../services/venuesApi";
 
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Button, Link } from "@mui/material";
 
 interface VenueItemProp {
   id: string;
@@ -91,25 +91,28 @@ function ProfileVenues() {
       {" "}
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 30,
           display: "flex",
           flexDirection: "column",
           height: 1050,
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h3">
           {serverErrors}
-        </Typography>
-        <Typography component="h1" variant="h5">
-          Listed venues
         </Typography>
         <Grid
           container
+          gap={5}
           display={"flex"}
-          flexDirection={"row"}
+          flexDirection={"column"}
           justifyContent={"center"}
+          alignContent={"center"}
+          alignItems={"center"}
         >
+          <Typography component="h1" variant="h4">
+            Listed venues
+          </Typography>
           {venues?.length > 0 ? (
             venues.map((venue) => (
               <VenueItem
@@ -120,7 +123,22 @@ function ProfileVenues() {
               />
             ))
           ) : (
-            <p>You don't have any venues listed.</p>
+            <Grid
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={3}
+            >
+              <Typography component="h1" variant="h6">
+                You don't have any venues listed.
+              </Typography>
+              <Link href={`/profiles/${userName}`}>
+                <Button variant="contained" size="large">
+                  Go back to profile
+                </Button>
+              </Link>
+            </Grid>
           )}
         </Grid>
       </Box>

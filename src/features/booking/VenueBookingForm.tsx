@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { DateRange } from "react-date-range";
 
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import DateRangeComp from "../../ui/Calendar/DateRangeComp";
 
 interface VenueProps {
   key: string;
@@ -70,7 +71,7 @@ function BookingForm({
   onDateRangeChange,
 }: VenueProp) {
   const navigate = useNavigate();
-  const { authToken } = useAuth();
+  const { authToken, userName } = useAuth();
   const form = useForm({
     defaultValues: {
       dateFrom: selectedDateRange[0].startDate,
@@ -117,7 +118,7 @@ function BookingForm({
 
         console.log(data);
       } else {
-        navigate(`/auth/login`);
+        navigate(`/profiles/${userName}/bookings`);
       }
     } catch (error) {
       let errorMessage = "Please log in to book a venue.";
@@ -137,7 +138,6 @@ function BookingForm({
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 1050,
           alignItems: "center",
         }}
       >
@@ -145,36 +145,34 @@ function BookingForm({
           component="form"
           noValidate
           onSubmit={handleSubmit(onSubmit)}
-          sx={{ mt: 3 }}
+          sx={{ mt: 3, height: 1650 }}
         >
           <Typography component="h1" variant="h2">
             {serverErrors}
           </Typography>
-          <Typography component="h1" variant="h3">
-            Venue Booking
+          <Typography component="h1" variant="h5">
+            Booking
           </Typography>
           <Grid container spacing={2}>
             <Grid item>
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="h6">
                 Ckeck-in
               </Typography>
-              <Typography component="h1" variant="h3">
+              <Typography component="h1" variant="h5">
                 {format(selectedDateRange[0].startDate, "dd. MM. yyyy")}
               </Typography>
             </Grid>
             <Grid item>
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="h6">
                 Ckeck-out
               </Typography>
-              <Typography component="h1" variant="h3">
+              <Typography component="h1" variant="h5">
                 {format(selectedDateRange[0].endDate, "dd. MM. yyyy")}
               </Typography>
             </Grid>
           </Grid>
 
-          <DateRange
-            editableDateInputs={true}
-            moveRangeOnFirstSelection={false}
+          <DateRangeComp
             onChange={handleRangeChange}
             disabledDay={disabledDates}
             ranges={selectedDateRange}
@@ -193,8 +191,8 @@ function BookingForm({
                 {errors.guests?.message}
               </Typography>
               <TextField
+                size="small"
                 required
-                fullWidth
                 id="guests"
                 label="Number of guests"
                 autoComplete="email"
@@ -204,7 +202,6 @@ function BookingForm({
           </Grid>
           <Button
             type="submit"
-            fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
           >
@@ -230,8 +227,8 @@ function BookingForm({
               )}
             </Typography>
           </Grid>
-          <Grid container spacing={2}>
-            <Typography component="h1" variant="h3">
+          <Grid container spacing={1}>
+            <Typography variant="body2" gutterBottom width={600}>
               Your total:
             </Typography>
             <Typography variant="body2" gutterBottom width={600}>

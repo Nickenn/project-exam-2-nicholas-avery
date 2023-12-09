@@ -57,7 +57,7 @@ const VenueImage = styled.img`
 
 function Venue({ id, name, media, price, rating, maxGuests }: VenueProps) {
   return (
-    <Grid item padding={3}>
+    <Grid item padding={1}>
       <Link to={`/venues/${id}`}>
         <VenueImage src={media[0] ? media[0] : image} alt={name} />
         <Typography component="h1" variant="h6">
@@ -90,12 +90,9 @@ function Venue({ id, name, media, price, rating, maxGuests }: VenueProps) {
 function VenuesList({ venues }: { venues: VenueProps[] }) {
   return (
     <Grid
-      container
-      gap={4}
       display="grid"
-      gridTemplateColumns="repeat(auto-fill, minmax(30rem, 1fr))"
-      justifyContent={"center"}
-      sx={{ mx: 5 }}
+      gridTemplateColumns="repeat(auto-fill, minmax(26rem, 1fr))"
+      margin={20}
     >
       {venues.map((venue) => (
         <Venue

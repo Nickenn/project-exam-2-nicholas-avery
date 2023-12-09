@@ -4,7 +4,7 @@ import { useAuth } from "../../context/authContext";
 import { getBookings } from "../../services/profileApi";
 import BookingItem from "../../features/booking/BookingItem";
 
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography, Link } from "@mui/material";
 
 interface BookingProps {
   id: string;
@@ -70,31 +70,38 @@ function ProfileBookings() {
       >
         <Grid
           container
+          gap={5}
           display={"flex"}
           flexDirection={"column"}
           justifyContent={"center"}
           alignContent={"center"}
+          alignItems={"center"}
         >
           <Typography component="h1" variant="h5">
-            My bookings
+            Booked venues
           </Typography>
           {bookings?.length > 0 ? (
             bookings.map((booking) => (
               <BookingItem key={booking.id} booking={booking} />
             ))
           ) : (
-            <Typography variant="body2" gutterBottom width={600}>
-              You don't have any bookings.
-            </Typography>
+            <Grid
+              display={"flex"}
+              flexDirection={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              gap={3}
+            >
+              <Typography component="h1" variant="h6">
+                You don't have any bookings.
+              </Typography>
+              <Link href={`/profiles/${userName}`}>
+                <Button variant="contained" size="large">
+                  Go back to profile
+                </Button>
+              </Link>
+            </Grid>
           )}
-
-          <Typography variant="body2" gutterBottom width={600}>
-            Click{" "}
-            <NavLink to="/">
-              <Button variant="contained">here</Button>
-            </NavLink>{" "}
-            for help
-          </Typography>
         </Grid>
       </Box>
     </>

@@ -62,11 +62,8 @@ export function CreateVenueForm() {
         const data = await createVenue(formData, authToken);
 
         navigate(`/venues/${data.id}`);
-        console.log(data);
       }
     } catch (error) {
-      console.log(error);
-
       let errorMessage = "Listing failed.";
 
       if (error instanceof Error) {

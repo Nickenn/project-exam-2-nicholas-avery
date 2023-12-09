@@ -7,7 +7,6 @@ import image from "../../assets/venue-placeholder.svg";
 
 import { addDays } from "date-fns";
 import BookingForm from "../../features/booking/VenueBookingForm.tsx";
-import DateRangeComp from "../../ui/Calendar/DateRangeComp.tsx";
 import PetsIcon from "@mui/icons-material/Pets";
 import WifiIcon from "@mui/icons-material/Wifi";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
@@ -129,7 +128,7 @@ function Venue() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 2050,
+          height: 2600,
           alignItems: "center",
         }}
       >
@@ -148,7 +147,7 @@ function Venue() {
               </Grid>
             </Grid>
             <Box>
-              <Grid container spacing={2}>
+              <Grid container spacing={2} justifyContent={"space-around"}>
                 <StyledGallery>
                   <Grid item xs={12}>
                     <img
@@ -224,14 +223,6 @@ function Venue() {
                   Host: {venue.owner.name}
                 </Typography>
                 <p>Email: {venue.owner.email}</p>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item>
-                <Typography component="h1" variant="h5" margin={1}>
-                  Available dates
-                </Typography>
-                <DateRangeComp />
               </Grid>
             </Grid>
             <BookingForm

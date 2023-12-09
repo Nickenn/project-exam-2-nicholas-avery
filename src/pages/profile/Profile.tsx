@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import image from "../../assets/venue-placeholder.svg";
 
@@ -25,6 +25,7 @@ function Profile() {
   const [loading, setLoading] = useState(true);
   const { authToken, userName, becomeManager } = useAuth();
   const { name } = useParams();
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -50,6 +51,7 @@ function Profile() {
 
     if (data.errors) {
       setServerErrors(data.errors[0].message);
+      navigate("/auth/login");
     } else {
       becomeManager(data);
     }
@@ -60,7 +62,23 @@ function Profile() {
   }, []);
 
   if (loading || !profile) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        sx={{
+          marginTop: 8,
+          height: 900,
+          margin: 20,
+        }}
+      >
+        <Link href="/auth/login">
+          <Button variant="contained" size="large">
+            Please log in to view your profile
+          </Button>
+        </Link>
+      </Box>
+    );
   }
 
   return (
@@ -71,7 +89,7 @@ function Profile() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 1400,
+          height: 1000,
           alignItems: "center",
           margin: 20,
         }}
@@ -119,6 +137,54 @@ function Profile() {
             </Typography>
           </Grid>
         </Grid>
+        <Grid
+          container
+          marginTop={8}
+          display={"flex"}
+          flexDirection={"row"}
+          alignItems={"center"}
+          justifyContent="center"
+        >
+          <Grid item padding={2}>
+            <Link href={`/profiles/${userName}/bookings`}>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  backgroundColor: "#e9b384",
+                }}
+              >
+                My bookings
+              </Button>
+            </Link>
+          </Grid>
+          <Grid item padding={2}>
+            <Link href={`/profiles/${userName}/venues`}>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  backgroundColor: "#e9b384",
+                }}
+              >
+                My venues
+              </Button>
+            </Link>
+          </Grid>
+          <Grid item padding={2}>
+            <Link href={"/venues/create"}>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{
+                  backgroundColor: "#e9b384",
+                }}
+              >
+                Create venue
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
         <Grid container justifyContent="center">
           <Grid item>
             <Typography component="h1" variant="h6" margin={4}>
@@ -127,97 +193,32 @@ function Profile() {
           </Grid>
           <Grid
             container
-            display={"flex"}
-            flexDirection={"column"}
+            display="flex"
+            flexDirection="row"
             justifyContent="center"
+            alignItems="center"
             gap={3}
           >
-            <Grid item border={1} padding={2} borderRadius={2}>
-              <Typography variant="body2" gutterBottom width={600}>
+            <Grid item padding={2} alignItems={"center"}>
+              <Typography variant="body2" gutterBottom width={300}>
                 "Sed vel nulla ut nisl viverra accumsan in sit amet est. Ut
                 rutrum quam eu blandit viverra. Donec mattis magna non purus
                 mattis, eget scelerisque purus laoreet. Aliquam quis sem dapibus
                 tortor malesuada tempus quis id elit."
               </Typography>
-              <Typography variant="body2" gutterBottom width={600}>
+              <Typography variant="body2" gutterBottom width={300}>
                 - Lorum, impsum.
               </Typography>
             </Grid>
-            <Grid item border={1} padding={3} borderRadius={2}>
-              <Typography variant="body2" gutterBottom width={600}>
+            <Grid item padding={3}>
+              <Typography variant="body2" gutterBottom width={300}>
                 "Donec mattis magna non purus mattis, eget scelerisque purus
                 laoreet. Aliquam quis sem dapibus tortor malesuada tempus quis
                 id elit."
               </Typography>
-              <Typography variant="body2" gutterBottom width={600}>
+              <Typography variant="body2" gutterBottom width={300}>
                 - Lorum, impsum.
               </Typography>
-            </Grid>
-          </Grid>
-          <Grid container justifyContent="center">
-            <Grid item>
-              <span>
-                <Typography component="h1" variant="h6" margin={4}>
-                  Bookings: {profile._count?.bookings}
-                </Typography>
-              </span>
-            </Grid>
-            <Grid item>
-              {profile.venueManager && (
-                <span>
-                  <Typography component="h1" variant="h6" margin={4}>
-                    My Venues: {profile._count?.venues}
-                  </Typography>
-                </span>
-              )}
-            </Grid>
-            <Grid
-              container
-              marginTop={8}
-              display={"flex"}
-              flexDirection={"row"}
-              alignItems={"center"}
-              justifyContent="center"
-            >
-              <Grid item padding={2}>
-                <Link href={`/profiles/${userName}/bookings`}>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    sx={{
-                      backgroundColor: "#e9b384",
-                    }}
-                  >
-                    My bookings
-                  </Button>
-                </Link>
-              </Grid>
-              <Grid item padding={2}>
-                <Link href={`/profiles/${userName}/venues`}>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    sx={{
-                      backgroundColor: "#e9b384",
-                    }}
-                  >
-                    My venues
-                  </Button>
-                </Link>
-              </Grid>
-              <Grid item padding={2}>
-                <Link href={"/venues/create"}>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    sx={{
-                      backgroundColor: "#e9b384",
-                    }}
-                  >
-                    Create venue
-                  </Button>
-                </Link>
-              </Grid>
             </Grid>
           </Grid>
         </Grid>
