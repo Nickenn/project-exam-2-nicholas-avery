@@ -2,11 +2,10 @@ import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
 import { createBooking } from "../../services/bookingApi";
-import { format, differenceInDays } from "date-fns";
+import { differenceInDays } from "date-fns";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 import { useNavigate } from "react-router-dom";
-import { DateRange } from "react-date-range";
 
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import DateRangeComp from "../../ui/Calendar/DateRangeComp";
@@ -65,11 +64,7 @@ interface VenueProp {
   onDateRangeChange: (newDateRange: DateRangeProps) => void;
 }
 
-function BookingForm({
-  venue,
-  selectedDateRange,
-  onDateRangeChange,
-}: VenueProp) {
+function BookingForm({ venue, selectedDateRange }: VenueProp) {
   const navigate = useNavigate();
   const { authToken, userName } = useAuth();
   const form = useForm({
@@ -81,33 +76,9 @@ function BookingForm({
     },
   });
 
-  const { register, handleSubmit, formState, setValue } = form;
+  const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
-
-  const bookedDateRanges = venue.bookings.map((booking) => ({
-    startDate: new Date(booking.dateFrom),
-    endDate: new Date(booking.dateTo),
-    key: booking.id,
-  }));
-
-  const disabledDates = (date: Date) => {
-    return bookedDateRanges.some(
-      (bookedDateRange) =>
-        (date >= bookedDateRange.startDate &&
-          date <= bookedDateRange.endDate) ||
-        date === bookedDateRange.startDate ||
-        date === bookedDateRange.endDate
-    );
-  };
-
-  const handleRangeChange = (range: any) => {
-    const selectedDateRange = range.selection;
-    onDateRangeChange(selectedDateRange);
-
-    setValue("dateFrom", selectedDateRange.startDate);
-    setValue("dateTo", selectedDateRange.endDate);
-  };
 
   async function onSubmit(formData: any) {
     try {
@@ -115,7 +86,6 @@ function BookingForm({
         setServerErrors("");
         //send data to API
         const data = await createBooking(formData, authToken);
-
         console.log(data);
       } else {
         navigate(`/profiles/${userName}/bookings`);
@@ -137,6 +107,8 @@ function BookingForm({
         component="form"
         noValidate
         onSubmit={handleSubmit(onSubmit)}
+        alignContent={"center"}
+        margin={3}
         sx={{
           mt: 3,
           height: 1650,
@@ -152,32 +124,20 @@ function BookingForm({
         <Typography component="h1" variant="h5">
           Booking
         </Typography>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} marginLeft={4}>
           <Grid item>
             <Typography component="h1" variant="h6">
               Ckeck-in
-            </Typography>
-            <Typography component="h1" variant="h5">
-              {format(selectedDateRange[0].startDate, "dd. MM. yyyy")}
             </Typography>
           </Grid>
           <Grid item>
             <Typography component="h1" variant="h6">
               Ckeck-out
             </Typography>
-            <Typography component="h1" variant="h5">
-              {format(selectedDateRange[0].endDate, "dd. MM. yyyy")}
-            </Typography>
           </Grid>
         </Grid>
 
-        <DateRangeComp
-          onChange={handleRangeChange}
-          disabledDay={disabledDates}
-          ranges={selectedDateRange}
-          preventSnapRefocus={false}
-          calendarFocus="backwards"
-        />
+        <DateRangeComp />
 
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -194,7 +154,6 @@ function BookingForm({
               required
               id="guests"
               label="Number of guests"
-              autoComplete="email"
               {...register("guests")}
             />
           </Grid>
@@ -207,7 +166,7 @@ function BookingForm({
           Book venue
         </Button>
 
-        <Grid container spacing={2}>
+        <Grid container gap={2}>
           <Typography variant="body2" gutterBottom width={600}>
             {
               +differenceInDays(
@@ -226,8 +185,8 @@ function BookingForm({
             )}
           </Typography>
         </Grid>
-        <Grid container spacing={1}>
-          <Typography variant="body2" gutterBottom width={600}>
+        <Grid container gap={3}>
+          <Typography variant="h4" component={"h1"}>
             Your total:
           </Typography>
           <Typography variant="body2" gutterBottom width={600}>

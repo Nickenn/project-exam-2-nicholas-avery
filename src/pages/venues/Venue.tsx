@@ -6,6 +6,7 @@ import styled from "styled-components";
 import image from "../../assets/venue-placeholder.svg";
 
 import { addDays } from "date-fns";
+import { DateRange } from "react-date-range";
 import BookingForm from "../../features/booking/VenueBookingForm.tsx";
 import PetsIcon from "@mui/icons-material/Pets";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -118,7 +119,11 @@ function Venue() {
   };
 
   if (loading || !venue) {
-    return <div>Loading...</div>;
+    return (
+      <Box display={"flex"} justifyContent={"center"} alignContent={"center"}>
+        Loading...
+      </Box>
+    );
   }
 
   return (
@@ -127,7 +132,7 @@ function Venue() {
       <Grid
         container
         display={"flex"}
-        justifyContent={"center"}
+        justifyContent={"space-between"}
         alignContent={"center"}
         flexDirection={"column"}
         position={"relative"}
@@ -136,7 +141,16 @@ function Venue() {
         }}
       >
         {venue && (
-          <Grid display={"flex"} flexDirection={"column"}>
+          <Grid
+            container
+            display={"flex"}
+            alignContent={"space-between"}
+            flexDirection={"column"}
+            position={"relative"}
+            sx={{
+              maxWidth: { xs: 650, md: 500 },
+            }}
+          >
             <h1>{venue.name}</h1>
 
             <Typography component="h1" variant="h5" margin={1}>
@@ -146,66 +160,71 @@ function Venue() {
               Superhost: {venue.owner.name}, {venue.location.city},{" "}
               {venue.location.country.toUpperCase()}
             </Typography>
+            <StyledGallery>
+              <Box
+                component="img"
+                src={venue.media[0] ? venue.media[0] : image}
+                alt={venue.name}
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+              />
 
-            <Box
-              component="img"
-              src={venue.media[0] ? venue.media[0] : image}
-              alt={venue.name}
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-            />
-
-            <Box
-              component="img"
-              src={venue.media[1] ? venue.media[1] : image}
-              alt={venue.name}
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-            />
-            <Box
-              component="img"
-              src={venue.media[2] ? venue.media[2] : image}
-              alt={venue.name}
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-            />
-            <Box
-              component="img"
-              src={venue.media[3] ? venue.media[3] : image}
-              alt={venue.name}
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-            />
-            <Box
-              component="img"
-              src={venue.media[4] ? venue.media[4] : image}
-              alt={venue.name}
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-            />
+              <Box
+                component="img"
+                src={venue.media[1] ? venue.media[1] : image}
+                alt={venue.name}
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+              />
+              <Box
+                component="img"
+                src={venue.media[2] ? venue.media[2] : image}
+                alt={venue.name}
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+              />
+              <Box
+                component="img"
+                src={venue.media[3] ? venue.media[3] : image}
+                alt={venue.name}
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+              />
+              <Box
+                component="img"
+                src={venue.media[4] ? venue.media[4] : image}
+                alt={venue.name}
+                sx={{
+                  height: 233,
+                  width: 350,
+                  maxHeight: { xs: 233, md: 167 },
+                  maxWidth: { xs: 350, md: 250 },
+                }}
+              />
+            </StyledGallery>
             <hr />
-            <p>{venue.description}</p>
-            <p>Number of guests accepted: {venue.maxGuests}</p>
+            <Typography component="h1" variant="h5" margin={1}>
+              {venue.description}
+            </Typography>
+            <Typography component="h1" variant="h5" margin={1}>
+              Number of guests accepted: {venue.maxGuests}
+            </Typography>
             <Typography component="h1" variant="h5" margin={1}>
               Accommodations
             </Typography>
@@ -222,13 +241,21 @@ function Venue() {
             <Typography component="h1" variant="h5" margin={1}>
               Location:
             </Typography>
-            <p>Address: {venue.location.address}</p>
-            <p>City: {venue.location.city}</p>
-            <p>Country: {venue.location.country}</p>
-            <Typography component="h1" variant="h5" margin={1}>
+            <Typography variant="body1" gutterBottom width={600}>
+              Address: {venue.location.address}
+            </Typography>
+            <Typography variant="body1" gutterBottom width={600}>
+              City: {venue.location.city}
+            </Typography>
+            <Typography variant="body1" gutterBottom width={600}>
+              Country: {venue.location.country}
+            </Typography>
+            <Typography variant="body1" gutterBottom width={600}>
               Host: {venue.owner.name}
             </Typography>
-            <p>Email: {venue.owner.email}</p>
+            <Typography variant="body1" gutterBottom width={600}>
+              Email: {venue.owner.email}
+            </Typography>
             <BookingForm
               venue={venue}
               selectedDateRange={selectedDateRange}
