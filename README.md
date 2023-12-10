@@ -2,7 +2,7 @@
 
 ## Project Exam 2 - Noroff
 
-![Screenshot](/public/Holidaze%20sceenshot.jpg)
+![Screenshot](/public/holidaze-screenshot.jpg)
 
 ## Description
 

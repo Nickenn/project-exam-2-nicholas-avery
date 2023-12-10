@@ -6,7 +6,6 @@ import styled from "styled-components";
 import image from "../../assets/venue-placeholder.svg";
 
 import { addDays } from "date-fns";
-import { DateRange } from "react-date-range";
 import BookingForm from "../../features/booking/VenueBookingForm.tsx";
 import PetsIcon from "@mui/icons-material/Pets";
 import WifiIcon from "@mui/icons-material/Wifi";
