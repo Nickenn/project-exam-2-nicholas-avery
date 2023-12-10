@@ -5,6 +5,7 @@ import image from "../../assets/logo-no-background.png";
 import styles from "./style.module.css";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import HotelIcon from "@mui/icons-material/Hotel";
 import CreateIcon from "@mui/icons-material/Create";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -20,10 +21,10 @@ function Header() {
         <ul>
           <li>
             <NavLink to={"/venues/create"}>
-              <AccountCircleIcon
+              <HotelIcon
                 fontSize="small"
                 style={{ color: "white" }}
-              ></AccountCircleIcon>
+              ></HotelIcon>
               CREATE VENUE
             </NavLink>
           </li>

@@ -134,117 +134,115 @@ function BookingForm({
     <>
       {" "}
       <Box
+        component="form"
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
         sx={{
+          mt: 3,
+          height: 1650,
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{ mt: 3, height: 1650 }}
+        <Typography component="h1" variant="h2">
+          {serverErrors}
+        </Typography>
+        <Typography component="h1" variant="h5">
+          Booking
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item>
+            <Typography component="h1" variant="h6">
+              Ckeck-in
+            </Typography>
+            <Typography component="h1" variant="h5">
+              {format(selectedDateRange[0].startDate, "dd. MM. yyyy")}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography component="h1" variant="h6">
+              Ckeck-out
+            </Typography>
+            <Typography component="h1" variant="h5">
+              {format(selectedDateRange[0].endDate, "dd. MM. yyyy")}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <DateRangeComp
+          onChange={handleRangeChange}
+          disabledDay={disabledDates}
+          ranges={selectedDateRange}
+          preventSnapRefocus={false}
+          calendarFocus="backwards"
+        />
+
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography
+              variant="body2"
+              gutterBottom
+              width={600}
+              color={"#d32f2f"}
+            >
+              {errors.guests?.message}
+            </Typography>
+            <TextField
+              size="small"
+              required
+              id="guests"
+              label="Number of guests"
+              autoComplete="email"
+              {...register("guests")}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
         >
-          <Typography component="h1" variant="h2">
-            {serverErrors}
+          Book venue
+        </Button>
+
+        <Grid container spacing={2}>
+          <Typography variant="body2" gutterBottom width={600}>
+            {
+              +differenceInDays(
+                selectedDateRange[0].endDate,
+                selectedDateRange[0].startDate
+              )
+            }{" "}
+            pr night X {formatCurrency(venue.price)}{" "}
           </Typography>
-          <Typography component="h1" variant="h5">
-            Booking
+          <Typography variant="body2" gutterBottom width={600}>
+            {formatCurrency(
+              +differenceInDays(
+                selectedDateRange[0].endDate,
+                selectedDateRange[0].startDate
+              ) * venue.price
+            )}
           </Typography>
-          <Grid container spacing={2}>
-            <Grid item>
-              <Typography component="h1" variant="h6">
-                Ckeck-in
-              </Typography>
-              <Typography component="h1" variant="h5">
-                {format(selectedDateRange[0].startDate, "dd. MM. yyyy")}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography component="h1" variant="h6">
-                Ckeck-out
-              </Typography>
-              <Typography component="h1" variant="h5">
-                {format(selectedDateRange[0].endDate, "dd. MM. yyyy")}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <DateRangeComp
-            onChange={handleRangeChange}
-            disabledDay={disabledDates}
-            ranges={selectedDateRange}
-            preventSnapRefocus={false}
-            calendarFocus="backwards"
-          />
-
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography
-                variant="body2"
-                gutterBottom
-                width={600}
-                color={"#d32f2f"}
-              >
-                {errors.guests?.message}
-              </Typography>
-              <TextField
-                size="small"
-                required
-                id="guests"
-                label="Number of guests"
-                autoComplete="email"
-                {...register("guests")}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
-          >
-            Book venue
-          </Button>
-
-          <Grid container spacing={2}>
-            <Typography variant="body2" gutterBottom width={600}>
-              {
-                +differenceInDays(
-                  selectedDateRange[0].endDate,
-                  selectedDateRange[0].startDate
-                )
-              }{" "}
-              pr night X {formatCurrency(venue.price)}{" "}
-            </Typography>
-            <Typography variant="body2" gutterBottom width={600}>
-              {formatCurrency(
-                +differenceInDays(
-                  selectedDateRange[0].endDate,
-                  selectedDateRange[0].startDate
-                ) * venue.price
-              )}
-            </Typography>
-          </Grid>
-          <Grid container spacing={1}>
-            <Typography variant="body2" gutterBottom width={600}>
-              Your total:
-            </Typography>
-            <Typography variant="body2" gutterBottom width={600}>
-              {" "}
-              {formatCurrency(
-                +differenceInDays(
-                  selectedDateRange[0].endDate,
-                  selectedDateRange[0].startDate
-                ) *
-                  venue.price +
-                  100 +
-                  50
-              )}
-            </Typography>
-          </Grid>
-        </Box>
+        </Grid>
+        <Grid container spacing={1}>
+          <Typography variant="body2" gutterBottom width={600}>
+            Your total:
+          </Typography>
+          <Typography variant="body2" gutterBottom width={600}>
+            {" "}
+            {formatCurrency(
+              +differenceInDays(
+                selectedDateRange[0].endDate,
+                selectedDateRange[0].startDate
+              ) *
+                venue.price +
+                100 +
+                50
+            )}
+          </Typography>
+        </Grid>
       </Box>
     </>
   );

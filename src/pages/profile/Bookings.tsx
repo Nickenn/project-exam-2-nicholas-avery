@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/authContext";
 import { getBookings } from "../../services/profileApi";
 import BookingItem from "../../features/booking/BookingItem";
@@ -51,7 +50,9 @@ function ProfileBookings() {
     setLoading(false);
   };
 
-  fetchData();
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   if (loading || !bookings) {
     return <div>Loading...</div>;

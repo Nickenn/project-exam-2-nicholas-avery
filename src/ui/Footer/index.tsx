@@ -25,64 +25,183 @@ function Footer() {
             </Link>
           </Grid>
           <Grid item display={"flex"} flexDirection={"column"}>
-            <Typography component="h1" variant="h6" margin={1}>
+            <Typography
+              component="h1"
+              variant="h6"
+              margin={1}
+              sx={{
+                fontSize: 15,
+              }}
+            >
               Support
             </Typography>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Help Center
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               FAQ
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               AirCover
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Disability support
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Cancellation options
             </Link>
           </Grid>
           <Grid item display={"flex"} flexDirection={"column"}>
-            <Typography component="h1" variant="h6" margin={1}>
+            <Typography
+              component="h1"
+              variant="h6"
+              margin={1}
+              sx={{
+                fontSize: 15,
+              }}
+            >
               Hosting
             </Typography>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Hosting resources
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Community forum
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Hosting responsibly
             </Link>
           </Grid>
 
           <Grid item display={"flex"} flexDirection={"column"}>
-            <Typography component="h1" variant="h6" margin={1}>
+            <Typography
+              component="h1"
+              variant="h6"
+              margin={1}
+              sx={{
+                fontSize: 15,
+              }}
+            >
               Holidaze
             </Typography>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Newsroom
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               New features
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Careers
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Investors
             </Link>
-            <Link href="#" color="inherit" margin={1}>
+            <Link
+              href="#"
+              color="inherit"
+              margin={1}
+              sx={{
+                fontSize: 13,
+              }}
+            >
               Gift cards
             </Link>
           </Grid>
         </Grid>
         <Grid container justifyContent={"center"}>
           <Grid item display={"flex"} flexDirection={"column"}>
-            <Typography component="h1" variant="h6" margin={1}>
+            <Typography
+              component="h1"
+              variant="h6"
+              margin={1}
+              sx={{
+                fontSize: 15,
+              }}
+            >
               &copy; Holidaze, inc.
             </Typography>
           </Grid>
