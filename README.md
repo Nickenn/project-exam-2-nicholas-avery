@@ -61,12 +61,15 @@ If you want to contribute to this project, please open a pull request so your co
 
 ## Contact
 
-This is where you can leave your social links for people to contact you, such as a LinkedIn profile or Twitter link e.g.
+[My LinkedIn page](https://www.linkedin.com/in/nicholas-avery-85415024a/)
+[My GitHub page](https://github.com/Nickenn)
 
-[My Twitter page](www.twitter.com)
+Email me at: nickeavery@protonmail.com
 
-[My LinkedIn page](www.linkedin.com)
+## Links
 
-- <a href="https://www.linkedin.com/in/nicholas-avery-85415024a/" target="_blank">LinkedIn page</a>
-- <a href="https://github.com/Nickenn" target="_blank">GitHub</a>
-- <p>Email me at: nickeavery@protonmail.com</p>
+| Resource    | url                                                            |
+| :---------- | -------------------------------------------------------------- |
+|             |
+| Repository  | https://github.com/Nickenn/js-frameworks-ca-nicholas-avery.git |
+| Hosted Demo | [https://comforting-smakager-6181da.netlify.app/contact](https://comforting-smakager-6181da.netlify.app/)        |
