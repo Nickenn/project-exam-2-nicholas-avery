@@ -8,7 +8,6 @@ Website for venue accommodation.
 
 ## Description
 
-
 This was an exam from Noroff school of technology and digital media, second year last semester:
 
 In this project we were tasked to create a accommodation booking site for a fictional company called Holidaze. The customer-facing side of the application requires a user-friendly interface that is easy to use. While the adming-facing side lets users register, book venues and manage their own venues and bookings. 
