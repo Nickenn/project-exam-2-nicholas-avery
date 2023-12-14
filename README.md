@@ -62,6 +62,7 @@ If you want to contribute to this project, please open a pull request so your co
 ## Contact
 
 [My LinkedIn page](https://www.linkedin.com/in/nicholas-avery-85415024a/)
+
 [My GitHub page](https://github.com/Nickenn)
 
 Email me at: nickeavery@protonmail.com
