@@ -73,4 +73,4 @@ Email me at: nickeavery@protonmail.com
 | :---------- | -------------------------------------------------------------- |
 |             |
 | Repository  | https://github.com/Nickenn/js-frameworks-ca-nicholas-avery.git |
-| Hosted Demo | [https://comforting-smakager-6181da.netlify.app/contact](https://comforting-smakager-6181da.netlify.app/)        |
+| Hosted Demo | https://dazzling-figolla-10eae8.netlify.app/                   |
