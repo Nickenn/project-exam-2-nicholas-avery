@@ -8,9 +8,7 @@ Website for venue accommodation.
 
 ## Description
 
-This was an exam from Noroff school of technology and digital media, second year last semester:
-
-In this project we were tasked to create a accommodation booking site for a fictional company called Holidaze. The customer-facing side of the application requires a user-friendly interface that is easy to use. While the adming-facing side lets users register, book venues and manage their own venues and bookings. 
+In this project I was tasked to create a accommodation booking site for a fictional company called Holidaze. The customer-facing side of the application requires a user-friendly interface that is easy to use. While the adming-facing side lets users register, book venues and manage their own venues and bookings. 
 
 All API functionality is managed by an existing application. This project only covers the front-end application for the API.
 
@@ -29,7 +27,7 @@ The API used for this project can be found under Holidaze in the <a href="https:
 9. Messages: yup
 10. Hosting Service: Netlify
 11. Design Applications: Adobe XD
-12. Planning Application: Github Projects
+12. Planning Application: Github Projects, Trello
 
 ## Getting Started
 
