@@ -92,10 +92,7 @@ function ProfileVenues() {
       <Box
         sx={{
           marginTop: 30,
-          display: "flex",
-          flexDirection: "column",
           height: 1050,
-          alignItems: "center",
         }}
       >
         <Typography component="h1" variant="h3">

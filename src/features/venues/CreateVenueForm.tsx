@@ -86,6 +86,7 @@ export function CreateVenueForm() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          maxWidth: "40%",
         }}
       >
         <Typography component="h1" variant="h3">
@@ -101,6 +102,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="name"
           label="Venue title"
           {...register("name")}
@@ -111,6 +114,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="description"
           label="Description"
           {...register("description")}
@@ -118,6 +123,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="media"
           label="Image(url)"
           {...register("media")}
@@ -129,6 +136,8 @@ export function CreateVenueForm() {
         <TextField
           type="number"
           required
+          fullWidth
+          size="small"
           id="price"
           label="Price"
           {...register("price")}
@@ -136,6 +145,8 @@ export function CreateVenueForm() {
         <TextField
           type="number"
           required
+          fullWidth
+          size="small"
           min={1}
           id="maxGuests"
           label="Maximum guests*"
@@ -148,6 +159,8 @@ export function CreateVenueForm() {
         <TextField
           type="number"
           required
+          fullWidth
+          size="small"
           id="rating"
           label="Rating"
           {...register("rating")}
@@ -185,6 +198,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="address"
           label="Address"
           {...register("address")}
@@ -192,6 +207,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="city"
           label="City"
           {...register("city")}
@@ -199,6 +216,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="zip"
           label="Zip code"
           {...register("zip")}
@@ -209,6 +228,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="country"
           label="Country"
           {...register("country")}
@@ -216,6 +237,8 @@ export function CreateVenueForm() {
         <TextField
           type="text"
           required
+          fullWidth
+          size="small"
           id="continent"
           label="Continent"
           {...register("continent")}
@@ -223,6 +246,8 @@ export function CreateVenueForm() {
         <TextField
           type="number"
           required
+          fullWidth
+          size="small"
           id="lat"
           label="Lat"
           {...register("lat")}
@@ -230,6 +255,8 @@ export function CreateVenueForm() {
         <TextField
           type="number"
           required
+          fullWidth
+          size="small"
           id="lat"
           label="Lng"
           {...register("lng")}

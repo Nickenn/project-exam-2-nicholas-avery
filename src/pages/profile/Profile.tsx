@@ -3,6 +3,8 @@ import { NavLink, useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import image from "../../assets/venue-placeholder.svg";
 
+import styled from "styled-components";
+
 import { useAuth } from "../../context/authContext";
 import { getProfile, updateProfile } from "../../services/profileApi";
 
@@ -19,6 +21,20 @@ interface ProfileProps {
     bookings: number;
   };
 }
+
+const StyledAvatar = styled.img`
+  max-height: 200px;
+  max-width: 200px;
+
+  @media only screen and (max-width: 700px) {
+    height: 75px;
+    width: 75px;
+  }
+`;
+
+const StyledListItem = styled.li`
+  list-style-type: none;
+`;
 
 function Profile() {
   const [profile, setProfile] = useState<ProfileProps | undefined>();
@@ -87,118 +103,117 @@ function Profile() {
       <Box
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
           height: 1000,
-          alignItems: "center",
           margin: 20,
         }}
       >
         <Typography component="h1" variant="h2">
           {serverErrors}
         </Typography>
-        <img src={profile.avatar ? profile.avatar : image} alt="Avatar" />
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Link underline="none" variant="body1">
-              <NavLink to={`/profiles/${userName}/media`}>
-                <AccountBoxIcon></AccountBoxIcon>Edit avatar
-              </NavLink>{" "}
-            </Link>
-          </Grid>
-        </Grid>
-        <Typography component="h1" variant="h4">
-          {profile.name}
-        </Typography>
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Typography component="h1" variant="h5">
-              {profile.venueManager ? "Manager" : "Guest"}
-            </Typography>
-            {!profile.venueManager && (
-              <Button
-                variant="contained"
-                type="submit"
-                onClick={handleSubmit(onSubmit)}
-              >
-                Become a manager
-              </Button>
-            )}
-          </Grid>
-        </Grid>
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Typography component="h1" variant="h6" gutterBottom width={600}>
-              Contact information:
-            </Typography>
-            <Typography variant="body2" gutterBottom width={600}>
-              <li>Email address: {profile.email}</li>
-              <li>Phone number: </li>
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          marginTop={8}
-          display={"flex"}
-          flexDirection={"row"}
-          alignItems={"center"}
-          justifyContent="center"
-        >
-          <Grid item padding={2}>
-            <Link href={`/profiles/${userName}/bookings`}>
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  backgroundColor: "#e9b384",
-                }}
-              >
-                My bookings
-              </Button>
-            </Link>
-          </Grid>
-          <Grid item padding={2}>
-            <Link href={`/profiles/${userName}/venues`}>
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  backgroundColor: "#e9b384",
-                }}
-              >
-                My venues
-              </Button>
-            </Link>
-          </Grid>
-          <Grid item padding={2}>
-            <Link href={"/venues/create"}>
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  backgroundColor: "#e9b384",
-                }}
-              >
-                Create venue
-              </Button>
-            </Link>
-          </Grid>
-        </Grid>
-        <Grid container justifyContent="center">
-          <Grid item>
-            <Typography component="h1" variant="h6" margin={4}>
-              Feedback:
-            </Typography>
-          </Grid>
+        <Grid>
           <Grid
             container
-            display="flex"
-            flexDirection="row"
+            display={"flex"}
+            flexDirection={"row"}
+            alignItems={"center"}
             justifyContent="center"
-            alignItems="center"
-            gap={3}
+            gap={4}
           >
+            <Grid item>
+              <StyledAvatar
+                src={profile.avatar ? profile.avatar : image}
+                alt="Avatar"
+              />
+            </Grid>
+            <Grid item>
+              <Link underline="none" variant="body1">
+                <NavLink to={`/profiles/${userName}/media`}>
+                  <AccountBoxIcon
+                    sx={{
+                      padding: "0px 10px",
+                    }}
+                  ></AccountBoxIcon>
+                  Edit avatar
+                </NavLink>{" "}
+              </Link>
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Typography component="h1" variant="h5">
+                {profile.name}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Typography component="h1" variant="h5">
+                {profile.venueManager ? "Manager" : "Guest"}
+              </Typography>
+              {!profile.venueManager && (
+                <Button
+                  variant="contained"
+                  type="submit"
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  Become a manager
+                </Button>
+              )}
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
+            <Grid item xs>
+              <Typography component="h1" variant="h6" gutterBottom width={600}>
+                Contact information:
+              </Typography>
+              <Typography variant="body2" gutterBottom width={600}>
+                <StyledListItem>Email address: {profile.email}</StyledListItem>
+                <StyledListItem>Phone number: </StyledListItem>
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
+            <Grid item padding={2}>
+              <Link href={`/profiles/${userName}/bookings`}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    backgroundColor: "#e9b384",
+                  }}
+                >
+                  My bookings
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item padding={2}>
+              <Link href={`/profiles/${userName}/venues`}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    backgroundColor: "#e9b384",
+                  }}
+                >
+                  My venues
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item padding={2}>
+              <Link href={"/venues/create"}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    backgroundColor: "#e9b384",
+                  }}
+                >
+                  Create venue
+                </Button>
+              </Link>
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
             <Grid item padding={2} alignItems={"center"}>
               <Typography variant="body2" gutterBottom width={300}>
                 "Sed vel nulla ut nisl viverra accumsan in sit amet est. Ut

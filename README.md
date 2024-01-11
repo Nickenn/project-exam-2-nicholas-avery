@@ -67,7 +67,7 @@ The company CTO has set the following technical restrictions:
 9. Messages: yup
 10. Hosting Service: Netlify
 11. Design Applications: Adobe XD
-12. Planning Application: Github Projects
+12. Planning Application: Github Projects - Kanban board, Gantt chart
 
 ## Getting Started
 

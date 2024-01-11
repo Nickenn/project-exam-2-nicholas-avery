@@ -74,6 +74,7 @@ function LoginForm() {
           display: "flex",
           flexDirection: "column",
           height: 1050,
+          maxWidth: "30%",
           alignItems: "center",
         }}
       >
@@ -83,24 +84,28 @@ function LoginForm() {
         <Typography component="h1" variant="h4" padding={5}>
           Login
         </Typography>
-
         <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
           {errors.email?.message}
         </Typography>
         <TextField
           required
           id="email"
+          size="small"
+          helperText="Please enter email"
+          fullWidth
           label="Email"
           autoComplete="email"
           {...register("email")}
         />
-
         <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
           {errors.password?.message}
         </Typography>
         <TextField
           sx={{}}
           required
+          size="small"
+          helperText="Please enter password"
+          fullWidth
           label="Password"
           type="password"
           id="password"

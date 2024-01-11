@@ -97,6 +97,8 @@ function RegisterForm() {
         <TextField
           autoComplete="given-name"
           required
+          size="small"
+          fullWidth
           id="name"
           label="Username"
           autoFocus
@@ -108,6 +110,8 @@ function RegisterForm() {
         </Typography>
         <TextField
           required
+          size="small"
+          fullWidth
           placeholder="your-email@stud.noroff.no"
           id="email"
           label="Email"
@@ -120,6 +124,8 @@ function RegisterForm() {
         </Typography>
         <TextField
           required
+          size="small"
+          fullWidth
           label="Password"
           placeholder="**********"
           type="password"
