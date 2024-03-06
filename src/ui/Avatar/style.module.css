@@ -1,0 +1,11 @@
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 700px) {
+  .avatar {
+    display: none;
+  }
+}

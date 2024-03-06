@@ -4,14 +4,19 @@ import { getVenue } from "../../services/venuesApi.tsx";
 
 import styled from "styled-components";
 import image from "../../assets/venue-placeholder.svg";
+import Details from "../../features/venues/VenueDetails.tsx";
 
 import { addDays } from "date-fns";
+import { AiOutlineHeart } from "react-icons/ai";
+import { LuShare } from "react-icons/lu";
 import BookingForm from "../../features/booking/VenueBookingForm.tsx";
-import PetsIcon from "@mui/icons-material/Pets";
-import WifiIcon from "@mui/icons-material/Wifi";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
-import { Box, Grid, Typography } from "@mui/material";
+import BookingDateRangePicker from "../../ui/Calendar/DateRangePicker.tsx";
+import Container from "../../ui/Container.tsx";
+import { Box, Typography } from "@mui/material";
+import Button from "../../ui/Button.tsx";
+import Gallery from "../../ui/Gallery.tsx";
+import { GridColsTwo } from "../../ui/Grid.tsx";
+import Page from "../../ui/Page.tsx";
 
 interface VenueProps {
   key: string;
@@ -63,29 +68,36 @@ interface DateRangeProps {
 
 interface CustomDateRange extends DateRangeProps {}
 
-const StyledGallery = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1rem;
-  margin: 2rem 0;
-  border-radius: 4px;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 10rem;
-    object-fit: cover;
-  }
-
-  img:first-child {
-    grid-column: 1/3;
-    grid-row: 1/3;
-    height: 20rem;
-  }
+const StyledVenuePage = styled(Page)`
+& .align-left {
+  justify-content: end;
 
   @media only screen and (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
+    text-align: end;
+  }`;
+
+const GridItem = styled.div`
+  display: flex;
+  gap: 1rem;
+
+  @media only screen and (max-width: 900px) {
+    display: block;
+  }
+`;
+
+const StyledGridColsTwo = styled(GridColsTwo)`
+  align-items: start;
+  gap: 3rem;
+
+  @media only screen and (max-width: 900px) {
+    display: block;
+  }
+`;
+
+const StyledDates = styled.div`
+  margin: 3rem 0;
+  & h3 {
+    margin-bottom: 2rem;
   }
 `;
 
@@ -126,144 +138,58 @@ function Venue() {
   }
 
   return (
-    <>
-      {" "}
-      <Grid
-        container
-        display={"flex"}
-        justifyContent={"space-between"}
-        alignContent={"center"}
-        flexDirection={"column"}
-        position={"relative"}
-        sx={{
-          maxWidth: { xs: 650, md: 500 },
-        }}
-      >
+    <StyledVenuePage>
+      <Container>
+        {loading}
         {venue && (
-          <Grid
-            container
-            display={"flex"}
-            alignContent={"space-between"}
-            flexDirection={"column"}
-            position={"relative"}
-            sx={{
-              maxWidth: { xs: 650, md: 500 },
-            }}
-          >
-            <h1>{venue.name}</h1>
-
-            <Typography component="h1" variant="h5" margin={1}>
-              Rating: {venue.rating}
+          <div>
+            <Typography component="h1" variant="h3">
+              {venue.name}
             </Typography>
-            <Typography variant="body1" gutterBottom width={600}>
-              Superhost: {venue.owner.name}, {venue.location.city},{" "}
-              {venue.location.country.toUpperCase()}
-            </Typography>
-            <StyledGallery>
-              <Box
-                component="img"
-                src={venue.media[0] ? venue.media[0] : image}
-                alt={venue.name}
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
+            <GridColsTwo>
+              <GridItem>
+                <div>
+                  Superhost: {venue.owner.name}, {venue.location.city},
+                  {venue.location.country.toUpperCase()}
+                </div>
+              </GridItem>
+              <GridItem className="align-left">
+                <div>
+                  <LuShare />
+                  <Button variation="default">Share</Button>
+                </div>
+                <div>
+                  <AiOutlineHeart />
+                  <Button variation="default">Save</Button>
+                </div>
+              </GridItem>
+            </GridColsTwo>
+            <Gallery venue={venue} />
+            <StyledGridColsTwo>
+              <div>
+                <Details venue={venue} />
+                <StyledDates>
+                  <Typography component="h1" variant="h3">
+                    Available dates
+                  </Typography>
+                  <BookingDateRangePicker
+                    bookings={venue.bookings}
+                    selectedDateRange={selectedDateRange}
+                    onDateRangeChange={handleDateRangeChange}
+                  />
+                </StyledDates>
+              </div>
+              <BookingForm
+                venue={venue}
+                selectedDateRange={selectedDateRange}
+                onDateRangeChange={handleDateRangeChange}
               />
-
-              <Box
-                component="img"
-                src={venue.media[1] ? venue.media[1] : image}
-                alt={venue.name}
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
-              />
-              <Box
-                component="img"
-                src={venue.media[2] ? venue.media[2] : image}
-                alt={venue.name}
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
-              />
-              <Box
-                component="img"
-                src={venue.media[3] ? venue.media[3] : image}
-                alt={venue.name}
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
-              />
-              <Box
-                component="img"
-                src={venue.media[4] ? venue.media[4] : image}
-                alt={venue.name}
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 },
-                }}
-              />
-            </StyledGallery>
+            </StyledGridColsTwo>
             <hr />
-            <Typography component="h1" variant="h5" margin={1}>
-              {venue.description}
-            </Typography>
-            <Typography component="h1" variant="h5" margin={1}>
-              Number of guests accepted: {venue.maxGuests}
-            </Typography>
-            <Typography component="h1" variant="h5" margin={1}>
-              Accommodations
-            </Typography>
-
-            <WifiIcon color="primary"></WifiIcon>
-            {venue.meta.wifi ? "WIFI" : "No WIFI"}
-
-            <DirectionsCarIcon color="primary"></DirectionsCarIcon>
-            {venue.meta.parking ? "Parking" : "No parking"}
-            <FreeBreakfastIcon color="primary"></FreeBreakfastIcon>
-            {venue.meta.breakfast ? "Breakfast" : "No breakfast"}
-            <PetsIcon color="primary"></PetsIcon>
-            {venue.meta.pets ? "Pets allowed" : "No pets"}
-            <Typography component="h1" variant="h5" margin={1}>
-              Location:
-            </Typography>
-            <Typography variant="body1" gutterBottom width={600}>
-              Address: {venue.location.address}
-            </Typography>
-            <Typography variant="body1" gutterBottom width={600}>
-              City: {venue.location.city}
-            </Typography>
-            <Typography variant="body1" gutterBottom width={600}>
-              Country: {venue.location.country}
-            </Typography>
-            <Typography variant="body1" gutterBottom width={600}>
-              Host: {venue.owner.name}
-            </Typography>
-            <Typography variant="body1" gutterBottom width={600}>
-              Email: {venue.owner.email}
-            </Typography>
-            <BookingForm
-              venue={venue}
-              selectedDateRange={selectedDateRange}
-              onDateRangeChange={handleDateRangeChange}
-            />
-          </Grid>
+          </div>
         )}
-      </Grid>
-    </>
+      </Container>
+    </StyledVenuePage>
   );
 }
 

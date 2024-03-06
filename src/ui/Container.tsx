@@ -1,20 +1,14 @@
 import styled from "styled-components";
 
-interface ContainerProps {
-  children: React.ReactNode;
-}
+const Container = styled.div`
+  position: relative;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 4rem;
 
-const StyledContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 4rem;
-  gap: 5rem;
-  max-width: 1200px;
-  min-height: 100vh;
+  @media only screen and (max-width: 500px) {
+    padding: 0 1rem;
+  }
 `;
-
-function Container({ children }: ContainerProps) {
-  return <StyledContainer>{children}</StyledContainer>;
-}
 
 export default Container;

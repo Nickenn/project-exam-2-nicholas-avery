@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import styled from "styled-components";
-import Avatar from "../Avatar";
+import Avatar from "../Avatar/Avatar.tsx";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -85,35 +85,35 @@ function UserMenu() {
             <>
               <MenuItem to={`/profiles/${userName}`}>
                 <AccountCircleIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></AccountCircleIcon>
                 Profile
               </MenuItem>
               <MenuItem to={`/profiles/${userName}/bookings`}>
                 <CalendarMonthIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></CalendarMonthIcon>
                 Bookings
               </MenuItem>
               <MenuItem to={`/profiles/${userName}/venues`}>
                 <HouseIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></HouseIcon>
                 Venues
               </MenuItem>
               <MenuItem to={"/venues/create"}>
                 <HotelIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></HotelIcon>
                 Create venue
               </MenuItem>
               <MenuItem to="/" onClick={logout}>
                 <LogoutIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></LogoutIcon>
                 Log Out
@@ -123,21 +123,21 @@ function UserMenu() {
             <>
               <MenuItem to={`/profiles/${userName}`}>
                 <AccountCircleIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></AccountCircleIcon>
                 Profile
               </MenuItem>
               <MenuItem to={`/profiles/${userName}/bookings`}>
                 <CalendarMonthIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></CalendarMonthIcon>
                 Bookings
               </MenuItem>
               <MenuItem to="/" onClick={logout}>
                 <LogoutIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></LogoutIcon>
                 Log Out
@@ -147,14 +147,14 @@ function UserMenu() {
             <>
               <MenuItem to="/auth/login">
                 <LockOpenIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></LockOpenIcon>
                 Log In
               </MenuItem>
               <MenuItem to="/auth/register">
                 <CreateIcon
-                  fontSize="small"
+                  fontSize="large"
                   style={{ color: "green", padding: "0px 7px" }}
                 ></CreateIcon>
                 Sign up

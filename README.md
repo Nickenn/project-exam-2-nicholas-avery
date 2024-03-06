@@ -20,8 +20,8 @@ The API used for this project can be found under Holidaze in the <a href="https:
 2. CSS Framework: Styled Components
 3. Bundler: Vite
 4. Routing: React Router DOM
-5. State managnemt: React Context API
-6. Form valiadtion: React Hook Form
+5. State management: React Context API
+6. Form validation: React Hook Form
 7. React Date range
 8. Icons: MUI Icons
 9. Messages: yup

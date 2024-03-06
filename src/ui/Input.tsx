@@ -25,6 +25,14 @@ export const StyledInput = styled.div`
   flex-direction: column;
 `;
 
+export const StyledDateInput = styled.div`
+  p {
+    border: var(--border);
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+  }
+`;
+
 const StyledError = styled.p`
   font-size: 1.4rem;
   color: red;

@@ -11,13 +11,8 @@
   border-radius: 3px;
 }
 
-.nav a:global(.active) {
-  background-color: rgb(246, 247, 247);
-  background-color: #e9b384;
-}
-
 @media screen and (max-width: 1000px) {
-  .fotter {
+  .footer {
     flex-direction: column;
     margin-top: 700px;
   }

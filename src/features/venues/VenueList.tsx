@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import image from "../../assets/venue-placeholder.svg";
 import styled from "styled-components";
 
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import Button from "../../ui/Button.tsx";
 
 interface VenueProps {
   key: string;
@@ -72,16 +73,7 @@ function Venue({ id, name, media, price, rating, maxGuests }: VenueProps) {
         <Typography variant="body2" gutterBottom width={600}>
           {price},- NOK per night
         </Typography>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            backgroundColor: "#e9b384",
-            borderRadius: "2px",
-          }}
-        >
-          Venue details
-        </Button>
+        <Button variation="primary">Venue details</Button>
       </Link>
     </Grid>
   );

@@ -2,13 +2,19 @@ import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useForm } from "react-hook-form";
 import { createBooking } from "../../services/bookingApi";
-import { differenceInDays } from "date-fns";
+import { format, differenceInDays } from "date-fns";
 import { formatCurrency } from "../../utils/formatCurrency";
 
 import { useNavigate } from "react-router-dom";
 
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import DateRangeComp from "../../ui/Calendar/DateRangeComp";
+import styled from "styled-components";
+import Button from "../../ui/Button";
+import { StyledErrorMessage } from "../authentication/Register";
+import { Typography } from "@mui/material";
+import Input, { StyledDateInput } from "../../ui/Input";
+import FlexContainer from "../../ui/FlexContainer";
+import { GridColsTwo } from "../../ui/Grid";
+import { DateRange } from "react-date-range";
 
 interface VenueProps {
   key: string;
@@ -64,6 +70,31 @@ interface VenueProp {
   onDateRangeChange: (newDateRange: DateRangeProps) => void;
 }
 
+const StyledBookingForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 80%;
+  padding: 4rem;
+  margin: 3rem 0 3rem auto;
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 20rem;
+
+  p {
+    text-align: center;
+  }
+
+  & FlexContainer {
+    justify-content: space-between;
+  }
+
+  @media only screen and (max-width: 1100px) {
+    width: 100%;
+    margin: 3rem auto;
+  }
+`;
+
 function BookingForm({ venue, selectedDateRange }: VenueProp) {
   const navigate = useNavigate();
   const { authToken, userName } = useAuth();
@@ -76,11 +107,36 @@ function BookingForm({ venue, selectedDateRange }: VenueProp) {
     },
   });
 
-  const { register, handleSubmit, formState } = form;
+  const [isOpen, setIsOpen] = useState(false);
+  const { register, handleSubmit, formState, setValue } = form;
   const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
-  async function onSubmit(formData: any) {
+  const bookedDateRanges = venue.bookings.map((booking) => ({
+    startDate: new Date(booking.dateFrom),
+    endDate: new Date(booking.dateTo),
+    key: booking.id,
+  }));
+
+  const disabledDates = (date: Date) => {
+    return bookedDateRanges.some(
+      (bookedDateRange) =>
+        (date >= bookedDateRange.startDate &&
+          date <= bookedDateRange.endDate) ||
+        date === bookedDateRange.startDate ||
+        date === bookedDateRange.endDate
+    );
+  };
+
+  const handleRangeChange = (range: any) => {
+    const selectedDateRange = range.selection;
+    onDateRangeChange(selectedDateRange);
+
+    setValue("dateFrom", selectedDateRange.startDate);
+    setValue("dateTo", selectedDateRange.endDate);
+  };
+
+  const onSubmit = async (formData: any) => {
     try {
       if (authToken) {
         setServerErrors("");
@@ -98,98 +154,85 @@ function BookingForm({ venue, selectedDateRange }: VenueProp) {
       }
       setServerErrors(errorMessage);
     }
-  }
+  };
 
   return (
-    <>
-      {" "}
-      <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit(onSubmit)}
-        alignContent={"center"}
-        margin={3}
-        sx={{
-          mt: 3,
-          height: 1650,
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h2">
-          {serverErrors}
+    <StyledBookingForm onSubmit={handleSubmit(onSubmit)} noValidate>
+      <Typography component="h1" variant="h4">
+        {formatCurrency(venue.price)} / night
+      </Typography>
+
+      <GridColsTwo>
+        <StyledDateInput onClick={() => setIsOpen(!isOpen)}>
+          <label>Check-in</label>
+          <p>{format(selectedDateRange[0].startDate, "dd. MM. yyyy")} </p>
+        </StyledDateInput>
+        <StyledDateInput>
+          <label>Check-out</label>
+          <p>{format(selectedDateRange[0].endDate, "dd. MM. yyyy")}</p>
+        </StyledDateInput>
+      </GridColsTwo>
+      {isOpen && (
+        <DateRange
+          editableDateInputs={true}
+          moveRangeOnFirstSelection={false}
+          onChange={handleRangeChange}
+          disabledDay={disabledDates}
+          ranges={selectedDateRange}
+          preventSnapRefocus={false}
+          calendarFocus="backwards"
+        />
+      )}
+
+      <Input
+        label="Number of guests"
+        id="guests"
+        type="number"
+        register={register}
+        error={errors.guests?.message}
+        required={{ value: true, message: "Number of guests is required" }}
+      />
+      {serverErrors && <StyledErrorMessage>{serverErrors}</StyledErrorMessage>}
+      <Button variation="secondary" type="submit">
+        Reserve
+      </Button>
+
+      <p>You won't be charged yet</p>
+
+      <hr />
+      <FlexContainer>
+        <p>
+          {
+            +differenceInDays(
+              selectedDateRange[0].endDate,
+              selectedDateRange[0].startDate
+            )
+          }{" "}
+          night X {formatCurrency(venue.price)}{" "}
+        </p>
+        <p>
+          {formatCurrency(
+            +differenceInDays(
+              selectedDateRange[0].endDate,
+              selectedDateRange[0].startDate
+            ) * venue.price
+          )}
+        </p>
+      </FlexContainer>
+      <FlexContainer>
+        <p>Cleaning fee</p>
+        <p>NOK 250.00</p>
+      </FlexContainer>
+      <FlexContainer>
+        <p>Rental fee</p>
+        <p>NOK 150.00 </p>
+      </FlexContainer>
+      <FlexContainer>
+        <Typography component="h1" variant="h4" sx={{ fontWeight: "bold" }}>
+          Your total:
         </Typography>
-        <Typography component="h1" variant="h5">
-          Booking
-        </Typography>
-        <Grid container spacing={2} marginLeft={4}>
-          <Grid item>
-            <Typography component="h1" variant="h6">
-              Ckeck-in
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography component="h1" variant="h6">
-              Ckeck-out
-            </Typography>
-          </Grid>
-        </Grid>
-
-        <DateRangeComp />
-
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography
-              variant="body2"
-              gutterBottom
-              width={600}
-              color={"#d32f2f"}
-            >
-              {errors.guests?.message}
-            </Typography>
-            <TextField
-              size="small"
-              required
-              id="guests"
-              label="Number of guests"
-              {...register("guests")}
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{ mt: 3, mb: 2, backgroundColor: "#e9b384" }}
-        >
-          Book venue
-        </Button>
-
-        <Grid container gap={2}>
-          <Typography variant="body2" gutterBottom width={600}>
-            {
-              +differenceInDays(
-                selectedDateRange[0].endDate,
-                selectedDateRange[0].startDate
-              )
-            }{" "}
-            pr night X {formatCurrency(venue.price)}{" "}
-          </Typography>
-          <Typography variant="body2" gutterBottom width={600}>
-            {formatCurrency(
-              +differenceInDays(
-                selectedDateRange[0].endDate,
-                selectedDateRange[0].startDate
-              ) * venue.price
-            )}
-          </Typography>
-        </Grid>
-        <Grid container gap={3}>
-          <Typography variant="h4" component={"h1"}>
-            Your total:
-          </Typography>
-          <Typography variant="body2" gutterBottom width={600}>
+        <p>
+          <b>
             {" "}
             {formatCurrency(
               +differenceInDays(
@@ -200,10 +243,10 @@ function BookingForm({ venue, selectedDateRange }: VenueProp) {
                 100 +
                 50
             )}
-          </Typography>
-        </Grid>
-      </Box>
-    </>
+          </b>
+        </p>
+      </FlexContainer>
+    </StyledBookingForm>
   );
 }
 

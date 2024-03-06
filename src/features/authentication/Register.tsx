@@ -5,6 +5,7 @@ import { registerUser } from "../../services/authApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Box, Button, TextField, Typography, Checkbox } from "@mui/material";
+import styled from "styled-components";
 
 const schema = yup
   .object({
@@ -29,6 +30,13 @@ interface FormDataProps {
   avatar: string;
   manager: boolean;
 }
+
+export const StyledErrorMessage = styled.p`
+  text-align: center;
+  color: var(--color-red-100);
+  font-weight: 700;
+  font-size: 2rem;
+`;
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -81,6 +89,7 @@ function RegisterForm() {
           display: "flex",
           flexDirection: "column",
           height: 1050,
+          maxWidth: "30%",
           alignItems: "center",
         }}
       >
@@ -99,8 +108,9 @@ function RegisterForm() {
           required
           size="small"
           fullWidth
+          helperText="Please enter a valid username"
           id="name"
-          label="Username"
+          placeholder="Username*"
           autoFocus
           {...register("name")}
         />
@@ -112,9 +122,9 @@ function RegisterForm() {
           required
           size="small"
           fullWidth
-          placeholder="your-email@stud.noroff.no"
+          helperText="Please enter your email"
+          placeholder="noroffstudent@stud.noroff.no*"
           id="email"
-          label="Email"
           autoComplete="email"
           {...register("email")}
         />
@@ -126,7 +136,7 @@ function RegisterForm() {
           required
           size="small"
           fullWidth
-          label="Password"
+          helperText="Please enter your password"
           placeholder="**********"
           type="password"
           id="password"

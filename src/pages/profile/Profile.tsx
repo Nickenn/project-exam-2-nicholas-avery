@@ -8,7 +8,8 @@ import styled from "styled-components";
 import { useAuth } from "../../context/authContext";
 import { getProfile, updateProfile } from "../../services/profileApi";
 
-import { Box, Button, Grid, Link, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+import Button from "../../ui/Button.tsx";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 interface ProfileProps {
@@ -88,11 +89,11 @@ function Profile() {
           margin: 20,
         }}
       >
-        <Link href="/auth/login">
-          <Button variant="contained" size="large">
+        <NavLink to="/auth/login">
+          <Button variation="primary" size="large">
             Please log in to view your profile
           </Button>
-        </Link>
+        </NavLink>
       </Box>
     );
   }
@@ -126,16 +127,17 @@ function Profile() {
               />
             </Grid>
             <Grid item>
-              <Link underline="none" variant="body1">
-                <NavLink to={`/profiles/${userName}/media`}>
-                  <AccountBoxIcon
-                    sx={{
-                      padding: "0px 10px",
-                    }}
-                  ></AccountBoxIcon>
-                  Edit avatar
-                </NavLink>{" "}
-              </Link>
+              <NavLink
+                to={`/profiles/${userName}/media`}
+                style={{ textDecoration: "none", color: "blue" }}
+              >
+                <AccountBoxIcon
+                  sx={{
+                    padding: "0px 10px",
+                  }}
+                ></AccountBoxIcon>
+                Edit avatar
+              </NavLink>{" "}
             </Grid>
           </Grid>
           <Grid container justifyContent="center">
@@ -152,7 +154,7 @@ function Profile() {
               </Typography>
               {!profile.venueManager && (
                 <Button
-                  variant="contained"
+                  variation="primary"
                   type="submit"
                   onClick={handleSubmit(onSubmit)}
                 >
@@ -162,55 +164,20 @@ function Profile() {
             </Grid>
           </Grid>
           <Grid container justifyContent="center">
-            <Grid item xs>
-              <Typography component="h1" variant="h6" gutterBottom width={600}>
-                Contact information:
-              </Typography>
-              <Typography variant="body2" gutterBottom width={600}>
-                <StyledListItem>Email address: {profile.email}</StyledListItem>
-                <StyledListItem>Phone number: </StyledListItem>
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid container justifyContent="center">
             <Grid item padding={2}>
-              <Link href={`/profiles/${userName}/bookings`}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    backgroundColor: "#e9b384",
-                  }}
-                >
-                  My bookings
-                </Button>
-              </Link>
+              <NavLink to={`/profiles/${userName}/bookings`}>
+                <Button variation="primary">My bookings</Button>
+              </NavLink>
             </Grid>
             <Grid item padding={2}>
-              <Link href={`/profiles/${userName}/venues`}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    backgroundColor: "#e9b384",
-                  }}
-                >
-                  My venues
-                </Button>
-              </Link>
+              <NavLink to={`/profiles/${userName}/venues`}>
+                <Button variation="primary">My venues</Button>
+              </NavLink>
             </Grid>
             <Grid item padding={2}>
-              <Link href={"/venues/create"}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    backgroundColor: "#e9b384",
-                  }}
-                >
-                  Create venue
-                </Button>
-              </Link>
+              <NavLink to={"/venues/create"}>
+                <Button variation="primary">Create venue</Button>
+              </NavLink>
             </Grid>
           </Grid>
           <Grid container justifyContent="center">
@@ -235,6 +202,17 @@ function Profile() {
                 - Lorum, impsum.
               </Typography>
             </Grid>
+          </Grid>
+        </Grid>
+        <Grid container justifyContent="center">
+          <Grid item xs>
+            <Typography component="h1" variant="h6" gutterBottom width={600}>
+              Contact information:
+            </Typography>
+            <Typography variant="body2" gutterBottom width={600}>
+              <StyledListItem>Email address: {profile.email}</StyledListItem>
+              <StyledListItem>Phone number: </StyledListItem>
+            </Typography>
           </Grid>
         </Grid>
       </Box>
