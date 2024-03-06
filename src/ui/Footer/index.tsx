@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import image from "../../assets/logo-black.png";
+import image from "../../assets/holidaze-high-resolution-logo.png";
 import styles from "./style.module.css";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 

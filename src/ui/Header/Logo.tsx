@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import styles from "./style.module.css";
-import image from "../../assets/logo-color.png";
+import image from "../../assets/holidaze-high-resolution-logo.png";
 
 import { NavLink } from "react-router-dom";
 
