@@ -90,7 +90,7 @@ function Profile() {
         }}
       >
         <NavLink to="/auth/login">
-          <Button variation="primary" size="large">
+          <Button variation="primary">
             Please log in to view your profile
           </Button>
         </NavLink>

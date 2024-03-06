@@ -130,7 +130,7 @@ function BookingForm({ venue, selectedDateRange }: VenueProp) {
 
   const handleRangeChange = (range: any) => {
     const selectedDateRange = range.selection;
-    onDateRangeChange(selectedDateRange);
+    handleRangeChange(selectedDateRange);
 
     setValue("dateFrom", selectedDateRange.startDate);
     setValue("dateTo", selectedDateRange.endDate);
