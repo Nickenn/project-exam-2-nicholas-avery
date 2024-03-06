@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { getVenue } from "../../services/venuesApi.tsx";
 
 import styled from "styled-components";
-import image from "../../assets/venue-placeholder.svg";
 import Details from "../../features/venues/VenueDetails.tsx";
 
 import { addDays } from "date-fns";
