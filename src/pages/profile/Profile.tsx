@@ -181,6 +181,17 @@ function Profile() {
             </Grid>
           </Grid>
           <Grid container justifyContent="center">
+            <Grid item xs>
+              <Typography component="h1" variant="h6" gutterBottom width={600}>
+                Contact information:
+              </Typography>
+              <Typography variant="body2" gutterBottom width={600}>
+                <StyledListItem>Email address: {profile.email}</StyledListItem>
+                <StyledListItem>Phone number: </StyledListItem>
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container justifyContent="center">
             <Grid item padding={2} alignItems={"center"}>
               <Typography variant="body2" gutterBottom width={300}>
                 "Sed vel nulla ut nisl viverra accumsan in sit amet est. Ut
@@ -202,17 +213,6 @@ function Profile() {
                 - Lorum, impsum.
               </Typography>
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid container justifyContent="center">
-          <Grid item xs>
-            <Typography component="h1" variant="h6" gutterBottom width={600}>
-              Contact information:
-            </Typography>
-            <Typography variant="body2" gutterBottom width={600}>
-              <StyledListItem>Email address: {profile.email}</StyledListItem>
-              <StyledListItem>Phone number: </StyledListItem>
-            </Typography>
           </Grid>
         </Grid>
       </Box>
