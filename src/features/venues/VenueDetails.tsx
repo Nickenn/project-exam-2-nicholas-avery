@@ -4,6 +4,7 @@ import Button from "../../ui/Button";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import { Typography } from "@mui/material";
+import avatarPlaceholder from "../../assets/placeholder.jpg";
 
 import PetsIcon from "@mui/icons-material/Pets";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -121,11 +122,7 @@ function Details({ venue }: VenueProp) {
       <hr />
       <StyledHostInfo>
         <img
-          src={
-            venue.owner.avatar
-              ? venue.owner.avatar
-              : "/src/assets/placeholder.jpg"
-          }
+          src={venue.owner.avatar ? venue.owner.avatar : avatarPlaceholder}
           alt="Profile avatar"
         />
         {isAuthenticated ? (
