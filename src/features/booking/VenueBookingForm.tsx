@@ -95,7 +95,11 @@ const StyledBookingForm = styled.form`
   }
 `;
 
-function BookingForm({ venue, selectedDateRange }: VenueProp) {
+function BookingForm({
+  venue,
+  selectedDateRange,
+  onDateRangeChange,
+}: VenueProp) {
   const navigate = useNavigate();
   const { authToken, userName } = useAuth();
   const form = useForm({
@@ -130,7 +134,7 @@ function BookingForm({ venue, selectedDateRange }: VenueProp) {
 
   const handleRangeChange = (range: any) => {
     const selectedDateRange = range.selection;
-    handleRangeChange(selectedDateRange);
+    onDateRangeChange(selectedDateRange);
 
     setValue("dateFrom", selectedDateRange.startDate);
     setValue("dateTo", selectedDateRange.endDate);
