@@ -17,6 +17,11 @@ function Footer() {
       bgcolor={"#35b4d05f"}
       padding={4}
       borderRadius={2}
+      style={{
+        minWidth: "100%",
+        position: "relative",
+        bottom: 0,
+      }}
     >
       <Grid item>
         <Link href="/">

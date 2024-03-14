@@ -60,50 +60,41 @@ function ProfileBookings() {
 
   return (
     <>
+      <Box margin={"auto"}>
+        <Typography component="h1" variant="h3" fontWeight={800}>
+          Bookings
+        </Typography>
+      </Box>
       <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          height: 1100,
-          alignItems: "center",
-        }}
+        gap={1}
+        display={"flex"}
+        flexDirection={"row"}
+        justifyContent={"center"}
+        alignContent={"center"}
+        alignItems={"center"}
       >
-        <Grid
-          container
-          gap={5}
-          display={"flex"}
-          flexDirection={"column"}
-          justifyContent={"center"}
-          alignContent={"center"}
-          alignItems={"center"}
-        >
-          <Typography component="h1" variant="h5">
-            Booked venues
-          </Typography>
-          {bookings?.length > 0 ? (
-            bookings.map((booking) => (
-              <BookingItem key={booking.id} booking={booking} />
-            ))
-          ) : (
-            <Grid
-              display={"flex"}
-              flexDirection={"column"}
-              justifyContent={"center"}
-              alignItems={"center"}
-              gap={3}
-            >
-              <Typography component="h1" variant="h6">
-                You don't have any bookings.
-              </Typography>
-              <Link href={`/profiles/${userName}`}>
-                <Button variant="contained" size="large">
-                  Go back to profile
-                </Button>
-              </Link>
-            </Grid>
-          )}
-        </Grid>
+        {bookings?.length > 0 ? (
+          bookings.map((booking) => (
+            <BookingItem key={booking.id} booking={booking} />
+          ))
+        ) : (
+          <Grid
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"space-around"}
+            alignItems={"center"}
+            gap={3}
+          >
+            <Typography component="h1" variant="h6">
+              You don't have any bookings.
+            </Typography>
+            <Link href={`/profiles/${userName}`}>
+              <Button variant="contained" size="large">
+                Go back to profile
+              </Button>
+            </Link>
+          </Grid>
+        )}
       </Box>
     </>
   );

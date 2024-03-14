@@ -146,9 +146,10 @@ function BookingForm({
         setServerErrors("");
         //send data to API
         const data = await createBooking(formData, authToken);
+        navigate(`/profiles/${userName}/bookings`);
         console.log(data);
       } else {
-        navigate(`/profiles/${userName}/bookings`);
+        navigate(`/profiles/${userName}`);
       }
     } catch (error) {
       let errorMessage = "Please log in to book a venue.";
@@ -197,11 +198,6 @@ function BookingForm({
         required={{ value: true, message: "Number of guests is required" }}
       />
       {serverErrors && <StyledErrorMessage>{serverErrors}</StyledErrorMessage>}
-      <Button variation="secondary" type="submit">
-        Reserve
-      </Button>
-
-      <p>You won't be charged yet</p>
 
       <hr />
       <FlexContainer>
@@ -244,12 +240,18 @@ function BookingForm({
                 selectedDateRange[0].startDate
               ) *
                 venue.price +
-                100 +
-                50
+                250 +
+                150
             )}
           </b>
         </p>
       </FlexContainer>
+      <hr />
+      <Button variation="secondary" type="submit">
+        Reserve
+      </Button>
+
+      <p>You won't be charged yet</p>
     </StyledBookingForm>
   );
 }

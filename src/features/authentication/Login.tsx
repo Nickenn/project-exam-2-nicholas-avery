@@ -84,7 +84,13 @@ function LoginForm() {
         <Typography component="h1" variant="h4" padding={5}>
           Login
         </Typography>
-        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          width={600}
+          color={"#d32f2f"}
+          fontSize={18}
+        >
           {errors.email?.message}
         </Typography>
         <TextField
@@ -97,7 +103,13 @@ function LoginForm() {
           autoComplete="email"
           {...register("email")}
         />
-        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          width={600}
+          color={"#d32f2f"}
+          fontSize={18}
+        >
           {errors.password?.message}
         </Typography>
         <TextField

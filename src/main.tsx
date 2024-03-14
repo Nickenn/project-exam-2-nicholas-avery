@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/authContext.tsx";
 
+import { createTheme, ThemeProvider } from "@mui/material";
+
 import Home from "./pages/Home.tsx";
 import ErrorPage from "./pages/Error.tsx";
 import Login from "./pages/auth/Login";
@@ -18,6 +20,12 @@ import ProfileVenues from "./pages/profile/ProfileVenues.tsx";
 
 import AppLayout from "./AppLayout.tsx";
 import GlobalStyles from "./GlobalStyles.tsx";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Nunito", "sans-serif"].join(","),
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -70,10 +78,12 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-      <GlobalStyles />
-    </AuthProvider>
-  </React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <React.StrictMode>
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <GlobalStyles />
+      </AuthProvider>
+    </React.StrictMode>
+  </ThemeProvider>
 );

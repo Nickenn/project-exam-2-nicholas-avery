@@ -66,7 +66,7 @@ function UpdateProfileForm() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h4">
+        <Typography component="h1" variant="h3">
           {serverErrors}
         </Typography>
         <Typography component="h1" variant="h4">
@@ -84,6 +84,7 @@ function UpdateProfileForm() {
                 variant="body2"
                 gutterBottom
                 width={400}
+                fontSize={18}
                 color={"#d32f2f"}
               >
                 {errors.avatar?.message}

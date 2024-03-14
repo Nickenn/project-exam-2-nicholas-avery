@@ -33,14 +33,16 @@ const StyledMenu = styled.div`
 
 const Menu = styled.div`
   position: absolute;
-  top: 5rem;
+  top: 4.5rem;
   right: 0;
   width: max-content;
   background-color: white;
 
-  border-radius: 7px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
   border: var(--border);
-  padding: 0.8rem;
+  background-color: var(--color-gray-0);
+  padding: 1rem;
 `;
 
 const MenuItem = styled(NavLink)`

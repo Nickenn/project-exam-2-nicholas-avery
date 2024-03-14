@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 const schema = yup
   .object({
-    name: yup.string().required("Please enter your name."),
+    name: yup.string().required("Please enter a valid username."),
     email: yup
       .string()
       .email("Email must be a valid email.")
@@ -100,7 +100,13 @@ function RegisterForm() {
           Sign up
         </Typography>
 
-        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          width={600}
+          color={"#d32f2f"}
+          fontSize={18}
+        >
           {errors.name?.message}
         </Typography>
         <TextField
@@ -115,7 +121,13 @@ function RegisterForm() {
           {...register("name")}
         />
 
-        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          width={600}
+          color={"#d32f2f"}
+          fontSize={18}
+        >
           {errors.email?.message}
         </Typography>
         <TextField
@@ -129,7 +141,13 @@ function RegisterForm() {
           {...register("email")}
         />
 
-        <Typography variant="body2" gutterBottom width={600} color={"#d32f2f"}>
+        <Typography
+          variant="body2"
+          gutterBottom
+          width={600}
+          color={"#d32f2f"}
+          fontSize={18}
+        >
           {errors.password?.message}
         </Typography>
         <TextField
