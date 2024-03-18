@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../context/authContext";
 import { getBookings } from "../../services/profileApi";
 import BookingItem from "../../features/booking/BookingItem";
+import { NavLink } from "react-router-dom";
 
-import { Box, Button, Grid, Typography, Link } from "@mui/material";
+import { Box, Button, Grid, Typography, CircularProgress } from "@mui/material";
 
 interface BookingProps {
   id: string;
@@ -55,47 +56,57 @@ function ProfileBookings() {
   }, []);
 
   if (loading || !bookings) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        display={"flex"}
+        alignContent={"center"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        margin={"150px"}
+      >
+        <CircularProgress size={100} />
+      </Box>
+    );
   }
 
   return (
     <>
-      <Box margin={"auto"}>
-        <Typography component="h1" variant="h3" fontWeight={800}>
-          Bookings
-        </Typography>
-      </Box>
-      <Box
-        gap={1}
+      <Typography
+        component="h1"
+        variant="h4"
+        fontWeight={800}
         display={"flex"}
-        flexDirection={"row"}
-        justifyContent={"center"}
-        alignContent={"center"}
+        alignContent={"flex-start"}
         alignItems={"center"}
+        marginTop={"50px"}
+        px={5}
       >
-        {bookings?.length > 0 ? (
-          bookings.map((booking) => (
+        Bookings
+      </Typography>
+      {bookings?.length > 0 ? (
+        bookings.map((booking) => (
+          <Grid display={"flex"} flexDirection={"column"}>
             <BookingItem key={booking.id} booking={booking} />
-          ))
-        ) : (
-          <Grid
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"space-around"}
-            alignItems={"center"}
-            gap={3}
-          >
-            <Typography component="h1" variant="h6">
-              You don't have any bookings.
-            </Typography>
-            <Link href={`/profiles/${userName}`}>
-              <Button variant="contained" size="large">
-                Go back to profile
-              </Button>
-            </Link>
           </Grid>
-        )}
-      </Box>
+        ))
+      ) : (
+        <Grid
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"space-around"}
+          alignItems={"center"}
+          gap={3}
+        >
+          <Typography component="h1" variant="h6">
+            You don't have any bookings.
+          </Typography>
+          <NavLink to={`/profiles/${userName}`}>
+            <Button variant="contained" size="large">
+              Go back to profile
+            </Button>
+          </NavLink>
+        </Grid>
+      )}
     </>
   );
 }

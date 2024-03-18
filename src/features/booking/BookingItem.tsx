@@ -48,17 +48,14 @@ function BookingItem({ booking }: BookingItemProps) {
       <Grid
         key={booking.id}
         container
-        justifyContent="center"
         display={"flex"}
-        flexDirection={"row"}
-        gap={5}
-        alignContent={"center"}
+        gap={1}
+        flexDirection={"column"}
+        alignContent={"flex-start"}
         alignItems={"center"}
+        px={5}
         sx={{
-          marginTop: 8,
-          display: "flex",
-          height: 1050,
-          alignItems: "center",
+          marginTop: 5,
         }}
       >
         <NavLink to={`/venues/${id}`}>
@@ -66,26 +63,26 @@ function BookingItem({ booking }: BookingItemProps) {
             component="img"
             src={media[0]}
             alt="Venue image"
-            borderRadius={1}
+            borderRadius={2}
             sx={{
-              height: 233,
-              width: 350,
-              maxHeight: { xs: 233, md: 167 },
-              maxWidth: { xs: 350, md: 250 },
+              height: 133,
+              width: 133,
+              maxHeight: { xs: 167, md: 233 },
+              maxWidth: { xs: 250, md: 350 },
             }}
           ></Box>
-          <Typography variant="body1" gutterBottom width={600}>
+          <Typography variant="body1" gutterBottom width={600} fontSize={18}>
             {location.country != "Unknown"
               ? location.country
               : booking.venue.name}
           </Typography>
-          <Typography variant="body1" gutterBottom width={600}>
+          <Typography variant="body1" gutterBottom width={600} fontSize={18}>
             {location.address}
           </Typography>
-          <Typography variant="body1" gutterBottom width={600}>
+          <Typography variant="body1" gutterBottom width={600} fontSize={15}>
             From <b>{formatDate(booking.dateFrom)}</b>
           </Typography>
-          <Typography variant="body1" gutterBottom width={600}>
+          <Typography variant="body1" gutterBottom width={600} fontSize={15}>
             To <b>{formatDate(booking.dateTo)}</b>
           </Typography>
         </NavLink>

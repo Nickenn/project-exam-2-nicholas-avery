@@ -5,7 +5,14 @@ import { getVenues } from "../../services/profileApi";
 import VenueItem from "../../features/venues/VenueItem";
 import { deleteVenue } from "../../services/venuesApi";
 
-import { Box, Typography, Grid, Button, Link } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Button,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 
 interface VenueItemProp {
   id: string;
@@ -83,7 +90,17 @@ function ProfileVenues() {
   };
 
   if (loading || !venues) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        display={"flex"}
+        alignContent={"center"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        margin={"150px"}
+      >
+        <CircularProgress size={100} />
+      </Box>
+    );
   }
 
   return (

@@ -2,6 +2,8 @@ import { getAllVenues } from "../services/venuesApi";
 import { useState, useEffect } from "react";
 import Search from "../ui/Search";
 
+import { Box, CircularProgress } from "@mui/material";
+
 import VenuesList from "../features/venues/VenueList";
 
 interface VenueProps {
@@ -65,7 +67,18 @@ function Home() {
   }, []);
 
   if (loading || !venues) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        fontWeight={800}
+        display={"flex"}
+        alignContent={"center"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        margin={"150px"}
+      >
+        <CircularProgress size={100} />
+      </Box>
+    );
   }
 
   return (

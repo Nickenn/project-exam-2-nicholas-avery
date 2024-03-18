@@ -20,8 +20,12 @@ const schema = yup
     name: yup.string().required("Please enter the venue title."),
     description: yup.string().required("Please enter a description."),
     media: yup.string(),
-    price: yup.number().required("Please enter a valid price."),
-    maxGuests: yup.number().required("Please enter a valid number."),
+    price: yup.number().min(1).required("Please enter a valid price."),
+    maxGuests: yup
+      .number()
+      .min(1)
+      .max(20)
+      .required("Please enter a valid number."),
     rating: yup.number().required("Please enter a valid number."),
     wifi: yup.boolean(),
     parking: yup.boolean(),
@@ -122,7 +126,7 @@ export function CreateVenueForm() {
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
-          height: 1300,
+          height: 1000,
           maxWidth: "30%",
           alignItems: "center",
           marginBottom: "200px",
@@ -134,312 +138,335 @@ export function CreateVenueForm() {
         <Typography component="h1" variant="h5">
           Create new venue
         </Typography>
-
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.name?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="name"
-          label="Venue title"
-          {...register("name")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.description?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="description"
-          label="Description"
-          {...register("description")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.media?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="media"
-          label="Image(url)"
-          {...register("media")}
-        />
-
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.price?.message}
-        </Typography>
-        <TextField
-          type="number"
-          required
-          fullWidth
-          size="small"
-          id="price"
-          label="Price"
-          {...register("price")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.maxGuests?.message}
-        </Typography>
-        <TextField
-          type="number"
-          required
-          fullWidth
-          size="small"
-          min={1}
-          id="maxGuests"
-          label="Maximum guests*"
-          {...register("maxGuests")}
-        />
-
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.rating?.message}
-        </Typography>
-        <TextField
-          type="number"
-          required
-          fullWidth
-          size="small"
-          id="rating"
-          label="Rating"
-          {...register("rating")}
-        />
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.name?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="name"
+            label="Venue title"
+            {...register("name")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.description?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="description"
+            label="Description"
+            {...register("description")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.media?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="media"
+            label="Image(url)"
+            {...register("media")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.price?.message}
+          </Typography>
+          <TextField
+            type="number"
+            required
+            fullWidth
+            size="small"
+            id="price"
+            label="Price"
+            {...register("price")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.maxGuests?.message}
+          </Typography>
+          <TextField
+            type="number"
+            required
+            fullWidth
+            size="small"
+            min={1}
+            id="maxGuests"
+            label="Maximum guests*"
+            {...register("maxGuests")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={18}
+          >
+            {errors.rating?.message}
+          </Typography>
+          <TextField
+            type="number"
+            required
+            fullWidth
+            size="small"
+            id="rating"
+            label="Rating"
+            {...register("rating")}
+          />
+        </Box>
         <Typography component="h1" variant="h6">
           Services:
         </Typography>
-        <Grid container display={"flex"} flexDirection={"row"}>
-          <Grid item>
-            <Typography
-              variant="body2"
-              gutterBottom
-              width={600}
-              color={"#d32f2f"}
-              fontSize={18}
-            >
-              {errors.wifi?.message}
-            </Typography>
-            <Typography variant="button" display="block" gutterBottom>
-              WiFi
-              <Checkbox id="wifi" {...register("wifi")} />
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography
-              variant="body2"
-              gutterBottom
-              width={600}
-              color={"#d32f2f"}
-              fontSize={18}
-            >
-              {errors.parking?.message}
-            </Typography>
-            <Typography variant="button" display="block" gutterBottom>
-              Parking
-              <Checkbox id="parking" {...register("parking")} />
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography
-              variant="body2"
-              gutterBottom
-              width={600}
-              color={"#d32f2f"}
-              fontSize={18}
-            >
-              {errors.breakfast?.message}
-            </Typography>
-            <Typography variant="button" display="block" gutterBottom>
-              Breakfast
-              <Checkbox id="breakfast" {...register("breakfast")} />
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography
-              variant="body2"
-              gutterBottom
-              width={600}
-              color={"#d32f2f"}
-              fontSize={18}
-            >
-              {errors.pets?.message}
-            </Typography>
-            <Typography variant="button" display="block" gutterBottom>
-              Pets
-              <Checkbox id="pets" {...register("pets")} />
-            </Typography>
-          </Grid>
-        </Grid>
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          alignContent={"center"}
+          maxWidth={"90%"}
+        >
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.wifi?.message}
+          </Typography>
+          <Typography variant="button" display="block" gutterBottom>
+            WiFi
+            <Checkbox id="wifi" {...register("wifi")} />
+          </Typography>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.parking?.message}
+          </Typography>
+          <Typography variant="button" display="block" gutterBottom>
+            Parking
+            <Checkbox id="parking" {...register("parking")} />
+          </Typography>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.breakfast?.message}
+          </Typography>
+          <Typography variant="button" display="block" gutterBottom>
+            Breakfast
+            <Checkbox id="breakfast" {...register("breakfast")} />
+          </Typography>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.pets?.message}
+          </Typography>
+          <Typography variant="button" display="block" gutterBottom>
+            Pets
+            <Checkbox id="pets" {...register("pets")} />
+          </Typography>
+        </Box>
         <Typography component="h1" variant="h6">
           Location:
         </Typography>
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.address?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="address"
-          label="Address"
-          {...register("address")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.city?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="city"
-          label="City"
-          {...register("city")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.zip?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="zip"
-          label="Zip code"
-          {...register("zip")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.country?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="country"
-          label="Country"
-          {...register("country")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.continent?.message}
-        </Typography>
-        <TextField
-          type="text"
-          required
-          fullWidth
-          size="small"
-          id="continent"
-          label="Continent"
-          {...register("continent")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.lat?.message}
-        </Typography>
-        <TextField
-          type="number"
-          required
-          fullWidth
-          size="small"
-          id="lat"
-          label="Lat"
-          {...register("lat")}
-        />
-        <Typography
-          variant="body2"
-          gutterBottom
-          width={600}
-          color={"#d32f2f"}
-          fontSize={18}
-        >
-          {errors.lng?.message}
-        </Typography>
-        <TextField
-          type="number"
-          required
-          fullWidth
-          size="small"
-          id="lng"
-          label="Lng"
-          {...register("lng")}
-        />
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.address?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="address"
+            label="Address"
+            {...register("address")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.city?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="city"
+            label="City"
+            {...register("city")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.zip?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="zip"
+            label="Zip code"
+            {...register("zip")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.country?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="country"
+            label="Country"
+            {...register("country")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.continent?.message}
+          </Typography>
+          <TextField
+            type="text"
+            required
+            fullWidth
+            size="small"
+            id="continent"
+            label="Continent"
+            {...register("continent")}
+          />
+        </Box>
+
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.lat?.message}
+          </Typography>
+          <TextField
+            type="number"
+            required
+            fullWidth
+            size="small"
+            id="lat"
+            label="Lat"
+            {...register("lat")}
+          />
+        </Box>
+        <Box maxWidth={"90%"}>
+          <Typography
+            variant="body2"
+            gutterBottom
+            width={600}
+            color={"#d32f2f"}
+            fontSize={14}
+          >
+            {errors.lng?.message}
+          </Typography>
+          <TextField
+            type="number"
+            required
+            fullWidth
+            size="small"
+            id="lng"
+            label="Lng"
+            {...register("lng")}
+          />
+        </Box>
         <Button type="submit" variant="outlined" sx={{ mt: 3, mb: 2 }}>
           List venue
         </Button>
