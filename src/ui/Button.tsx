@@ -6,6 +6,7 @@ interface ButtonProps {
 
 const variations = {
   primary: css`
+    padding: 5px 40px;
     color: var(--color-gray-0);
     background: var(--gradiant-right-1);
     &:hover {
