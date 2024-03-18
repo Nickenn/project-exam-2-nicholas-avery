@@ -3,14 +3,7 @@ import { useForm } from "react-hook-form";
 import { createVenue } from "../../services/venuesApi";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import {
-  Button,
-  Checkbox,
-  Box,
-  TextField,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { Button, Checkbox, Box, TextField, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -44,7 +37,7 @@ const schema = yup
 interface FormDataProps {
   name: string;
   description: string;
-  media?: string;
+  media: string;
   price: number;
   maxGuests: number;
   rating: number;
@@ -57,8 +50,8 @@ interface FormDataProps {
   zip: string;
   country: string;
   continent: string;
-  lat?: number;
-  lng?: number;
+  lat: number;
+  lng: number;
 }
 
 export function CreateVenueForm() {
