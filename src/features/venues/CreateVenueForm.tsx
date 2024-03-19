@@ -27,7 +27,7 @@ interface FormDataProps {
 
 export function CreateVenueForm() {
   const navigate = useNavigate();
-  const { authToken } = useAuth();
+  const { authToken, userName } = useAuth();
   const form = useForm<FormDataProps>({
     defaultValues: {
       name: "",
@@ -59,6 +59,7 @@ export function CreateVenueForm() {
         setServerErrors("");
         //send data to API
         const data = await createVenue(formData, authToken);
+        console.log(data);
 
         navigate(`/profiles/${userName}/venues`);
       }
