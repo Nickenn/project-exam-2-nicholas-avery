@@ -5,39 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import { Button, Checkbox, Box, TextField, Typography } from "@mui/material";
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-const schema = yup
-  .object({
-    name: yup.string().required("Please enter the venue title."),
-    description: yup.string().required("Please enter a description."),
-    media: yup.string(),
-    price: yup.number().min(1).required("Please enter a valid price."),
-    maxGuests: yup
-      .number()
-      .min(1)
-      .max(20)
-      .required("Please enter a valid number."),
-    rating: yup.number().required("Please enter a valid number."),
-    wifi: yup.boolean(),
-    parking: yup.boolean(),
-    breakfast: yup.boolean(),
-    pets: yup.boolean(),
-    address: yup.string().required("Please enter a valid address."),
-    city: yup.string().required("Please enter a valid city."),
-    zip: yup.string().required("Please enter a valid zip code."),
-    country: yup.string().required("Please enter a valid country."),
-    continent: yup.string().required("Please enter a valid continent."),
-    lat: yup.number(),
-    lng: yup.number(),
-  })
-  .required();
-
 interface FormDataProps {
   name: string;
   description: string;
-  media: string;
+  media: string[];
   price: number;
   maxGuests: number;
   rating: number;
@@ -57,17 +28,11 @@ interface FormDataProps {
 export function CreateVenueForm() {
   const navigate = useNavigate();
   const { authToken } = useAuth();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormDataProps>({
-    resolver: yupResolver(schema),
+  const form = useForm<FormDataProps>({
     defaultValues: {
       name: "",
       description: "",
-      media: "",
+      media: [],
       price: undefined,
       maxGuests: undefined,
       rating: 0,
@@ -84,7 +49,8 @@ export function CreateVenueForm() {
       lng: 0,
     },
   });
-
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
   const [serverErrors, setServerErrors] = useState("");
 
   async function onSubmit(formData: FormDataProps) {
@@ -94,7 +60,7 @@ export function CreateVenueForm() {
         //send data to API
         const data = await createVenue(formData, authToken);
 
-        navigate(`/venues/${data.id}`);
+        navigate(`/profiles/${userName}/venues`);
       }
     } catch (error) {
       let errorMessage = "Listing failed.";
