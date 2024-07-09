@@ -182,34 +182,38 @@ function Profile() {
           </Grid>
           <Grid container justifyContent="center">
             <Grid item xs>
-              <Typography component="h1" variant="h6" gutterBottom width={600}>
+              <Typography component="h1" variant="h5" gutterBottom width={600}>
                 Contact information:
               </Typography>
-              <Typography variant="body2" gutterBottom width={600}>
-                <StyledListItem>Email address: {profile.email}</StyledListItem>
-                <StyledListItem>Phone number: </StyledListItem>
+              <Typography variant="body1" gutterBottom width={600}>
+                <StyledListItem>
+                  <b>Email address: {profile.email}</b>
+                </StyledListItem>
+                <StyledListItem>
+                  <b>Phone number: </b>
+                </StyledListItem>
               </Typography>
             </Grid>
           </Grid>
           <Grid container justifyContent="center">
             <Grid item padding={2} alignItems={"center"}>
-              <Typography variant="body2" gutterBottom width={300}>
+              <Typography variant="body1" gutterBottom width={300}>
                 "Sed vel nulla ut nisl viverra accumsan in sit amet est. Ut
                 rutrum quam eu blandit viverra. Donec mattis magna non purus
                 mattis, eget scelerisque purus laoreet. Aliquam quis sem dapibus
                 tortor malesuada tempus quis id elit."
               </Typography>
-              <Typography variant="body2" gutterBottom width={300}>
+              <Typography variant="body1" gutterBottom width={300}>
                 - Lorum, impsum.
               </Typography>
             </Grid>
             <Grid item padding={3}>
-              <Typography variant="body2" gutterBottom width={300}>
+              <Typography variant="body1" gutterBottom width={300}>
                 "Donec mattis magna non purus mattis, eget scelerisque purus
                 laoreet. Aliquam quis sem dapibus tortor malesuada tempus quis
                 id elit."
               </Typography>
-              <Typography variant="body2" gutterBottom width={300}>
+              <Typography variant="body1" gutterBottom width={300}>
                 - Lorum, impsum.
               </Typography>
             </Grid>
