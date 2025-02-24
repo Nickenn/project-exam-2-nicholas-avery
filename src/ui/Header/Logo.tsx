@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 const StyledLogo = styled(NavLink)`
   display: flex;
   align-items: center;
-  border-radius: 7px;
+  border-radius: 6px;
 `;
 
 function Logo() {
